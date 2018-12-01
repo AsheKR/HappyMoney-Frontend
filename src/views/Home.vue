@@ -1,32 +1,40 @@
 <template>
   <div class="home">
-    <Advertisement />
-    <Header />
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <Footer />
+    <EventCarousel :events="events"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import Advertisement from '@/components/common/Advertisement.vue'
-import Header from '@/components/common/Header.vue'
-import Footer from '@/components/common/Footer.vue'
-
-
-import '../assets/css/fonts/IcoMoon-Free.ttf'
-import '../assets/css/icon/IcoMoon.css'
-import '../assets/css/icon/icon.css'
+import EventCarousel from '@/components/index/EventCarousel.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
-    Advertisement,
-    Header,
-    Footer
+    EventCarousel,
+  },
+  data() {
+    return {
+      events: [],
+      hostname: require('@/assets/js/variable.js').hostname
+    }
+  },
+  methods: {
+    getAPIEventLists() {
+      const url = this.hostname + '/apis/event/?page_size=20';
+      this.$http.get(url).then(
+        response => {
+          if (response.status == '200') {
+            this.events = response.data.results;
+          }
+        },
+        error => {
+          console.log(error);
+        });
+    }
+  },
+  created() {
+    // API Event List(6개) 가져오기
+    this.getAPIEventLists();
   }
 }
 </script>
