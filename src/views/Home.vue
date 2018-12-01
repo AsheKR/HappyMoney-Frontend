@@ -1,16 +1,19 @@
 <template>
   <div class="home">
     <EventCarousel :events="events"/>
+    <MainService />
   </div>
 </template>
 
 <script>
 import EventCarousel from '@/components/index/EventCarousel.vue'
+import MainService from '@/components/index/MainService.vue'
 
 export default {
   name: 'home',
   components: {
     EventCarousel,
+    MainService
   },
   data() {
     return {

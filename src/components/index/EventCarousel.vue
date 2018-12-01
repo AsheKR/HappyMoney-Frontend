@@ -1,15 +1,15 @@
 <template>
   <div id="EventCarousel">
-    <div id="slider">
-    <transition-group tag="div" :name="transitionName" class="slides-group">
-      <div :key="current" class="slide" :style="{ 'background-image': 'url('+childEvents[current].banner+')'}"></div>
-    </transition-group>
-    <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
-      &#10094;
-    </div>
-    <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
-      &#10095;
-    </div>
+    <div id="slider" v-if="show">
+      <transition-group tag="div" :name="transitionName" class="slides-group">
+        <div :key="current" class="slide" :style="{ 'background-image': 'url('+childEvents[current].banner+')'}"></div>
+      </transition-group>
+      <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
+        &#10094;
+      </div>
+      <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
+        &#10095;
+      </div>
   </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ export default {
       current: 0,
       direction: 1,
       transitionName: "fade",
+      show: false
     }
   },
   watch: {
@@ -31,7 +32,8 @@ export default {
         if (e.banner != null) {
           this.childEvents.push(e);
         }
-      })
+      });
+      this.show = !this.show;
     }
   },
   methods: {
@@ -42,7 +44,6 @@ export default {
         : (this.transitionName = "slide-prev");
       var len = this.childEvents.length;
       this.current = (this.current + dir % len + len) % len;
-      console.log(this.current);
     }
   },
 }
@@ -84,13 +85,13 @@ export default {
 
 #slider {
   width: 100%;
-  height: 300px;
+  height: 330px;
   position: relative;
 }
 
 .slide {
   width: 100%;
-  height: 300px;
+  height: 330px;
   position: absolute;
   top: 0;
   left: 0;
