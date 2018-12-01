@@ -10,12 +10,12 @@
             </div>
 
             <div class="aside-items">
-              <div v-for="(menu, index) in menus" class="aside-menu-wrap" @click.prevent="handleClickSubAside(index)">
+              <div v-for="(menu, index) in menus" :key="menu.id" class="aside-menu-wrap" @click.prevent="handleClickSubAside(index)">
                 <div class="aside-sub-menu-title"><a href=""><span>{{ menu.title }}</span><span class="icon icon-circle-down"></span></a></div>
                 <div class="aside-sub-menu-wrap">
                   <transition name="aside-sub-menu-fade">
                     <div class="aside-sub-menu" v-show="menu.is_active">
-                      <div class="aside-sub-menu-content" v-for="subtitle in menu.subTitle"><a href="">{{ subtitle }}</a></div>
+                      <div class="aside-sub-menu-content" v-for="subtitle in menu.subTitle" :key="subtitle.id"><a href="">{{ subtitle }}</a></div>
                     </div>
                   </transition>
                 </div>
