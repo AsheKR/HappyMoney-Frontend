@@ -49,116 +49,117 @@ export default {
 </script>
 
 <style lang="scss">
-footer {
-  background-color: #eee;
-  > .footer-container {
-    padding-left: 10px;
-    padding-bottom: 10px;
-
-    > div {
-      display: block;
-    }
-
-    > .footer-section1 {
-      padding-top: 30px;
-      padding-bottom: 20px;
-      display: flex;
+  footer {
+    background-color: #eee;
+    > .footer-container {
+      padding-left: 10px;
+      padding-bottom: 10px;
 
       > div {
-        display: flex;
-        align-items: center;
+        display: block;
       }
 
-      > .footer-section1-left {
-        margin-right: auto;
+      > .footer-section1 {
+        padding-top: 30px;
+        padding-bottom: 20px;
+        display: flex;
 
-        > .footer-section1-item {
-          margin-left: 15px;
-          padding-left: 15px;
-          border-left: 1px solid #ccc;
-          font-size: 14px;
-          color: #000;
+        > div {
+          display: flex;
+          align-items: center;
+        }
 
-          &:first-child {
-            padding-left: 0px;
-            margin-left: 0px;
-            border: none;
+        > .footer-section1-left {
+          margin-right: auto;
+
+          > .footer-section1-item {
+            margin-left: 15px;
+            padding-left: 15px;
+            border-left: 1px solid #ccc;
+            font-size: 0.8em;
+            color: #000;
+
+            &:first-child {
+              padding-left: 0px;
+              margin-left: 0px;
+              border: none;
+            }
           }
         }
-      }
 
-      > .footer-section1-right {
-        margin-left: auto;
+        > .footer-section1-right {
+          margin-left: auto;
 
-        span {
+          span {
+            display: inline-block;
+          }
+        }
+
+        .footer-section1-item {
           display: inline-block;
         }
       }
 
-      .footer-section1-item {
-        display: inline-block;
+      > .footer-section2 {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        color: #222;
+        font-size: 0.7em;
+        text-align: left;
       }
-    }
 
-    > .footer-section2 {
-      padding-bottom: 20px;
-      border-bottom: 1px solid #ccc;
-      color: #222;
-      font-size: 13px;
-      text-align: left;
-    }
+      > .footer-section3 {
+        display: flex;
 
-    > .footer-section3 {
-      display: flex;
+        > .footer-section3-left {
+          margin-right: auto;
+          text-align: left;
 
-      > .footer-section3-left {
-        margin-right: auto;
+          > p {
+            color: #666;
+            font-size: 0.8em;
+          }
+        }
+
+        > .footer-section3-right {
+          display: flex;
+          margin-left: auto;
+
+          > span {
+            margin-top: 10px;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      > .footer-section4 {
 
         > p {
           color: #666;
-          font-size: 13px;
-        }
-      }
-
-      > .footer-section3-right {
-        display: flex;
-        margin-left: auto;
-
-        > span {
-          margin-top: 10px;
-          margin-right: 10px;
+          font-size: 0.8em;
+          text-transform: uppercase;
         }
       }
     }
+  }
+  @media only screen and (max-width: 1180px) {
+    footer {
+      .footer-section1 {
+        display: block !important;
 
-    > .footer-section4 {
+        > .footer-section1-right {
+          margin-top: 20px;
+        }
+      }
 
-      > p {
-        color: #666;
-        font-size: 13px;
-        text-transform: uppercase;
+      .footer-section3 {
+        display: block !important;
+        text-align: left;
+
+        span {
+          margin-top: 0 !important;
+        }
       }
     }
   }
-}
-@media only screen and (max-width: 1180px) {
-  footer {
-    .footer-section1 {
-      display: block !important;
-
-      > .footer-section1-right {
-        margin-top: 20px;
-      }
-    }
-
-    .footer-section3 {
-      display: block !important;
-      text-align: left;
-
-      span {
-        margin-top: 0 !important;
-      }
-    }
-  }
-}
 </style>
