@@ -4,17 +4,57 @@
       <a :href="img_url">
         <img :src="img_src" alt="NotFound" class="adImage" />
       </a>
-      <button @click="AdClose">버튼</button>
+      <button @click="AdClose" class="adCloseButton">
+        <span class="icon icon-cross"></span>
+      </button>
       <span class="adNeverCloseCheckboxWrap">
-        <checkbox v-model="adNever" id="adNeverCloseCheckbox"/>
+        <input type="checkbox" v-model="adNever" id="adNeverCloseCheckbox"/>
+        <label for="adNeverCloseCheckbox">오늘은 그만보기</label>
       </span>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-  .adImage {
-    width: 100%;
+  div#Advertisement {
+    position: relative;
+
+    .adImage {
+      width: 100%;
+    }
+
+    button.adCloseButton {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      > span.icon {
+        font-size: 0.4em !important;
+      }
+    }
+
+    span.adNeverCloseCheckboxWrap {
+      position: absolute;
+      bottom: 5px;
+      right: 2px;
+      cursor: pointer;
+
+      > input[type="checkbox"] {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #bcbcbc;
+
+        & + label {
+          font-size: 0.7em;
+          vertical-align: center;
+        }
+      }
+    }
   }
 </style>
 
