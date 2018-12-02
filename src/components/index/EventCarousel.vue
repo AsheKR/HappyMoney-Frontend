@@ -1,7 +1,7 @@
 <template>
   <div id="EventCarousel">
     <div id="slider" v-if="show">
-      <transition-group tag="div" :name="transitionName" class="slides-group">
+      <transition-group :name="transitionName">
         <div :key="current" class="slide" :style="{ 'background-image': 'url('+childEvents[current].banner+')'}"></div>
       </transition-group>
       <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
