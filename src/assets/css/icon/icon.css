@@ -5,6 +5,11 @@
   white-space: nowrap;
 }
 
+.ico {
+  background-image: url(../images/index/main.png) !important;
+  background-repeat: no-repeat;
+}
+
 .ci {
   display: block;
   width: 172px;
@@ -85,4 +90,42 @@
   width: 70px;
   height: 32px;
   background-position: 0 -207px
+}
+
+.notice {
+  width: 30px;
+  height: 30px;
+  margin-right: 7px;
+  background-position: 0 -90px;
+  display: inline-block;
+}
+
+.bx-prev {
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+  background-position: -41px -90px;
+}
+
+.bx-next {
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+  background-position: -41px -114px;
+}
+
+.bx-stop {
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+  background-position: -60px -90px;
 }
