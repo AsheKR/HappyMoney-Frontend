@@ -22,6 +22,7 @@
     props: ['hostname'],
     data() {
       return {
+        windowWidth: 0,
         prdList: [],
         show: false
       }
@@ -33,7 +34,11 @@
     },
     computed: {
       prdLimit() {
-        return this.prdList.slice(0, 6);
+        if (this.windowWidth < 800) {
+          return this.prdList.slice(0, 6);
+        } else {
+          return this.prdList.slice(0, 5);
+        }
       },
     },
     created() {
@@ -48,6 +53,13 @@
         error => {
           console.log(error);
         });
+    },
+    mounted() {
+      this.$nextTick(() => {
+        window.addEventListener('resize', () => {
+          this.windowWidth = window.innerWidth;
+        })
+      })
     }
   }
 </script>
