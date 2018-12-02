@@ -85,13 +85,13 @@ export default {
 
 #slider {
   width: 100%;
-  height: 330px;
+  height: 400px;
   position: relative;
 }
 
 .slide {
   width: 100%;
-  height: 330px;
+  height: 400px;
   position: absolute;
   top: 0;
   left: 0;
