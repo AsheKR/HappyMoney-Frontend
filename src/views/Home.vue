@@ -3,6 +3,7 @@
     <EventCarousel :events="events"/>
     <MainService />
     <Notice :hostname="hostname"/>
+    <GiftMall />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import EventCarousel from '@/components/index/EventCarousel.vue'
 import MainService from '@/components/index/MainService.vue'
 import Notice from '@/components/index/Notice.vue'
+import GiftMall from '@/components/index/GiftMall.vue'
 
 export default {
   name: 'home',
@@ -17,6 +19,7 @@ export default {
     EventCarousel,
     MainService,
     Notice,
+    GiftMall
   },
   data() {
     return {
