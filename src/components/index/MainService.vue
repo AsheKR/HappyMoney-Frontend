@@ -82,12 +82,21 @@ export default {
 
       > .main_service {
 
+        &:first-child a {
+          padding-left: 0;
+        }
+
+        &:last-child a {
+          padding-right: 0;
+        }
+
         > a {
-          padding: 0 20px;
+          padding: 0 2em;
           font-size: 0.8em;
+          align-items: center;
 
           > img {
-            display: none;
+            width: 50px;
           }
 
           > span {
