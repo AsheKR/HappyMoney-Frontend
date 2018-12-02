@@ -5,6 +5,7 @@
     <Notice :hostname="hostname"/>
     <GiftMall />
     <RecommandPrd :hostname="hostname"/>
+    <EventSection :events="events" />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import MainService from '@/components/index/MainService.vue'
 import Notice from '@/components/index/Notice.vue'
 import GiftMall from '@/components/index/GiftMall.vue'
 import RecommandPrd from '@/components/index/RecommandPrd.vue'
+import EventSection from '@/components/index/EventSection.vue'
 
 export default {
   name: 'home',
@@ -22,7 +24,8 @@ export default {
     MainService,
     Notice,
     GiftMall,
-    RecommandPrd
+    RecommandPrd,
+    EventSection
   },
   data() {
     return {
