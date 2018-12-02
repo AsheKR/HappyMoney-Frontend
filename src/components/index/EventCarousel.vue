@@ -26,9 +26,9 @@ export default {
     }
   },
   watch: {
-    events: function(newVal, oldVal) {
+    events: function(newVal) {
       this.childEvents = [];
-      newVal.forEach((e, i) => {
+      newVal.forEach((e) => {
         if (e.banner != null) {
           this.childEvents.push(e);
         }
