@@ -41,7 +41,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 50px 0;
 
     .etcWrap {
       display:grid;

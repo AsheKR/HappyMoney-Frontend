@@ -30,6 +30,7 @@ export default {
     GiftMall,
     RecommandPrd,
     EventSection,
+    JoinStore,
     Etc
   },
   data() {
