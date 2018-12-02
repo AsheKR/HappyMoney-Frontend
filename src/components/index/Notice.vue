@@ -53,10 +53,8 @@
       NoticeLimited(str) {
         var h = 40;
         if (window.innerWidth < 800) {
-          console.log('Is it Right?');
           h=24;
         }
-        console.log(h);
         if ( str.length > h ) {
           return str.substring(0, h) + '...'
         } else {
