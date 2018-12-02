@@ -1,7 +1,7 @@
 <template>
   <div id="mainService">
     <div class="main_services">
-      <div class="main_service" v-for="(service, index) in services" :class="'main_service_'+String(Number(index)+1)">
+      <div class="main_service" :key="service.id" v-for="(service, index) in services" :class="'main_service_'+String(Number(index)+1)">
         <a :href="service.serviceURL">
           <img :src="service.serviceIMG" alt="">
           <strong>{{ service.serviceName }}</strong>
@@ -33,6 +33,7 @@ export default {
   height: 225px;
   padding-top: 35px;
   box-sizing: content-box;
+  overflow: hidden;
 
   > .main_services {
     display: flex;
@@ -63,6 +64,35 @@ export default {
         > span {
           color: #ababc3;
           font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #mainService {
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+
+    > .main_services {
+
+      > .main_service {
+
+        > a {
+          padding: 0 20px;
+          font-size: 0.8em;
+
+          > img {
+            display: none;
+          }
+
+          > span {
+            font-size: 1.0em;
+          }
         }
       }
     }
