@@ -1,21 +1,21 @@
 <template>
   <div class="loginView">
-    <DetailSingIn />
+    <DetailSignIn :hostname="hostname" />
   </div>
 </template>
 
 <script>
-import DetailSingIn from '@/components/SignIn/DetailSingIn.vue'
+import DetailSignIn from '@/components/signIn/DetailSignIn.vue'
 
 export default {
   name: 'loginView',
   data() {
     return {
-      test: 0
+      hostname: require('@/assets/js/variable.js').hostname
     }
   },
   components: {
-    DetailSingIn,
+    DetailSignIn,
   }
 }
 </script>

@@ -16,7 +16,7 @@
       <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
         <span class="ico bx-prev"></span>
       </div>
-      <div class="btn btn-next" aria-label="Stop Slide" @click="">
+      <div class="btn btn-next" aria-label="Stop Slide">
         <span class="ico bx-stop"></span>
       </div>
       <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">

@@ -6,8 +6,12 @@ import router from './router'
 import VueResource from 'vue-resource'
 import VueCookie from 'vue-cookie'
 
+// Validation
+import VeeValidate from 'vee-validate'
+
 Vue.use(VueResource);
 Vue.use(VueCookie);
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false
 
