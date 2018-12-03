@@ -405,6 +405,7 @@ export default {
     position: absolute;
     width: 100%;
     background-color: white;
+    z-index: 998;
 
     &.active {
       height: 355px;
