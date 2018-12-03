@@ -20,7 +20,7 @@
                   </transition>
                 </div>
               </div>
-              <div class="aside-menu-item"><router-link to="/login">로그인</router-link></div>
+              <div class="aside-menu-item" @click="handleClickDim"><router-link to="/login">로그인</router-link></div>
               <div class="aside-menu-item"><a href="">회원가입</a></div>
               <div class="aside-menu-item"><a href="">사이트맵</a></div>
               <div>
@@ -36,11 +36,11 @@
         <span class="icon icon-paragraph-justify"></span>
       </div>
 
-      <div class="aside-logo"><a href=""><span class="ir ci"></span></a></div>
+      <div class="aside-logo"><router-link to="/"><span class="ir ci"></span></router-link></div>
 
       <div class="header-container">
         <div class="left-header">
-          <div><a href=""><span class="ir ci"></span></a></div>
+          <div><router-link to="/"><span class="ir ci"></span></router-link></div>
         </div>
         <div class="center-header" @mouseover="centerHeaderMouseOver">
           <div><div><a href="">상품권 & 충전</a></div></div>
