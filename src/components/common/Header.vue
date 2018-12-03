@@ -20,7 +20,7 @@
                   </transition>
                 </div>
               </div>
-              <div class="aside-menu-item"><a href="">로그인</a></div>
+              <div class="aside-menu-item"><router-link to="/login">로그인</router-link></div>
               <div class="aside-menu-item"><a href="">회원가입</a></div>
               <div class="aside-menu-item"><a href="">사이트맵</a></div>
               <div>
@@ -48,8 +48,8 @@
           <div><div><a href="">이벤트 & 혜택</a></div></div>
           <div><div><a href=""><img src="../../assets/css/images/index/btnGoogleGnb.gif" alt=""></a></div></div>
         </div>
-        <div class="right-header">
-          <div><a href=""><span class="ir logIn"></span>로그인</a></div>
+        <div class="right-header" @mouseover="centerHeaderMouseOut">
+          <div><router-link to="/login"><span class="ir logIn"></span>로그인</router-link></div>
           <div><a href=""><span class="ir join"></span>회원가입</a></div>
           <div><a href=""><span class="ir sitemap"></span>사이트맵</a></div>
         </div>
