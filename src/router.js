@@ -42,11 +42,15 @@ router.beforeEach((to, from, next) => {
 
     if (now_auth !== null) {
 
-      if ( from.path == '/' ) {
+      if ( from.path === '/' ) {
         // 로그인한 사용자가 처음부터 /login으로 접근하려 하려는 경우
-        router.push({
-          path: '/'
-        })
+        next(from.fullPath);
+        console.log("루트에서 로그인한 사용자가 접근한다.")
+        return false;
+      } else {
+        next(from.fullPath);
+        console.log("어디선가 로그인한 사용자가 접근한다.")
+        return false;
       }
     }
   }
@@ -56,15 +60,12 @@ router.beforeEach((to, from, next) => {
     // 로그인이 되어있지 않다면 login 페이지로 리다이렉트
 
     if (now_auth === null) {
+      console.log("로그인되지 않은 사용자가 로그인 페이지에 접근한다.")
       router.push({
         path: '/login',
         query: {
           nextUrl: to.fullPath
         }
-      })
-    } else {
-      router.push({
-        path: '/'
       })
     }
   }
