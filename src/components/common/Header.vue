@@ -11,16 +11,20 @@
 
             <div class="aside-items">
               <div v-for="(menu, index) in menus" :key="menu.id" class="aside-menu-wrap" @click.prevent="handleClickSubAside(index)">
-                <div class="aside-sub-menu-title"><a href=""><span>{{ menu.title }}</span><span class="icon icon-circle-down"></span></a></div>
+                <div class="aside-sub-menu-title"><a href=""><span>{{ Object.values(menu.title)[0] }}</span><span class="icon icon-circle-down"></span></a></div>
                 <div class="aside-sub-menu-wrap">
                   <transition name="aside-sub-menu-fade">
                     <div class="aside-sub-menu" v-show="menu.is_active">
-                      <div class="aside-sub-menu-content" v-for="subtitle in menu.subTitle" :key="subtitle.id"><a href="">{{ subtitle }}</a></div>
+                      <div class="aside-sub-menu-content" v-for="(value, key) in menu.subTitle" :key="key.id">
+                        <router-link :to="{ path: '/'+Object.keys(menu.title)[0]+'/'+key }">
+                          {{ value }}
+                        </router-link>
+                      </div>
                     </div>
                   </transition>
                 </div>
               </div>
-              <div class="aside-menu-item" @click="handleClickDim"><router-link to="/login">로그인</router-link></div>
+              <div class="aside-menu-item"><router-link to="/login">로그인</router-link></div>
               <div class="aside-menu-item"><a href="">회원가입</a></div>
               <div class="aside-menu-item"><a href="">사이트맵</a></div>
               <div>
@@ -73,52 +77,16 @@
             </div>
           </div>
           <div class="nav-wrap-2">
-            <div class="nav-sub-menu">
-              <div class="nav-sub-menu-title"><a href="">해피캐시</a></div>
-              <div class="nav-sub-menu-content"><a href="">해피캐시 소개</a></div>
-              <div class="nav-sub-menu-content"><a href="">해피캐시 충전</a></div>
-              <div class="nav-sub-menu-content"><a href="">간편 충전</a></div>
-              <div class="nav-sub-menu-content"><a href="">무료 충전소</a></div>
-            </div>
-            <div class="nav-sub-menu">
-              <div class="nav-sub-menu-title"><a href="">상품권</a></div>
-              <div class="nav-sub-menu-content"><a href="">상품권 소개</a></div>
-              <div class="nav-sub-menu-content"><a href="">상품권 구입</a></div>
-              <div class="nav-sub-menu-content"><a href="">상품권 교환소</a></div>
+            <div class="nav-sub-menu" v-for="menu in menus" :key="menu.id">
+              <div class="nav-sub-menu-title">{{ Object.values(menu.title)[0] }}</div>
+              <div class="nav-sub-menu-content" v-for="(value, key) in menu.subTitle" :key="key.id">
+                <router-link :to="{ path: '/'+Object.keys(menu.title)[0]+'/'+key }">
+                  {{ value }}
+                </router-link>
+              </div>
             </div>
           </div>
           <div class="nav-wrap-3">
-            <div class="nav-sub-menu">
-              <div class="nav-sub-menu-title"><a href="">사용처</a></div>
-              <div class="nav-sub-menu-content"><a href="">해피 쇼핑몰</a></div>
-              <div class="nav-sub-menu-content"><a href="">온라인 사용처</a></div>
-              <div class="nav-sub-menu-content"><a href="">오프라인 사용처</a></div>
-              <div class="nav-sub-menu-content"><a href="">모바일 사용처</a></div>
-            </div>
-            <div class="nav-sub-menu">
-              <div class="nav-sub-menu-title"><a href="">쇼핑 선물</a></div>
-              <div class="nav-sub-menu-content"><a href="">제휴상품몰</a></div>
-              <div class="nav-sub-menu-content"><a href="">선물하기</a></div>
-              <div class="nav-sub-menu-content"><a href="">웹툰</a></div>
-            </div>
-          </div>
-          <div class="nav-wrap-4">
-            <div class="nav-sub-menu">
-              <div class="nav-sub-menu-title"><a href="">해피박스</a></div>
-              <div class="nav-sub-menu-content"><a href="">해피쿠폰북</a></div>
-              <div class="nav-sub-menu-content"><a href="">해피스탬프</a></div>
-              <div class="nav-sub-menu-content"><a href="">추천핫딜쇼핑</a></div>
-              <div class="nav-sub-menu-content"><a href="">행복나눔</a></div>
-              <div class="nav-sub-menu-content"><a href="">맟춤서비스</a></div>
-            </div>
-            <div class="nav-sub-menu">
-              <div class="nav-sub-menu-title"><a href="">이벤트</a></div>
-              <div class="nav-sub-menu-content"><a href="">진행중인 이벤트</a></div>
-              <div class="nav-sub-menu-content"><a href="">종료된 이벤트</a></div>
-              <div class="nav-sub-menu-content"><a href="">당첨자 발표</a></div>
-            </div>
-          </div>
-          <div class="nav-wrap-5">
             <div class="linkWrap">
               <a href="/svc/customer/faqList.hm" class="btnCS">고객센터 바로가기<span class="ico"></span></a>
               <a href="http://www.happymoney.co.kr/svc/donation/index.hm" onclick="mainQuick_Action.setBannerReadCnt('941');" target="_blank" title="새창" class="banner"><img src="http://image.happymoney.co.kr/extimage/banner/201809191309686.jpg" alt="행복나눔 캠페인,빈곤을 해결하는 수단으로 행복나눔캠페인을 통해 공정무역 생산자를 지원합니다."></a></div>
@@ -135,12 +103,53 @@ export default {
     return {
       activeAside: false,
       menus: [
-        {'title': '해피캐시', 'subTitle': ['해피캐시 소개', '해피캐시 충전', '간편 충전', '무료 충전소'], is_active: false},
-        {'title': '상품권', 'subTitle': ['상품권 소개', '상품권 구입', '상품권 교환소'], is_active: false},
-        {'title': '사용처', 'subTitle': ['해피 쇼핑몰', '온라인 사용처', '오프라인 사용처'], is_active: false},
-        {'title': '쇼핑 선물', 'subTitle': ['제휴 상품몰', '선물하기', '웹툰'], is_active: false},
-        {'title': '해피박스', 'subTitle': ['해피쿠폰북', '해피스탬프', '추천핫딜쇼핑', '행복나눔', '맞춤서비스'], is_active: false},
-        {'title': '이벤트', 'subTitle': ['진행중인 이벤트', '종료된 이벤트', '당첨자 발표'], is_active: false},
+        { title:
+            { cash: '해피캐시', },
+          subTitle:
+            { intro: '해피캐시 소개',
+              giftCardCharge: '해피캐시 충전',
+              simpleAgree: '간편 충전',
+              freeCharge: '무료 충전소'},
+          is_active: false
+        },
+        { title:
+            { card: '상품권' },
+          subTitle:
+            { giftCardIntro: '상품권 소개',
+              giftCardBuyInfo: '상품권 구입',
+              exchangeCoupon: '상품권 교환소'},
+          is_active: false
+        },
+        { title: { store: '사용처' },
+          subTitle:
+            { happyShopStore: '해피 쇼핑몰',
+              onlineStore: '온라인 사용처',
+              offlineStore: '오프라인 사용처'},
+          is_active: false
+        },
+        { title: { shopping: '쇼핑 선물' },
+          subTitle:
+            { allianceList: '제휴 상품몰',
+              productMallView: '선물하기',
+            },
+          is_active: false
+        },
+        { title: { happybox: '해피박스' },
+          subTitle:
+            { couponBook: '해피쿠폰북',
+              stamp: '해피스탬프',
+              hotDeal: '추천핫딜쇼핑',
+              customService: '맞춤서비스'
+            },
+          is_active: false
+        },
+        { title: { 'event': '이벤트' },
+          subTitle: {
+            now: '진행중인 이벤트',
+            end: '종료된 이벤트',
+            winner: '당첨자 발표'},
+          is_active: false
+        },
       ],
       centerHeaderIsActive: false
     }
@@ -159,6 +168,12 @@ export default {
       this.centerHeaderIsActive=true;
     },
     centerHeaderMouseOut() {
+      this.centerHeaderIsActive=false;
+    }
+  },
+  watch: {
+    '$route': function() {
+      this.activeAside=false;
       this.centerHeaderIsActive=false;
     }
   }
@@ -428,20 +443,19 @@ export default {
 
           > .nav-sub-menu-title {
             margin-top: 20px;
-            padding-bottom: 9px;
+            padding-bottom: 15px;
             font-size: 16px;
             font-weight: bold;
             color: #222;
           }
 
           > .nav-sub-menu-content {
-            display: block;
-            padding-top: 10px;
-            font-size: 13px;
-
 
             > a {
-              color: #767676;
+              display: block;
+              color: #aaa;
+              font-size: 0.8em;
+              padding: 2px 0;
             }
           }
         }
@@ -449,6 +463,7 @@ export default {
 
       > .nav-wrap-1 {
         margin-right: auto;
+        text-align: left;
 
         .happy21 {
           width: 265px;
@@ -493,7 +508,45 @@ export default {
         }
       }
 
-      > .nav-wrap-5 {
+      > .nav-wrap-2 {
+        display: grid;
+        text-align: left;
+        grid-template-areas:
+          'a c e'
+          'b d f';
+
+          > .nav-sub-menu {
+            padding: 0 40px;
+            border-left: 1px solid #eee;
+
+            &:nth-child(1) {
+              grid-area: a;
+              padding-left: 0;
+              border: none;
+            }
+            &:nth-child(2) {
+              grid-area: b;
+              padding-left: 0;
+              border: none;
+            }
+            &:nth-child(3) {
+              grid-area: c;
+            }
+            &:nth-child(4) {
+              grid-area: d;
+            }
+            &:nth-child(5) {
+              grid-area: e;
+              padding-right: 0;
+            }
+            &:nth-child(6) {
+              grid-area: f;
+              padding-right: 0;
+            }
+          }
+      }
+
+      > .nav-wrap-3 {
         margin-left: auto;
         > .linkWrap {
           margin-top: 30px;
