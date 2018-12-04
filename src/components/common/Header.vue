@@ -98,6 +98,8 @@
 </template>
 
 <script>
+import { EventBus } from './EventBus.js';
+
 export default {
   data() {
     return {
@@ -176,6 +178,9 @@ export default {
       this.activeAside=false;
       this.centerHeaderIsActive=false;
     }
+  },
+  mounted() {
+    EventBus.$emit('CreateBreadCrumb', this.menus);
   }
 }
 </script>
