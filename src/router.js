@@ -3,6 +3,9 @@ import Router from 'vue-router'
 
 import Home from './views/Home.vue'
 import DetailSignInView from './views/DetailSignInView.vue'
+import JoinStoreView from './views/JoinStoreView.vue'
+
+import HappyJoinStore from '@/components/joinStore/HappyJoinStore'
 
 Vue.use(Router)
 
@@ -30,6 +33,16 @@ var router =  new Router({
       meta: {
         authRequired: true
       }
+    },
+    {
+      path: '/store',
+      component: JoinStoreView,
+      children: [
+        {
+          path: 'happyShopStore',
+          component: HappyJoinStore
+        }
+      ]
     }
   ]
 })
