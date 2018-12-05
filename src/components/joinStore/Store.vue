@@ -69,13 +69,17 @@
     components: {
       CategoryFilter
     },
+    watch: {
+      '$route': function() {
+        this.$router.go(this.$router.currentRoute)
+      }
+    },
     methods: {
       getAPIOnlineUsePointLists(url) {
         const Authorization = this.$cookie.get('Authorization');
         this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
           response => {
             if (response.status == '200') {
-              console.log(response);
               if ( this.storeList === undefined ) {
                 this.storeList = response.data.results;
                 this.next = response.data.next;
@@ -106,14 +110,17 @@
             }
           }
         }
+      },
+      createdMethod() {
+        const is_online = this.$route.fullPath.split('/')[2].split('Store')[0]
+        if (is_online !== 'online') {
+          this.online = false
+        }
+        this.getAPIOnlineUsePointLists(this.hostname + '/apis/use-point/?is_online='+this.online);
       }
     },
     created() {
-      const is_online = this.$route.fullPath.split('/')[2].split('Store')[0]
-      if (is_online !== 'online') {
-        this.online = false
-      }
-      this.getAPIOnlineUsePointLists(this.hostname + '/apis/use-point/?is_online='+this.online);
+      this.createdMethod();
     }
   }
 </script>
