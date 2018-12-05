@@ -3,23 +3,20 @@
     <CategoryFilter :hostname="hostname"/>
     <div class="storeSection">
       <div class="store_ordering">
-        <div class="store_ordering_recent">
+        <div class="store_ordering_button store_ordering_recent" @click="getAPIOrderUsePointLists('-created_at', 0)" :class="{ active: now_active == 0 }">
           <p>최신순</p>
           <span class="joinStoreSearch icoSearch btnSort"></span>
         </div>
-        <div class="store_ordering_like">
+        <div class="store_ordering_button store_ordering_like" @click="getAPIOrderUsePointLists('-like_users_count', 1)" :class="{ active: now_active == 1 }">
           <p>좋아요순</p>
           <span class="joinStoreSearch icoSearch btnSort"></span>
         </div>
-        <div class="store_ordering_name">
+        <div class="store_ordering_button store_ordering_name" @click="getAPIOrderUsePointLists('name', 2)" :class="{ active: now_active == 2 }">
           <p>가나다순</p>
           <span class="joinStoreSearch icoSearch btnSort"></span>
         </div>
-        <div class="store_show_1">
-          <span class="joinStoreSearch icoSearch btnList_1"></span>
-        </div>
-        <div class="store_show_2">
-          <span class="joinStoreSearch icoSearch btnList_2"></span>
+        <div class="store_show_1 active">
+          <span class="joinStoreSearch icoSearch btnList_1 active"></span>
         </div>
       </div>
       <div class="storeItems" v-if="show">
@@ -31,7 +28,10 @@
           <div class="storeItemInfo">
             <a href="#">{{ store.name }}</a>
             <span class="cate">{{ store.category.name }}</span>
-            <button type="button" name="button"> <span class="joinStoreSearch icoSearch btnLike"></span> <span>{{ store.like_users_count }}</span> </button>
+            <button type="button" name="button" @click.prevent="createLikeUsePoint(store)" :class="{ 'like-on': store.is_liked }">
+              <span class="joinStoreSearch icoSearch" :class="{ 'like': store.is_liked, 'btnLike': !store.is_liked }"></span>
+              <span>{{ store.like_users_count }}</span>
+            </button>
           </div>
           <!-- 사이트 없으면 디테일 페이지로 이동하게 -->
           <a :href="store.site">
@@ -46,7 +46,7 @@
       </div>
       <div class="storeMore">
         <a href="#" @click.prevent v-if="!next">( {{ fullCount }} )</a>
-        <a href="#" @click.prevent="getAPIOnlineUsePointLists(next)" v-else>더보기 ( <span class="joinStoreLength">{{ storeList.length }}</span> /<strong>{{ fullCount }}</strong>개) <span class="joinStoreSearch icoSearch btnMore"></span> </a>
+        <a href="#" @click.prevent="getAPIUsePointLists(next)" v-else>더보기 ( <span class="joinStoreLength">{{ storeList.length }}</span> /<strong>{{ fullCount }}</strong>개) <span class="joinStoreSearch icoSearch btnMore"></span> </a>
       </div>
     </div>
   </div>
@@ -64,6 +64,8 @@
         fullCount: 0,
         show: false,
         online: true,
+
+        now_active: 1,
       }
     },
     components: {
@@ -75,7 +77,7 @@
       }
     },
     methods: {
-      getAPIOnlineUsePointLists(url) {
+      getAPIUsePointLists(url) {
         const Authorization = this.$cookie.get('Authorization');
         this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
           response => {
@@ -116,7 +118,48 @@
         if (is_online !== 'online') {
           this.online = false
         }
-        this.getAPIOnlineUsePointLists(this.hostname + '/apis/use-point/?is_online='+this.online);
+        this.getAPIUsePointLists(this.hostname + '/apis/use-point/?is_online='+this.online);
+      },
+      getAPIOrderUsePointLists(ordering, number) {
+        const Authorization = this.$cookie.get('Authorization');
+        const url = this.hostname + '/apis/use-point/?is_online='+this.online + '&ordering='+ordering;
+
+        this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+          response => {
+            if (response.status == '200') {
+              this.storeList = response.data.results;
+              this.next = response.data.next;
+              this.fullCount = response.data.count;
+
+              this.now_active = number;
+            }
+          },
+          error => {
+            console.log(error);
+          });
+      },
+      createLikeUsePoint(usepoint){
+        const Authorization = this.$cookie.get('Authorization');
+        const url = this.hostname + '/apis/use-point/like/';
+
+        const data = {
+          'usepoint_pk': usepoint.id
+        }
+
+        this.$http.post(url, data, {headers: {'Authorization': Authorization}}).then(
+          response => {
+            if (response.status == '200') {
+              usepoint.is_liked = !usepoint.is_liked
+              if (response.data.status == 'created') {
+                usepoint.like_users_count += 1;
+              }else {
+                usepoint.like_users_count -= 1;
+              }
+            }
+          },
+          error => {
+            console.log(error);
+          });
       }
     },
     created() {
@@ -134,17 +177,27 @@
       > .store_ordering {
         display: grid;
         justify-self: end;
-        grid-template-columns: repeat(3, 3fr) repeat(2, 1fr);
+        grid-template-columns: repeat(3, 3fr) repeat(1, 1fr);
         grid-column-gap: 10px;
         margin-bottom: 30px;
 
         > div {
-          align-self: center;
+          align-self: stretch;
           border: 1px solid #ccc;
-          padding: 2px 0;
+          padding: 2px 0 0;
+          cursor: pointer;
 
           &:nth-child(4), &:nth-child(5) {
             padding: 0;
+          }
+
+          &.active {
+            border: 1px solid #454545;
+            background-color: #4f4f4f;
+
+            > p {
+              color: #fff;
+            }
           }
         }
 
@@ -153,6 +206,7 @@
           margin: 0;
           padding-right: 10px;
           color: #666;
+          font-size: 0.8em;
         }
       }
 
@@ -206,6 +260,13 @@
               border: 1px solid #ddd;
               background-color: white;
               padding: 5px 15px;
+              cursor: pointer;
+
+              &.like-on {
+                border: 1px solid #d6445f;
+                background-color: #f54e6d;
+                color: #fff;
+              }
 
               > span {
                 margin-right: 5px;

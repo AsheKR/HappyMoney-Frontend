@@ -183,6 +183,12 @@
   height: 28px;
 }
 
+.joinStoreSearch.btnList_1.active {
+  background-position: -45px -115px;
+  width: 28px;
+  height: 28px;
+}
+
 .joinStoreSearch.btnList_2 {
   background-position: -69px -141px;
   width: 28px;
@@ -217,4 +223,10 @@
   background-position: 0 -205px;
   width: 59px;
   height: 59px;
+}
+
+.joinStoreSearch.like {
+  background-position: 0 -273px;
+  width: 12px;
+  height: 12px;
 }
