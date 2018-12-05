@@ -26,7 +26,7 @@
           <span class="joinStoreSearch icoSearch tickerWrap"></span>
           <span class="joinStoreRank">
             <transition :name="transitionName" mode="out-in">
-              <div class="joinStoreRankWrap" :key="current" v-if="show">
+              <div class="joinStoreRankWrap" :key="current" v-if="show" @click="routeNextPage()">
                 <span class="num_font">{{ current+1 }}</span>
                 <span class="joinStoreRank_title">{{ topFive[current].name }}</span>
               </div>
@@ -96,13 +96,20 @@
         var len = this.topFive.length;
         this.current = (this.current + dir % len + len) % len;
       },
+      routeNextPage() {
+        if (!this.topFive[this.current].site) {
+          // Detail 페이지로 이동
+        }else {
+          window.location = this.topFive[this.current].site;
+        }
+      }
     },
     created() {
       this.getAPIUsePointCategoryLists();
       this.getAPIUsePointCategoryTopFiveLists();
       setInterval(() => {
         this.slide(1);
-      }, 1000)
+      }, 5000)
     }
   }
 </script>
@@ -192,6 +199,7 @@
         > .JoinStoreFilter_name {
           grid-row: 2;
           grid-column: 1;
+          justify-self: start;
 
           > p {
             > span {
@@ -242,6 +250,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
+              cursor: pointer;
 
               > span.num_font {
                 margin-right: auto;
