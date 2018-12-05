@@ -1,6 +1,6 @@
 <template>
   <div v-if="show" class="breadcrumb" :style="{ 'background-image': 'url('+require('@/assets/css/images/common/bgSubTl.png')+')'}">
-    <h2>{{ title }}</h2>
+    <h2>{{ subtitle }}</h2>
     <div class="breadcrumb_desc">
       <p>홈 > &nbsp;</p>
       <p>{{ title }} > &nbsp;</p>
