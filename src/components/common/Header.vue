@@ -177,11 +177,9 @@ export default {
     '$route': function() {
       this.activeAside=false;
       this.centerHeaderIsActive=false;
+      EventBus.$emit('CreateBreadCrumb', this.menus);
     }
   },
-  mounted() {
-    EventBus.$emit('CreateBreadCrumb', this.menus);
-  }
 }
 </script>
 

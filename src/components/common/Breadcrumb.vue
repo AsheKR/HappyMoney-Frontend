@@ -22,11 +22,12 @@
       }
     },
     created() {
-
-      EventBus.$once('CreateBreadCrumb', (parentMenus) => {
+      EventBus.$on('CreateBreadCrumb', (parentMenus) => {
         const pathTitle = this.$route.path.split('/')[1]
         const pathSubTitle = this.$route.path.split('/')[2]
         this.menus = parentMenus;
+
+        console.log("생성중");
 
         for (var menu in this.menus) {
             if (pathTitle in this.menus[menu].title) {
