@@ -153,7 +153,7 @@ export default {
           is_active: false
         },
       ],
-      centerHeaderIsActive: false
+      centerHeaderIsActive: false,
     }
   },
   methods: {
