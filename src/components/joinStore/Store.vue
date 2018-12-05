@@ -24,7 +24,10 @@
       </div>
       <div class="storeItems" v-if="show">
         <div class="storeItem" v-for="store in storeList" :key="store.id">
-          <span class="storeItemThumb"> <img :src="store.shop_image" alt=""> </span>
+          <span class="storeItemThumb">
+            <img :src="store.shop_image" alt="" v-if="store.shop_image">
+            <img src="" alt="기본" v-else> 
+          </span>
           <div class="storeItemInfo">
             <a href="#">{{ store.name }}</a>
             <span class="cate">{{ store.category.name }}</span>
@@ -37,8 +40,8 @@
               <a href="#" v-else>이용안내 <span class="joinStoreSearch icoSearch btnGo"></span> </a>
             </span>
           </a>
-          <span class="joinStoreSearch icoSearch feeIcon" v-if="store.where_to_use.is_fee"></span>
-          <strong class="joinStoreSearch icoSearch storeLab" v-if="store.where_to_use.is_import_point"></strong>
+          <span class="joinStoreSearch icoSearch feeIcon" v-if="is_where_to_use(store.where_to_use, 'fee')"></span>
+          <strong class="joinStoreSearch icoSearch storeLab" v-if="is_where_to_use(store.where_to_use)"></strong>
         </div>
       </div>
       <div class="storeMore">
@@ -72,6 +75,7 @@
         this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
           response => {
             if (response.status == '200') {
+              console.log(response);
               if ( this.storeList === undefined ) {
                 this.storeList = response.data.results;
                 this.next = response.data.next;
@@ -80,13 +84,28 @@
               } else {
                 this.storeList.push.apply(this.storeList, response.data.results);
                 this.next = response.data.next;
-                console.log(this.storeList);
               }
             }
           },
           error => {
             console.log(error);
           });
+      },
+      is_where_to_use(where_to_use, fee_or_import) {
+        if (!where_to_use) {
+          return false;
+        } else {
+
+          if (fee_or_import == 'fee') {
+            if (where_to_use.is_fee) {
+              return true;
+            }
+          } else {
+            if (where_to_use.is_import_point) {
+              return true;
+            }
+          }
+        }
       }
     },
     created() {

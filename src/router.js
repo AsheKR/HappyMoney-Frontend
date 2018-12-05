@@ -46,6 +46,10 @@ var router =  new Router({
         {
           path: 'onlineStore',
           component: Store
+        },
+        {
+          path: 'offlineStore',
+          component: Store
         }
       ]
     }

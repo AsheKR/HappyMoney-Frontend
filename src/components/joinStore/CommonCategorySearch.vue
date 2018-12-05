@@ -8,10 +8,12 @@
         </div>
         <div class="categories">
           <span>
-            <input type="checkbox" name="" value="" checked> 전체
+            <input type="checkbox" id="joinStoreSearchall" @click="filterAllCategory()" v-model="joinStoreFilterAll">
+            <label for="joinStoreSearchall">전체</label>
           </span>
           <span v-for="category in categories" :key="category.id">
-            <input type="checkbox" :name="category.id" checked> {{ category.name }}
+            <input type="checkbox" :id="'joinStoreFilter_'+category.id" :value="category.name" v-model="checkedCategory">
+            <label :for="'joinStoreFilter_'+category.id">{{ category.name }}</label>
           </span>
         </div>
         <div class="JoinStoreFilter_name">
@@ -19,7 +21,7 @@
         </div>
         <div class="joinStoreFilter_input">
           <span>
-            <input type="text" name="" value="" placeholder="온라인 사용처를 조회해 보세요.">
+            <input type="text" v-model="joinStoreSearchInput" placeholder="온라인 사용처를 조회해 보세요.">
           </span>
         </div>
         <div class="joinStoreFilter_rank">
@@ -38,7 +40,7 @@
       <div class="joinStroeFilter_input_desc">
         <p>※ 일부 사용처의 경우 수수료가 부과될 수 있습니다.</p>
       </div>
-      <div class="buttonWrap">
+      <div class="buttonWrap" @click="getAPIUsePointFilteredLists()">
         <button type="button" name="button">
           <span class="joinStoreSearch icoSearch btnSubmit"></span>
           <span>조회</span>
@@ -56,10 +58,15 @@
         current: 0,
         transitionName: "fade",
 
+        joinStoreFilterAll: true,
+        checkedCategory: [],
+        joinStoreSearchInput: '',
+
         topFive: undefined,
         categories: undefined,
-        onlinJoinStore: undefined,
-        show: false
+        show: false,
+
+        online: true,
       }
     },
     methods: {
@@ -69,14 +76,16 @@
           response => {
             if (response.status == '200') {
               this.categories = response.data;
+              for ( var cate in this.categories) {
+                this.checkedCategory.push(this.categories[cate].name);
+              }
             }
           },
           error => {
             console.log(error);
           });
       },
-      getAPIUsePointCategoryTopFiveLists() {
-        const url = this.hostname + '/apis/use-point/?point=online&ordering=-like_users_count&page_size=5';
+      getAPIUsePointCategoryTopFiveLists(url) {
         this.$http.get(url).then(
           response => {
             if (response.status == '200') {
@@ -87,6 +96,19 @@
           error => {
             console.log(error);
           });
+      },
+      getAPIUsePointFilteredLists() {
+        const url = this.hostname + '/apis/use-point/?is_online='+this.online+'&name='+this.joinStoreSearchInput
+
+        this.$http.get(url).then(
+          response => {
+            if (response.status == '200') {
+              console.log(response);
+            }
+          },
+          error => {
+            console.log(error);
+        });
       },
       slide(dir) {
         this.direction = dir;
@@ -102,11 +124,25 @@
         }else {
           window.location = this.topFive[this.current].site;
         }
+      },
+      filterAllCategory() {
+        this.joinStoreFilterAll = !this.joinStoreFilterAll;
+        if (this.joinStoreFilterAll === true) {
+          for ( var cate in this.categories) {
+            this.checkedCategory.push(this.categories[cate].name);
+          }
+        } else {
+          this.checkedCategory = [];
+        }
       }
     },
     created() {
+      const is_online = this.$route.fullPath.split('/')[2].split('Store')[0]
+      if (is_online !== 'online') {
+        this.online = false
+      }
       this.getAPIUsePointCategoryLists();
-      this.getAPIUsePointCategoryTopFiveLists();
+      this.getAPIUsePointCategoryTopFiveLists(this.hostname + '/apis/use-point/?is_online='+this.online+'&ordering=-like_users_count&page_size=5');
       setInterval(() => {
         this.slide(1);
       }, 5000)
@@ -179,6 +215,7 @@
         > .cateogryFilter_name {
           grid-row: 1;
           grid-column: 1;
+          justify-self: start;
 
           > p {
             > span {
@@ -194,6 +231,10 @@
           grid-column: 2 / 5;
           align-self: center;
           text-align: left;
+
+          > span {
+            margin-right: 10px;
+          }
         }
 
         > .JoinStoreFilter_name {
