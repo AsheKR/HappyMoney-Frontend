@@ -151,7 +151,7 @@
   background-position: 0 0;
 }
 
-.search_4 {
+.search_4 {inline-block
   margin-right: 26px;
   background-position: 0 -90px;
 }
@@ -169,4 +169,52 @@
   margin: 3px 3px 0 0;
   background-position: 0 -146px;
   vertical-align: top;
+}
+
+.btnSort {
+  height: 4px;
+  width: 9px;
+  background-position: -50px -181px;
+}
+
+.btnList_1 {
+  background-position: -69px -115px;
+  width: 28px;
+  height: 28px;
+}
+
+.btnList_2 {
+  background-position: -69px -141px;
+  width: 28px;
+  height: 28px;
+}
+
+.btnLike {
+  background-position: -22px -274px;
+  width: 12px;
+  height: 12px;
+}
+
+.btnGo {
+  background-position: -68px -179px;
+  width: 4px;
+  height: 8px;
+}
+
+.btnMore {
+  width: 8px;
+  height: 5px;
+  background-position: -82px -181px;
+}
+
+.feeIcon {
+  background-position: -123px -171px;
+  width: 26px;
+  height: 26px;
+}
+
+.storeLab {
+  background-position: 0 -205px;
+  width: 59px;
+  height: 59px;
 }

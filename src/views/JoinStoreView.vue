@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 export default {
