@@ -7,6 +7,7 @@ import JoinStoreView from './views/JoinStoreView.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
+import StoreDetail from '@/components/joinStore/StoreDetail.vue'
 
 Vue.use(Router)
 
@@ -45,7 +46,7 @@ var router =  new Router({
         },
         {
           path: 'onlineStore',
-          component: Store
+          component: Store,
         },
         {
           path: 'offlineStore',

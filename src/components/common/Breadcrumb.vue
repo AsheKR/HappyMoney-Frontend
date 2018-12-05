@@ -27,8 +27,6 @@
         const pathSubTitle = this.$route.path.split('/')[2]
         this.menus = parentMenus;
 
-        console.log("생성중");
-
         for (var menu in this.menus) {
             if (pathTitle in this.menus[menu].title) {
               this.title = this.menus[menu].title[pathTitle];

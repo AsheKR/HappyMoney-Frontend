@@ -154,6 +154,7 @@ export default {
         },
       ],
       centerHeaderIsActive: false,
+      timeOrigin: 0
     }
   },
   methods: {
@@ -174,12 +175,19 @@ export default {
     }
   },
   watch: {
-    '$route': function() {
+    '$route.path': function() {
+      console.log(this.$route);
       this.activeAside=false;
       this.centerHeaderIsActive=false;
       EventBus.$emit('CreateBreadCrumb', this.menus);
-    }
+    },
   },
+  created() {
+    EventBus.$emit('CreateBreadCrumb', this.menus);
+  },
+  mounted() {
+    EventBus.$emit('CreateBreadCrumb', this.menus);
+  }
 }
 </script>
 

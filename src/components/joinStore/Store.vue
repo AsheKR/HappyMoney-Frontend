@@ -71,11 +71,6 @@
     components: {
       CategoryFilter
     },
-    watch: {
-      '$route': function() {
-        this.$router.go(this.$router.currentRoute)
-      }
-    },
     methods: {
       getAPIUsePointLists(url) {
         const Authorization = this.$cookie.get('Authorization');
