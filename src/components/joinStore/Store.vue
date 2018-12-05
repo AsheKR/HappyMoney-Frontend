@@ -26,7 +26,7 @@
         <div class="storeItem" v-for="store in storeList" :key="store.id">
           <span class="storeItemThumb">
             <img :src="store.shop_image" alt="" v-if="store.shop_image">
-            <img src="" alt="기본" v-else> 
+            <img src="" alt="기본" v-else>
           </span>
           <div class="storeItemInfo">
             <a href="#">{{ store.name }}</a>
@@ -151,7 +151,7 @@
 
       > .storeItems {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 10px;
 
         > .storeItem {
@@ -242,6 +242,12 @@
           color: #666;
         }
       }
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .storeItems {
+      grid-template-columns: repeat(3, 1fr) !important;
     }
   }
 </style>
