@@ -151,7 +151,7 @@
       getAPIFilterUsePointLists(category, name) {
         const Authorization = this.$cookie.get('Authorization');
         const url = this.hostname + '/apis/use-point/?is_online='+this.online + '&category__names='+category+'&name__contains='+name;
-    
+
         this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
           response => {
             if (response.status == '200') {
@@ -206,6 +206,7 @@
     > .storeSection {
       display: grid;
       padding-top: 50px;
+      margin: 0 10px;
 
       > .store_ordering {
         display: grid;
