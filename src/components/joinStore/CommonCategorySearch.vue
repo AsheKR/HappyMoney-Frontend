@@ -40,7 +40,7 @@
       <div class="joinStroeFilter_input_desc">
         <p>※ 일부 사용처의 경우 수수료가 부과될 수 있습니다.</p>
       </div>
-      <div class="buttonWrap" @click="getAPIUsePointFilteredLists()">
+      <div class="buttonWrap" @click="clickJoinFilterSearch()">
         <button type="button" name="button">
           <span class="joinStoreSearch icoSearch btnSubmit"></span>
           <span>조회</span>
@@ -51,6 +51,8 @@
 </template>
 
 <script>
+  import { EventBus } from '../common/EventBus.js';
+
   export default {
     props: ['hostname'],
     data() {
@@ -60,7 +62,7 @@
 
         joinStoreFilterAll: true,
         checkedCategory: [],
-        joinStoreSearchInput: '',
+        joinStoreSearchInput: '롯데',
 
         topFive: undefined,
         categories: undefined,
@@ -120,19 +122,6 @@
             console.log(error);
           });
       },
-      getAPIUsePointFilteredLists() {
-        const url = this.hostname + '/apis/use-point/?is_online='+this.online+'&name='+this.joinStoreSearchInput
-
-        this.$http.get(url).then(
-          response => {
-            if (response.status == '200') {
-              console.log(response);
-            }
-          },
-          error => {
-            console.log(error);
-        });
-      },
       slide(dir) {
         this.direction = dir;
         dir === 1
@@ -157,6 +146,10 @@
         } else {
           this.checkedCategory = [];
         }
+      },
+      clickJoinFilterSearch() {
+        var category = this.checkedCategory;
+        EventBus.$emit('joinStoreFilterSearch', { category: this.checkedCategory, name: this.joinStoreSearchInput });
       }
     },
     created() {
@@ -169,7 +162,7 @@
       setInterval(() => {
         this.slide(1);
       }, 5000)
-    }
+    },
   }
 </script>
 

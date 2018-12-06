@@ -54,6 +54,7 @@
 
 <script>
   import CategoryFilter from './CommonCategorySearch.vue'
+  import { EventBus } from '../common/EventBus.js';
 
   export default {
     props: ['hostname'],
@@ -147,6 +148,22 @@
             console.log(error);
           });
       },
+      getAPIFilterUsePointLists(category, name) {
+        const Authorization = this.$cookie.get('Authorization');
+        const url = this.hostname + '/apis/use-point/?is_online='+this.online + '&category__names='+category+'&name__contains='+name;
+    
+        this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+          response => {
+            if (response.status == '200') {
+              this.storeList = response.data.results;
+              this.next = response.data.next;
+              this.fullCount = response.data.count;
+            }
+          },
+          error => {
+            console.log(error);
+          });
+      },
       createLikeUsePoint(usepoint){
         const Authorization = this.$cookie.get('Authorization');
         const url = this.hostname + '/apis/use-point/like/';
@@ -174,6 +191,12 @@
     created() {
       this.storeList.length = 0;
       this.createdMethod(false);
+
+      EventBus.$on('joinStoreFilterSearch', (searchKeyword) => {
+        const category = searchKeyword.category.join(',');
+        const name = searchKeyword.name;
+        this.getAPIFilterUsePointLists(category, name);
+      })
     }
   }
 </script>
