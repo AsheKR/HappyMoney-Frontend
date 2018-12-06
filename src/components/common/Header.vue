@@ -205,7 +205,7 @@ export default {
   .slide-menu-enter-active, .aside-sub-menu-fade-enter-active, ,.slide-menu-leave-active, .aside-sub-menu-fade-leave-active,
   .nav-container-fade-enter-active, .nav-container-fade-leave-active
   {
-    transition: all .3s ease;
+    transition: all 0.7s ease;
   }
 
   .slide-menu-enter, .slide-menu-leave-to{
