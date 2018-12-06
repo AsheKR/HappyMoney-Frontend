@@ -1,6 +1,6 @@
 <template>
-  <div class="happyJoinStore" v-if="show">
-    <div class="happyJoinStores">
+  <div class="happyJoinStore">
+    <div class="happyJoinStores" v-if="show">
       <div class="happyJoinStore_desc">
         * 해피머니는 통신판매 중개자로서 판매(서비스)되는 모든 재화나 용역에 대해서는 아래의 매장에서 책임하에 운영되고 있습니다.
       </div>
@@ -13,13 +13,16 @@
             <div class="happyJoinStoreimage">
               <img :src="point.shop_image" alt="">
             </div>
-            <div class="happyJoinStore_detail__text">
-              <p>이용안내 ></p>
-            </div>
+            <router-link :to="{ name: 'happyJoinStoreDetail', params: { id: point.id } }">
+              <div class="happyJoinStore_detail__text">
+                <p>이용안내 ></p>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
     </div>
+    <router-view />
   </div>
 </template>
 
@@ -31,6 +34,11 @@ export default {
       shopStores: undefined,
       show: false
     }
+  },
+  watch: {
+    '$route.path': function() {
+      this.routeCheck();
+    },
   },
   methods: {
     getAPIUsePointLists() {
@@ -45,10 +53,21 @@ export default {
         error => {
           console.log(error);
         });
+    },
+    getAPIUsePointDetail() {
+      console.log("Detail");
+    },
+    routeCheck() {
+      if ('id' in this.$route.params) {
+        // Detail 페이지로 넘어옴
+        this.show = false;
+      } else {
+        this.getAPIUsePointLists();
+      }
     }
   },
   created() {
-    this.getAPIUsePointLists();
+    this.routeCheck();
   }
 }
 </script>
@@ -98,19 +117,22 @@ export default {
             border: 1px solid #ddd;
 
             > .happyJoinStoreimage {
-              padding: 0 10px;
+              padding: 0 20px;
             }
 
-            > .happyJoinStore_detail__text {
-              border-top: 1px solid #ddd;
-              background-color: #eee;
+            > a {
+              > .happyJoinStore_detail__text {
+                border-top: 1px solid #ddd;
+                background-color: #eee;
+                cursor: pointer;
 
-              > p {
-                display: block;
-                padding: 5px 30px 10px;
-                margin: 0;
-                font-size: 0.8em;
-                font-weight: bold;
+                > p {
+                  display: block;
+                  padding: 5px 30px 10px;
+                  margin: 0;
+                  font-size: 0.8em;
+                  font-weight: bold;
+                }
               }
             }
           }
