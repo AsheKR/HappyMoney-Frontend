@@ -69,9 +69,23 @@
         online: true,
       }
     },
+    watch: {
+      '$route.path': function() {
+        const is_online = this.$route.fullPath.split('/')[2].split('Store')[0]
+        if (is_online !== 'online') {
+          this.online = false
+        }else if (is_online !== 'offline') {
+          this.online = true
+        }
+
+        this.checkedCategory = [];
+        this.getAPIUsePointCategoryLists();
+        this.getAPIUsePointCategoryTopFiveLists();
+      },
+    },
     methods: {
       getAPIUsePointCategoryLists() {
-        const url = this.hostname + '/apis/use-point/category';
+        const url = this.hostname + '/apis/use-point/category/?usepoint__is_online='+this.online;
         this.$http.get(url).then(
           response => {
             if (response.status == '200') {
@@ -85,12 +99,21 @@
             console.log(error);
           });
       },
-      getAPIUsePointCategoryTopFiveLists(url) {
+      getAPIUsePointCategoryTopFiveLists() {
+        var online = 0;
+
+        if (this.online === true) {
+          online = 2;
+        } else if (this.online === false) {
+          online = 3;
+        }
+
+        const url = this.hostname + '/apis/use-point/?is_online='+online+'&ordering=-like_users_count&page_size=5'
         this.$http.get(url).then(
           response => {
             if (response.status == '200') {
               this.topFive = response.data.results;
-              this.show = !this.show;
+              this.show = true;
             }
           },
           error => {
@@ -142,7 +165,7 @@
         this.online = false
       }
       this.getAPIUsePointCategoryLists();
-      this.getAPIUsePointCategoryTopFiveLists(this.hostname + '/apis/use-point/?is_online='+this.online+'&ordering=-like_users_count&page_size=5');
+      this.getAPIUsePointCategoryTopFiveLists();
       setInterval(() => {
         this.slide(1);
       }, 5000)
