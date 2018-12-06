@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from './views/Home.vue'
-import DetailSignInView from './views/DetailSignInView.vue'
+import DetailSignView from './views/DetailSignView.vue'
 import JoinStoreView from './views/JoinStoreView.vue'
+
+import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -21,9 +23,18 @@ var router =  new Router({
       component: Home
     },
     {
-      path: '/login',
-      name: 'login',
-      component: DetailSignInView
+      path: '/sign',
+      component: DetailSignView,
+      children: [
+        {
+          path: 'in',
+          name: 'login',
+          component: DetailSignIn
+        },
+      ],
+      meta: {
+        authCantAccess: true
+      }
     },
     {
       path: '/about',
@@ -61,12 +72,11 @@ router.beforeEach((to, from, next) => {
   const now_auth = Vue.cookie.get('Authorization');
   // 로그인된상태에서 Login 페이지로 접근하려할 시
 
-  if ( to.name == 'login' ) {
+  if (to.matched.some(record => record.meta.authCantAccess)) {
 
     if (now_auth !== null) {
 
       if ( from.path === '/' ) {
-        // 로그인한 사용자가 처음부터 /login으로 접근하려 하려는 경우
         next(from.fullPath);
         console.log("루트에서 로그인한 사용자가 접근한다.")
         return false;
@@ -85,7 +95,7 @@ router.beforeEach((to, from, next) => {
     if (now_auth === null) {
       console.log("로그인되지 않은 사용자가 로그인 페이지에 접근한다.")
       router.push({
-        path: '/login',
+        name: 'login',
         query: {
           nextUrl: to.fullPath
         }
