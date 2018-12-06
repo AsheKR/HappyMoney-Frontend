@@ -13,7 +13,7 @@
           <span>모든 서비스 바로 이용!</span>
         </div>
         <div class="signUpButtonWrap">
-          <span>가입하기</span>
+          <router-link :to="{ name: 'signup/step1' }"><span>가입하기</span></router-link>
         </div>
       </div>
       <div class="signUpSectionItem">
@@ -23,7 +23,7 @@
           <span>만 19세 이상</span>
         </div>
         <div class="signUpButtonWrap">
-          <span>가입하기</span>
+          <router-link :to="{ name: 'signup/step1' }"><span>가입하기</span></router-link>
         </div>
       </div>
       <div class="signUpSectionItem">
@@ -38,7 +38,7 @@
           <span>실결제(신용카드, 계좌이체 등) 불가</span>
         </div>
         <div class="signUpButtonWrap">
-          <span>가입하기</span>
+          <router-link :to="{ name: 'signup/step1' }"><span>가입하기</span></router-link>
         </div>
       </div>
     </div>
@@ -158,15 +158,19 @@ export default {
         }
 
         > .signUpButtonWrap {
-          padding: 10px 100px;
           background-color: #f25822;
           border-radius: 0 0 5px 5px;
           cursor: pointer;
 
-          > span {
-            color: white;
-            font-size: 0.84em;
-            font-weight: bold;
+          > a {
+            display: block;
+            padding: 10px 100px;
+
+            > span {
+              color: white;
+              font-size: 0.84em;
+              font-weight: bold;
+            }
           }
         }
       }
