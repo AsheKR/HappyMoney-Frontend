@@ -6,6 +6,7 @@ import DetailSignView from './views/DetailSignView.vue'
 import JoinStoreView from './views/JoinStoreView.vue'
 
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
+import DetailSignUp from '@/components/sign/DetailSignUp.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -31,6 +32,11 @@ var router =  new Router({
           name: 'login',
           component: DetailSignIn
         },
+        {
+          path: 'up',
+          name: 'signup',
+          component: DetailSignUp
+        }
       ],
       meta: {
         authCantAccess: true
