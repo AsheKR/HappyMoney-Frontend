@@ -12,10 +12,12 @@
           <span>- 만 14세 미만은 보호자 인증이 필요합니다.</span>
           <span>- 본인명의 휴대폰으로만 본인인증이 가능합니다.</span>
         </div>
-        <div class="signUpDetailStep1__ide--circle">
-          <span>본인</span>
-          <span>인증하기</span>
-        </div>
+        <router-link :to="{ name: 'signup/step2' }">
+          <div class="signUpDetailStep1__ide--circle">
+            <span>본인</span>
+            <span>인증하기</span>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -82,24 +84,27 @@
           }
         }
 
-        > .signUpDetailStep1__ide--circle {
-          border-radius: 50%;
-          border: 1px solid #d54e1f;
-          background-color: #f35923;
-          color: #fff;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 100px;
+        > a {
           margin-left: auto;
-          font-size: 0.85em;
 
-          cursor: pointer;
+          > .signUpDetailStep1__ide--circle {
+            border-radius: 50%;
+            border: 1px solid #d54e1f;
+            background-color: #f35923;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            font-size: 0.85em;
 
-          > span {
-            font-weight: bold;
+            cursor: pointer;
+
+            > span {
+              font-weight: bold;
+            }
           }
         }
       }
