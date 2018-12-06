@@ -19,7 +19,7 @@
           <span class="joinStoreSearch icoSearch btnList_1 active"></span>
         </div>
       </div>
-      <div class="storeItems" v-if="show">
+      <div class="storeItems" v-show="show">
         <div class="storeItem" v-for="store in storeList" :key="store.id">
           <span class="storeItemThumb">
             <img :src="store.shop_image" alt="" v-if="store.shop_image">
@@ -59,11 +59,11 @@
     props: ['hostname'],
     data() {
       return {
-        storeList: undefined,
+        storeList: [],
         next: '',
         fullCount: 0,
         show: false,
-        online: true,
+        online: 2,
 
         now_active: 1,
       }
@@ -71,17 +71,22 @@
     components: {
       CategoryFilter
     },
+    watch: {
+      '$route.path': function() {
+        this.createdMethod(true);
+      },
+    },
     methods: {
       getAPIUsePointLists(url) {
         const Authorization = this.$cookie.get('Authorization');
         this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
           response => {
             if (response.status == '200') {
-              if ( this.storeList === undefined ) {
+              if ( this.storeList.length == 0 ) {
                 this.storeList = response.data.results;
                 this.next = response.data.next;
                 this.fullCount = response.data.count;
-                this.show = !this.show;
+                this.show = true;
               } else {
                 this.storeList.push.apply(this.storeList, response.data.results);
                 this.next = response.data.next;
@@ -108,11 +113,20 @@
           }
         }
       },
-      createdMethod() {
+      createdMethod(is_refresh) {
         const is_online = this.$route.fullPath.split('/')[2].split('Store')[0]
-        if (is_online !== 'online') {
-          this.online = false
+
+        if (is_refresh === true) {
+          this.storeList.length = 0;
+          this.show = false;
         }
+
+        if (is_online === 'online') {
+          this.online = 2;
+        } else if (is_online === 'offline') {
+          this.online = 3;
+        }
+
         this.getAPIUsePointLists(this.hostname + '/apis/use-point/?is_online='+this.online);
       },
       getAPIOrderUsePointLists(ordering, number) {
@@ -153,12 +167,13 @@
             }
           },
           error => {
-            console.log(error);
+            alert(error.details);
           });
       }
     },
     created() {
-      this.createdMethod();
+      this.storeList.length = 0;
+      this.createdMethod(false);
     }
   }
 </script>
