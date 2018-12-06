@@ -176,7 +176,6 @@ export default {
   },
   watch: {
     '$route.path': function() {
-      console.log(this.$route);
       this.activeAside=false;
       this.centerHeaderIsActive=false;
       EventBus.$emit('CreateBreadCrumb', this.menus);
