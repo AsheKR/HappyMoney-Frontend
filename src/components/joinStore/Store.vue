@@ -34,10 +34,10 @@
             </button>
           </div>
           <!-- 사이트 없으면 디테일 페이지로 이동하게 -->
-          <a :href="store.site">
+          <a>
             <span class="storeItemsBtn">
-              <a v-if="store.site">바로가기 <span class="joinStoreSearch icoSearch btnGo"></span> </a>
-              <a href="#" v-else>이용안내 <span class="joinStoreSearch icoSearch btnGo"></span> </a>
+              <a :href="store.site" v-if="store.site">바로가기 <span class="joinStoreSearch icoSearch btnGo"></span> </a>
+              <router-link v-else :to="{ name: 'happyJoinStoreDetail', params: { id: store.id } }"> 이용안내 <span class="joinStoreSearch icoSearch btnGo"></span> </router-link>
             </span>
           </a>
           <span class="joinStoreSearch icoSearch feeIcon" v-if="is_where_to_use(store.where_to_use, 'fee')"></span>
