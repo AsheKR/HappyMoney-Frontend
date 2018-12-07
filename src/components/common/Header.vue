@@ -437,15 +437,17 @@ export default {
     }
 
     > .nav-container {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
       padding-bottom: 10px;
       border-bottom: 1px solid #ccc;
 
 
       > div {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        margin: auto;
+        margin: 0 auto;
 
         > .nav-sub-menu {
           display: flex;
@@ -521,37 +523,15 @@ export default {
       > .nav-wrap-2 {
         display: grid;
         text-align: left;
-        grid-template-areas:
-          'a c e'
-          'b d f';
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
 
           > .nav-sub-menu {
-            padding: 0 40px;
+            padding: 0px 30px;
             border-left: 1px solid #eee;
 
-            &:nth-child(1) {
-              grid-area: a;
-              padding-left: 0;
-              border: none;
-            }
-            &:nth-child(2) {
-              grid-area: b;
-              padding-left: 0;
-              border: none;
-            }
-            &:nth-child(3) {
-              grid-area: c;
-            }
-            &:nth-child(4) {
-              grid-area: d;
-            }
-            &:nth-child(5) {
-              grid-area: e;
-              padding-right: 0;
-            }
-            &:nth-child(6) {
-              grid-area: f;
-              padding-right: 0;
+            &:nth-child(3n) {
+              border-right: 1px solid #eee;
             }
           }
       }
