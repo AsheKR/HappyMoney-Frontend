@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <router-view />
+    <router-view :hostname="hostname"/>
   </div>
 </template>
 

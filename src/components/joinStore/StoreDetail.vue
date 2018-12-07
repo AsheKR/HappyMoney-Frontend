@@ -6,7 +6,7 @@
    <div class="storeDetailWrap">
      <div class="storeDetail__siteImage">
        <span class="imgWrap">
-         <img src="" alt="이미지">
+         <img :src="joinStoreInfo.shop_image" alt="이미지">
        </span>
        <a href="#">
          <div class="storeDetail__siteImage--button">
@@ -19,13 +19,17 @@
      <div class="storeDetail__sitePurchaseDetail">
        <div class="storeDetail__sitePurchaseDetail--title">
          <div class="storeDetail__sitePurchaseDetail--title--name">
-           <span>신라면세점</span>
+           <span>{{ joinStoreInfo.name }}</span>
          </div>
          <div class="storeDetail__sitePurchaseDetail--title--cate">
-           <span>쇼핑</span>
+           <span>{{ joinStoreInfo.category.name }}</span>
          </div>
          <div class="storeDetail__sitePurchaseDetail--title--button">
-           <span>93</span>
+           <span>{{  }}</span>
+           <button type="button" name="button" @click.prevent="createLikeUsePoint(joinStoreInfo)" :class="{ 'like-on': joinStoreInfo.is_liked }">
+             <span class="joinStoreSearch icoSearch" :class="{ 'like': joinStoreInfo.is_liked, 'btnLike': !joinStoreInfo.is_liked }"></span>
+             <span>{{ joinStoreInfo.like_users_count }}</span>
+           </button>
          </div>
        </div>
        <div class="storeDetail__sitePurchaseDetail--limit">
@@ -33,7 +37,7 @@
            <span>월 결제 한도</span>
          </div>
          <div class="storeDetail__sitePurchaseDetail--limit--amount">
-           <span>100,000원</span>
+           <span>{{ numberToLocaleString(joinStoreInfo.where_to_use.month_pay_limit) }} 원</span>
          </div>
        </div>
        <div class="storeDetail__sitePurchaseDetail--myLimitDesc">
@@ -143,15 +147,77 @@
      <div :style="{ 'background-image': 'url('+ require('@/assets/css/images/joinStore/bgPayPassword.gif')+')'}"></div>
    </div>
 
-
  </div>
 </template>
 
 <script>
 export default {
+  props: ['hostname'],
+  data() {
+    return {
+      joinStoreDetailID: null,
+      joinStoreInfo: undefined,
+      show: false
+    }
+  },
+  methods: {
+    getAPIUsePointRetrieve() {
+      const Authorization = this.$cookie.get('Authorization');
+      const url = this.hostname + '/apis/use-point/'+this.joinStoreDetailID;
+
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            this.joinStoreInfo = response.data;
+            this.show = true;
+          }
+        },
+        error => {
+          console.log(error);
+        });
+    },
+    createLikeUsePoint(usepoint){
+      const Authorization = this.$cookie.get('Authorization');
+      const url = this.hostname + '/apis/use-point/like/';
+
+      const data = {
+        'usepoint_pk': usepoint.id
+      }
+
+      this.$http.post(url, data, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            usepoint.is_liked = !usepoint.is_liked
+            if (response.data.status == 'created') {
+              usepoint.like_users_count += 1;
+            }else {
+              usepoint.like_users_count -= 1;
+            }
+          }
+        },
+        error => {
+          alert(error.details);
+        });
+    },
+    numberToLocaleString(value) {
+      if (value !== null) {
+        return value.toLocaleString()
+      }
+      return 0;
+    }
+  },
+  created() {
+    if ('id' in this.$route.params) {
+      this.joinStoreDetailID = this.$route.params.id;
+      this.getAPIUsePointRetrieve();
+    }else {
+      // 잘못된 접근
+    }
+  }
+
 }
 </script>
-기
+
 <style lang="scss">
 
   .storeDetail {
@@ -255,6 +321,24 @@ export default {
                 position: absolute;
                 top: 0;
                 right: 0;
+
+                > button {
+                  border-radius: 12px;
+                  border: 1px solid #ddd;
+                  background-color: white;
+                  padding: 5px 15px;
+                  cursor: pointer;
+
+                  &.like-on {
+                    border: 1px solid #d6445f;
+                    background-color: #f54e6d;
+                    color: #fff;
+                  }
+
+                  > span {
+                    margin-right: 5px;
+                  }
+                }
               }
           }
 
