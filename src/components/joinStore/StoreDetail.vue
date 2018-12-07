@@ -1,5 +1,5 @@
 <template>
- <div class="storeDetail">
+ <div class="storeDetail" v-if="show">
    <div class="storeDetail__desc">
      <span>* 해피머니는 통신판매 중개자로서 판매(서비스)되는 모든 재화나 용역에 대해서는 아래의 매장에서 책임하에 운영되고 있습니다.</span>
    </div>
@@ -37,7 +37,7 @@
            <span>월 결제 한도</span>
          </div>
          <div class="storeDetail__sitePurchaseDetail--limit--amount">
-           <span>{{ numberToLocaleString(joinStoreInfo.where_to_use.month_pay_limit) }} 원</span>
+           <span>{{ numberToLocaleString(joinStoreInfo.where_to_use.month_pay_limit) }}</span>
          </div>
        </div>
        <div class="storeDetail__sitePurchaseDetail--myLimitDesc">
@@ -54,7 +54,7 @@
      </div>
    </div>
    <div class="storeDetailBeforePage">
-     <a href="#"><span>이전페이지</span></a>
+     <a href="#" @click="$router.go(-1)"><span>이전페이지</span></a>
    </div>
    <div class="storeDetailCheckList">
      <h3>쇼핑 전 체크리스트!</h3>
@@ -201,9 +201,9 @@ export default {
     },
     numberToLocaleString(value) {
       if (value !== null) {
-        return value.toLocaleString()
+        return value.toLocaleString() + "원"
       }
-      return 0;
+      return "없음";
     }
   },
   created() {
