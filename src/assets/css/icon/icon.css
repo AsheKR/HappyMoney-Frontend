@@ -230,3 +230,33 @@
   width: 12px;
   height: 12px;
 }
+
+/* siemap */
+
+.siteMapIcon {
+  background-image: url(../images/sitemap/sitemap.png) !important;
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 20px;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+
+.siteMapIcon.siteMapIcon_1 {
+  background-position: 0 0;
+}
+.siteMapIcon.siteMapIcon_2 {
+  background-position: 0 -26px;
+}
+.siteMapIcon.siteMapIcon_3 {
+  background-position: 0 -56px;
+}
+.siteMapIcon.siteMapIcon_4 {
+  background-position: 0 -85px;
+}
+.siteMapIcon.siteMapIcon_5 {
+  background-position: 0 -114px;
+}
+.siteMapIcon.siteMapIcon_6 {
+  background-position: 0 -141px;
+}

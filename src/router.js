@@ -8,6 +8,7 @@ import JoinStoreView from './views/JoinStoreView.vue'
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
 import DetailSignUpStep1 from '@/components/sign/DetailSignUpStep1.vue'
+import DetailSignUpStep2 from '@/components/sign/DetailSignUpStep2.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -42,6 +43,11 @@ var router =  new Router({
           path: 'up/step1',
           name: 'signup/step1',
           component: DetailSignUpStep1
+        },
+        {
+          path: 'up/step2',
+          name: 'signup/step2',
+          component: DetailSignUpStep2
         }
       ],
       meta: {
@@ -49,12 +55,12 @@ var router =  new Router({
       }
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/sitemap',
+      name: 'sitemap',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/SiteMap.vue'),
       meta: {
         authRequired: true
       }
@@ -65,11 +71,18 @@ var router =  new Router({
       children: [
         {
           path: 'happyShopStore',
-          component: HappyJoinStore
+          component: HappyJoinStore,
+          children: [
+            {
+              path: ':id',
+              name:'happyJoinStoreDetail',
+              component: StoreDetail,
+            }
+          ]
         },
         {
           path: 'onlineStore',
-          component: Store,
+          component: Store
         },
         {
           path: 'offlineStore',
