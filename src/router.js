@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import DetailSignView from './views/DetailSignView.vue'
 import JoinStoreView from './views/JoinStoreView.vue'
+import EventView from './views/EventView.vue'
 
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
@@ -13,6 +14,8 @@ import DetailSignUpStep2 from '@/components/sign/DetailSignUpStep2.vue'
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
 import StoreDetail from '@/components/joinStore/StoreDetail.vue'
+
+import NowEvent from '@/components/event/NowEvent.vue'
 
 Vue.use(Router)
 
@@ -87,6 +90,17 @@ var router =  new Router({
         {
           path: 'offlineStore',
           component: Store
+        }
+      ]
+    },
+    {
+      path: '/event',
+      component: EventView,
+      children: [
+        {
+          path: 'now',
+          name: 'nowEvent',
+          component: NowEvent
         }
       ]
     }
