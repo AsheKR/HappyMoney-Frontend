@@ -26,7 +26,7 @@
               </div>
               <div class="aside-menu-item"><router-link :to="{ name: 'login' }">로그인</router-link></div>
               <div class="aside-menu-item"><router-link :to="{ name: 'signup' }">회원가입</router-link></div>
-              <div class="aside-menu-item"><a href="">사이트맵</a></div>
+              <div class="aside-menu-item"><router-link :to="{ name: 'sitemap' }">사이트맵</router-link></div>
               <div>
                 <div><a href=""><span class="icon icon-facebook"></span></a></div>
                 <div><a href=""><span class="icon icon-instagram"></span></a></div>
@@ -55,7 +55,7 @@
         <div class="right-header" @mouseover="centerHeaderMouseOut">
           <div><router-link :to="{ name: 'login' }"><span class="ir logIn"></span>로그인</router-link></div>
           <div><router-link :to="{ name: 'signup' }"><span class="ir join"></span>회원가입</router-link></div>
-          <div><a href=""><span class="ir sitemap"></span>사이트맵</a></div>
+          <div><router-link :to="{ name: 'sitemap' }"><span class="ir sitemap"></span>사이트맵</router-link></div>
         </div>
       </div>
     </header>
