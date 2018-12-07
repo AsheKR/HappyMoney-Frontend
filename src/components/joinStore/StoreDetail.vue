@@ -92,7 +92,7 @@
          </div>
          <div class="storeDetailCheckItem__button">
            <a href="#">
-             <span>결제비밀번호서비스 이용하기</span>
+             <span>해피캐시 충전하기</span>
            </a>
          </div>
        </div>
@@ -137,9 +137,13 @@
            </a>
          </div>
        </div>
-
      </div>
    </div>
+   <div class="storeDetailSecret">
+     <div :style="{ 'background-image': 'url('+ require('@/assets/css/images/joinStore/bgPayPassword.gif')+')'}"></div>
+   </div>
+
+
  </div>
 </template>
 
@@ -426,7 +430,32 @@ export default {
       }
     }
 
+    > .storeDetailSecret {
+      height: 500px;
+      margin-top: 50px;
 
+      > div {
+        width:100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+    }
+
+
+  }
+
+  @media only screen and (max-width: 970px) {
+    .storeDetailCheckListWrap {
+      grid-template-columns: repeat(2, 1fr) !important;
+
+      > .storeDetailCheckItem {
+        &:nth-child(3), &:nth-child(4) {
+          margin-top: 50px;
+        }
+      }
+    }
   }
 
 </style>
