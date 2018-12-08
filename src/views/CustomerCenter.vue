@@ -2,7 +2,7 @@
   <div class="customerCenter">
     <CSCenterCommon />
     <div class="customerCenter__content">
-      <router-view />
+      <router-view :hostname="hostname" />
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@ import CSCenterCommon from '@/components/cscenter/CSCenterCommon.vue'
 export default {
   data() {
     return {
-
+      hostname: require('@/assets/js/variable.js').hostname
     }
   },
   components: {
@@ -23,4 +23,12 @@ export default {
 </script>
 
 <style lang="scss">
+  .customerCenter {
+
+    .customerCenter__content {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+    }
+  }
 </style>

@@ -86,6 +86,8 @@ export default {
 <style lang="scss">
 
  .csCenterCommon {
+   margin-bottom: 50px;
+
    > .csCenter__menu {
      font-weight: bold;
      background-color: #454763;

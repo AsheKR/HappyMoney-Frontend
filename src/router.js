@@ -20,6 +20,8 @@ import NowEvent from '@/components/event/NowEvent.vue'
 import PreEvent from '@/components/event/PreEvent.vue'
 import WinnerEvent from '@/components/event/WinnerEvent.vue'
 
+import FAQ from '@/components/cscenter/FAQ.vue'
+
 Vue.use(Router)
 
 var router =  new Router({
@@ -123,7 +125,8 @@ var router =  new Router({
       children: [
         {
           path: 'faq',
-          name: 'faq'
+          name: 'faq',
+          component: FAQ
         },
         {
           path: 'inquiry',
