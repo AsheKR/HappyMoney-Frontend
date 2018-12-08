@@ -13,11 +13,11 @@
             <span>지난 이벤트</span>
           </div>
         </router-link>
-        <a href="#">
-          <div class="eventCateogry__menu">
+        <router-link :to="{ name: 'winnerEvent' }" :style="activeCSS(3)">
+          <div class="eventCateogry__menu" :class="{ active: now_active == 3 }">
             <span>당첨자 발표</span>
           </div>
-        </a>
+        </router-link>
       </div>
       <router-view :hostname="hostname"/>
     </div>
@@ -40,7 +40,6 @@ export default {
   watch: {
     '$route.path': function() {
       this.pageCheck();
-      console.log("")
     },
   },
   methods: {
@@ -51,7 +50,7 @@ export default {
         'padding-bottom': '5px'
       }
       if (now == this.now_active) {
-        return activeStyle
+        return activeStyle;
       }
     },
     pageCheck() {
@@ -59,7 +58,7 @@ export default {
         this.now_active = 1;
       } else if (this.$route.name === 'preEvent') {
         this.now_active = 2;
-      } else if (this.$route.name === '') {
+      } else if (this.$route.name === 'winnerEvent') {
         this.now_active = 3;
       }
     }

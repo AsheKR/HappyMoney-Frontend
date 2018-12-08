@@ -17,6 +17,7 @@ import StoreDetail from '@/components/joinStore/StoreDetail.vue'
 
 import NowEvent from '@/components/event/NowEvent.vue'
 import PreEvent from '@/components/event/PreEvent.vue'
+import WinnerEvent from '@/components/event/WinnerEvent.vue'
 
 Vue.use(Router)
 
@@ -107,6 +108,11 @@ var router =  new Router({
           path: 'pre',
           name: 'preEvent',
           component: PreEvent
+        },
+        {
+          path: 'winner',
+          name: 'winnerEvent',
+          component: WinnerEvent
         }
       ]
     }
