@@ -16,6 +16,7 @@ import Store from '@/components/joinStore/Store.vue'
 import StoreDetail from '@/components/joinStore/StoreDetail.vue'
 
 import NowEvent from '@/components/event/NowEvent.vue'
+import PreEvent from '@/components/event/PreEvent.vue'
 
 Vue.use(Router)
 
@@ -101,6 +102,11 @@ var router =  new Router({
           path: 'now',
           name: 'nowEvent',
           component: NowEvent
+        },
+        {
+          path: 'pre',
+          name: 'preEvent',
+          component: PreEvent
         }
       ]
     }

@@ -3,16 +3,16 @@
     <Breadcrumb />
     <div class="eventViewWrap">
       <div class="eventCateogry">
-        <a href="#" :style="activeCSS()">
+        <router-link :to="{ name: 'nowEvent' }" :style="activeCSS(1)">
           <div class="eventCateogry__menu" :class="{ active: now_active == 1 }">
             <span>진행중인 이벤트</span>
           </div>
-        </a>
-        <a href="#">
-          <div class="eventCateogry__menu">
+        </router-link>
+        <router-link :to="{ name: 'preEvent' }" :style="activeCSS(2)">
+          <div class="eventCateogry__menu" :class="{ active: now_active == 2 }">
             <span>지난 이벤트</span>
           </div>
-        </a>
+        </router-link>
         <a href="#">
           <div class="eventCateogry__menu">
             <span>당첨자 발표</span>
@@ -37,21 +37,35 @@ export default {
   components: {
     Breadcrumb,
   },
+  watch: {
+    '$route.path': function() {
+      this.pageCheck();
+      console.log("")
+    },
+  },
   methods: {
-    activeCSS() {
-      if (this.now_active == 1) {
-        return {
-          'background': '50% 100% no-repeat',
-          'background-image': 'url('+require('@/assets/css/images/event/bgTab.png')+')',
-          'padding-bottom': '5px'
-        }
+    activeCSS(now) {
+      const activeStyle = {
+        'background': '50% 100% no-repeat',
+        'background-image': 'url('+require('@/assets/css/images/event/bgTab.png')+')',
+        'padding-bottom': '5px'
+      }
+      if (now == this.now_active) {
+        return activeStyle
+      }
+    },
+    pageCheck() {
+      if (this.$route.name === 'nowEvent') {
+        this.now_active = 1;
+      } else if (this.$route.name === 'preEvent') {
+        this.now_active = 2;
+      } else if (this.$route.name === '') {
+        this.now_active = 3;
       }
     }
   },
   created() {
-    if (this.$route.name === 'nowEvent') {
-      this.now_active = 1;
-    }
+    this.pageCheck();
   }
 }
 </script>

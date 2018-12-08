@@ -148,7 +148,7 @@ export default {
         { title: { 'event': '이벤트' },
           subTitle: {
             now: '진행중인 이벤트',
-            end: '종료된 이벤트',
+            pre: '종료된 이벤트',
             winner: '당첨자 발표'},
           is_active: false
         },

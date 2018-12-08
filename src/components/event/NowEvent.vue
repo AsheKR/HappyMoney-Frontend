@@ -54,11 +54,12 @@
           return false;
         }
 
-        const url = this.hostname + '/apis/event/?category=' + cate+"&page="+page;
+        const now_date = new Date().toISOString().slice(0,10);
+
+        const url = this.hostname + '/apis/event/?category=' + cate+"&page="+page+"&end__gte="+now_date;
         this.$http.get(url).then(
           response => {
             if (response.status == '200') {
-              console.log(response.data);
               this.eventList = response.data.results;
               if (response.data.next !== null) {
                 this.next = response.data.next.split('&page=')[1];
