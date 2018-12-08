@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import DetailSignView from './views/DetailSignView.vue'
 import JoinStoreView from './views/JoinStoreView.vue'
 import EventView from './views/EventView.vue'
+import CustomerCenter from './views/CustomerCenter.vue'
 
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
@@ -113,6 +114,36 @@ var router =  new Router({
           path: 'winner',
           name: 'winnerEvent',
           component: WinnerEvent
+        }
+      ]
+    },
+    {
+      path: '/customer',
+      component: CustomerCenter,
+      children: [
+        {
+          path: 'faq',
+          name: 'faq'
+        },
+        {
+          path: 'inquiry',
+          name: 'inquiry'
+        },
+        {
+          path: 'cscenter',
+          name: 'cscenter'
+        },
+        {
+          path: 'notice',
+          name: 'notice'
+        },
+        {
+          path: 'pcsecure',
+          name: 'pcsecure'
+        },
+        {
+          path: 'outergiftcard',
+          name: 'outergiftcard'
         }
       ]
     }

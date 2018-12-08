@@ -260,3 +260,17 @@
 .siteMapIcon.siteMapIcon_6 {
   background-position: 0 -141px;
 }
+
+/* customerCenter */
+
+.csIcon {
+  background-image: url(../images/customer/ico_1.png) !important;
+  background-repeat: no-repeat;
+}
+
+.csIcon.csIconbanner {
+  display: inline-block;
+  background-position: 3px 0;
+  width: 33px;
+  height: 30px;
+}
