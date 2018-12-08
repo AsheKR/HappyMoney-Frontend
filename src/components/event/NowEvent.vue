@@ -1,14 +1,7 @@
 <template>
   <div class="nowEvent">
     <div class="nowEvent__submenu">
-      <a href="#" class="active"><div><span>전체</span></div></a>
-      <a href="#"><div><span>해피머니 이벤트</span></div></a>
-      <a href="#"><div><span>참여 이벤트</span></div></a>
-      <a href="#"><div><span>초대 이벤트</span></div></a>
-      <a href="#"><div><span>캐시백 이벤트</span></div></a>
-      <a href="#"><div><span>제휴 이벤트</span></div></a>
-      <a href="#"><div><span>응모 이벤트</span></div></a>
-      <a href="#"><div><span>댓글 이벤트</span></div></a>
+      <a href="#" v-for="(value, key) in eventCategory" @click.prevent="getAPIEventList(key, 1)" :class="{ active: key == nowCate }"><div><span>{{ value }}</span></div></a>
     </div>
     <div class="nowEvent__content">
       <a href="#" class="nowEvent__content__item" v-for="event in eventList" :key="event.id">
@@ -38,6 +31,16 @@
     props: ['hostname'],
     data() {
       return {
+        eventCategory: {
+          '': '전체',
+          'happy': '해피머니 이벤트',
+          'join': '참여 이벤트',
+          'invite': '초대 이벤트',
+          'cashback': '캐시백 이벤트',
+          'alliance': '제휴 이벤트',
+          'entry': '응모 이벤트',
+          'comment': '댓글 이벤트'
+        },
         eventList: undefined,
         pageList: [],
         next: null,
@@ -71,6 +74,7 @@
                 this.pre = null;
               }
               this.pageList = response.data.page_links;
+              this.nowCate = cate;
             }
           },
           error => {
