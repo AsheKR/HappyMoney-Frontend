@@ -64,7 +64,7 @@
       getAPIEventList(page) {
         const now_date = new Date().toISOString().slice(0,10);
 
-        const url = this.hostname + '/apis/event/?&page='+page+"&end__gte="+now_date+'&title__contains='+this.searchItem;
+        const url = this.hostname + '/apis/event/?&page='+page+"&end__lt="+now_date+'&title__contains='+this.searchItem;
         this.$http.get(url).then(
           response => {
             if (response.status == '200') {
