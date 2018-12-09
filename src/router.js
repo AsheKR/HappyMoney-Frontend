@@ -11,6 +11,7 @@ import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
 import DetailSignUpStep1 from '@/components/sign/DetailSignUpStep1.vue'
 import DetailSignUpStep2 from '@/components/sign/DetailSignUpStep2.vue'
+import DetailSignUpStep3 from '@/components/sign/DetailSignUpStep3.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -56,6 +57,11 @@ var router =  new Router({
           path: 'up/step2',
           name: 'signup/step2',
           component: DetailSignUpStep2
+        },
+        {
+          path: 'up/step3',
+          name: 'signup/step3',
+          component: DetailSignUpStep3
         }
       ],
       meta: {
