@@ -62,11 +62,11 @@
       </div>
 
       <div class="signUpDetailStep2__button">
-        <div class="signUpDetailStep2__button--reset">
-          <a href="#" @click.prevent="$router.go(-1)"><span>취소</span></a>
+        <div class="signUpDetailStep2__button--reset" @click.prevent="$router.go(-1)">
+          <a href="#"><span>취소</span></a>
         </div>
-        <div class="signUpDetailStep2__button--agree">
-          <router-link :to="{ name: 'signup/step3' }"><span>다음</span></router-link>
+        <div class="signUpDetailStep2__button--agree" @click.prevent="isAllAgree()">
+          <a href="#"><span>다음</span></a>
         </div>
       </div>
     </div>
@@ -99,6 +99,14 @@
           this.checkedList.push('serviceAllow', 'happyAllow', 'privateAllow', 'privateCarryAllow');
         }
         this.checkAll = !this.checkAll;
+      },
+      isAllAgree() {
+        if (this.checkedList.length !== 4) {
+          console.log("?");
+          alert('모두 동의하기를 눌러주세요.');
+        } else {
+          this.$router.push({ name: 'signup/step3' });
+        }
       }
     }
   }
@@ -212,6 +220,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
 
           > a {
             color: #fff;
