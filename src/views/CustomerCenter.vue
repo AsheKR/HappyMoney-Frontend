@@ -29,6 +29,7 @@ export default {
       display: flex;
       max-width: 1200px;
       margin: auto;
+      justify-content: center;
     }
   }
 </style>

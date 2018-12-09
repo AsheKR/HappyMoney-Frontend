@@ -304,10 +304,33 @@
   height: 4px;
 }
 
+.csIcon.csIconCategoryArrowDown {
+  display: inline-block;
+  background-position: 0 -61px;
+  width: 16px;
+  height: 16px;
+}
+
+.csIconCategoryClose {
+  background-image: url(../images/customer/btnClose.gif) !important;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
 .csTop10Icon {
   background-image: url(../images/customer/top10FAQ.png) !important;
   background-repeat: no-repeat;
   display: inline-block;
   width: 89px;
   height: 89px;
+}
+
+.csFAQCategoryListIcon {
+  background: url(../images/customer/bgFaqCategory.gif) 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 28px;
+  height: 25px;
 }
