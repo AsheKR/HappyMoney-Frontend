@@ -110,7 +110,7 @@
               <span class="happyBoxMemInfo memModify"></span>
               <span>내 정보 수정</span>
             </div>
-            <div class="myBoxHome__profile--item">
+            <div class="myBoxHome__profile--item" @click="$router.push({ name: 'mybox/passwordEdit' })">
               <span class="happyBoxMemInfo memPassword"></span>
               <span>비밀번호 변경</span>
             </div>

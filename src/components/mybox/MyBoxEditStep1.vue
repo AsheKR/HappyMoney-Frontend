@@ -88,6 +88,7 @@ export default {
         &:first-child {
           font-size: 1.2em;
           font-weight: normal;
+          color: black;
         }
 
         &:last-child {

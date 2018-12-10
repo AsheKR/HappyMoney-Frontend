@@ -167,6 +167,7 @@ export default {
         &:first-child {
           font-size: 1.2em;
           font-weight: normal;
+          color: black;
         }
 
         &:last-child {
@@ -179,7 +180,7 @@ export default {
         right: 0;
       }
     }
-    
+
     > .myBoxEditStep2Wrap {
       max-width: 1200px;
 
