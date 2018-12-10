@@ -24,8 +24,14 @@
                   </transition>
                 </div>
               </div>
-              <div class="aside-menu-item"><router-link :to="{ name: 'login' }">로그인</router-link></div>
-              <div class="aside-menu-item"><router-link :to="{ name: 'signup' }">회원가입</router-link></div>
+              <slot v-if="!checkLogin()">
+                <div class="aside-menu-item"><router-link :to="{ name: 'login' }">로그인</router-link></div>
+                <div class="aside-menu-item"><router-link :to="{ name: 'signup' }">회원가입</router-link></div>
+              </slot>
+              <slot v-else>
+                <div class="aside-menu-item" @click="logout()"><a href="#">로그아웃</a></div>
+                <div class="aside-menu-item"><router-link :to="{ name: 'mybox' }">마이페이지</router-link></div>
+              </slot>
               <div class="aside-menu-item"><router-link :to="{ name: 'sitemap' }">사이트맵</router-link></div>
               <div>
                 <div><a href=""><span class="icon icon-facebook"></span></a></div>
@@ -53,8 +59,14 @@
           <div><div><a href=""><img src="../../assets/css/images/index/btnGoogleGnb.gif" alt=""></a></div></div>
         </div>
         <div class="right-header" @mouseover="centerHeaderMouseOut">
-          <div><router-link :to="{ name: 'login' }"><span class="ir logIn"></span>로그인</router-link></div>
-          <div><router-link :to="{ name: 'signup' }"><span class="ir join"></span>회원가입</router-link></div>
+          <slot v-if="!is_login">
+            <div><router-link :to="{ name: 'login' }"><span class="ir logIn"></span>로그인</router-link></div>
+            <div><router-link :to="{ name: 'signup' }"><span class="ir join"></span>회원가입</router-link></div>
+          </slot>
+          <slot v-else>
+            <div><a href="#" @click.prevent="logout()"><span class="ir logIn"></span>로그아웃</a></div>
+            <div><router-link :to="{ name: 'mybox' }"><span class="ir join"></span>마이페이지</router-link></div>
+          </slot>
           <div><router-link :to="{ name: 'sitemap' }"><span class="ir sitemap"></span>사이트맵</router-link></div>
         </div>
       </div>
@@ -154,7 +166,8 @@ export default {
         },
       ],
       centerHeaderIsActive: false,
-      timeOrigin: 0
+      timeOrigin: 0,
+      is_login: false
     }
   },
   methods: {
@@ -172,6 +185,20 @@ export default {
     },
     centerHeaderMouseOut() {
       this.centerHeaderIsActive=false;
+    },
+    checkLogin() {
+      const is_login = this.$cookie.get('Authorization');
+      if (is_login === null) {
+        this.is_login = false;
+      } else {
+        this.is_login = true;
+      }
+    },
+    logout() {
+      this.$cookie.delete('Authorization');
+      this.is_login = false;
+      alert("정상적으로 로그아웃되었습니다!");
+      this.$router.push('/');
     }
   },
   watch: {
@@ -183,6 +210,7 @@ export default {
   },
   created() {
     EventBus.$emit('CreateBreadCrumb', this.menus);
+    this.checkLogin();
   },
   mounted() {
     EventBus.$emit('CreateBreadCrumb', this.menus);

@@ -7,6 +7,8 @@ import JoinStoreView from './views/JoinStoreView.vue'
 import EventView from './views/EventView.vue'
 import CustomerCenter from './views/CustomerCenter.vue'
 
+import MyBox from './views/MyBox.vue'
+
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
 import DetailSignUpStep1 from '@/components/sign/DetailSignUpStep1.vue'
@@ -76,6 +78,11 @@ var router =  new Router({
           component: DetailSignUpStep4
         }
       ],
+    },
+    {
+      path: '/mybox',
+      name: 'mybox',
+      component: MyBox
     },
     {
       path: '/sitemap',

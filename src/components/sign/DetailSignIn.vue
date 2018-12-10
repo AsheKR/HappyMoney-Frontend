@@ -73,11 +73,11 @@
                   this.$cookie.set('Authorization', 'Token ' + response.data.token);
 
                   if (this.nextUrl) {
-                    this.$router.push({
+                    this.$router.go({
                       path: this.nextUrl
                     })
                   } else {
-                    this.$router.push({
+                    this.$router.go({
                       path: '/'
                     })
                   }
