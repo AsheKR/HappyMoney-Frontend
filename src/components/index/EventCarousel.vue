@@ -46,6 +46,9 @@ export default {
       this.current = (this.current + dir % len + len) % len;
     }
   },
+  mounted() {
+    setInterval(() => { this.slide(1) }, 3000)
+  }
 }
 </script>
 

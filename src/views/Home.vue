@@ -67,6 +67,7 @@ html, body, ul {
   margin: 0;
   padding: 0;
   font-family: 'Nanum Gothic', sans-serif;
+  overflow-x: hidden;
 }
 
 *, *::after, *::before { box-sizing:border-box; }

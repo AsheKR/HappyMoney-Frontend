@@ -74,6 +74,9 @@
         error => {
           console.log(error);
         });
+    },
+    mounted() {
+      setInterval(() => { this.slide(1) }, 5000);
     }
   }
 </script>
