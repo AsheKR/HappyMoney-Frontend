@@ -30,7 +30,7 @@
               </slot>
               <slot v-else>
                 <div class="aside-menu-item" @click="logout()"><a href="#">로그아웃</a></div>
-                <div class="aside-menu-item"><router-link :to="{ name: 'mybox' }">마이페이지</router-link></div>
+                <div class="aside-menu-item"><router-link :to="{ name: 'mybox/home' }">마이페이지</router-link></div>
               </slot>
               <div class="aside-menu-item"><router-link :to="{ name: 'sitemap' }">사이트맵</router-link></div>
               <div>
@@ -65,7 +65,7 @@
           </slot>
           <slot v-else>
             <div><a href="#" @click.prevent="logout()"><span class="ir logIn"></span>로그아웃</a></div>
-            <div><router-link :to="{ name: 'mybox' }"><span class="ir join"></span>마이페이지</router-link></div>
+            <div><router-link :to="{ name: 'mybox/home' }"><span class="ir join"></span>마이페이지</router-link></div>
           </slot>
           <div><router-link :to="{ name: 'sitemap' }"><span class="ir sitemap"></span>사이트맵</router-link></div>
         </div>

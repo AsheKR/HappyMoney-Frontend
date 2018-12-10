@@ -36,7 +36,7 @@ export default {
       margin-top: 50px;
 
       > .mybox__content--Detail {
-        margin-left: 20px;
+        margin: 0 15px 0 20px;
       }
     }
   }

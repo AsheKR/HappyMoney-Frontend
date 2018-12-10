@@ -106,7 +106,7 @@
         <div class="myBoxHome__profile__section">
           <h4>내 정보 조회/수정</h4>
           <div class="myBoxHome__profile--modify">
-            <div class="myBoxHome__profile--item">
+            <div class="myBoxHome__profile--item" @click="$router.push({ name: 'mybox/editstep1' })">
               <span class="happyBoxMemInfo memModify"></span>
               <span>내 정보 수정</span>
             </div>

@@ -16,6 +16,8 @@ import DetailSignUpStep3 from '@/components/sign/DetailSignUpStep3.vue'
 import DetailSignUpStep4 from '@/components/sign/DetailSignUpStep4.vue'
 
 import MyBoxHome from '@/components/mybox/MyBoxHome.vue'
+import MyBoxEditStep1 from '@/components/mybox/MyBoxEditStep1.vue'
+import MyBoxEditStep2 from '@/components/mybox/MyBoxEditStep2.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -104,6 +106,16 @@ var router =  new Router({
           path: 'home',
           name: 'mybox/home',
           component: MyBoxHome
+        },
+        {
+          path: 'editstep1',
+          name: 'mybox/editstep1',
+          component: MyBoxEditStep1
+        },
+        {
+          path: 'editstep2',
+          name: 'mybox/editstep2',
+          component: MyBoxEditStep2
         }
       ]
     },
