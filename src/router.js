@@ -6,7 +6,6 @@ import DetailSignView from './views/DetailSignView.vue'
 import JoinStoreView from './views/JoinStoreView.vue'
 import EventView from './views/EventView.vue'
 import CustomerCenter from './views/CustomerCenter.vue'
-
 import MyBox from './views/MyBox.vue'
 
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
@@ -15,6 +14,8 @@ import DetailSignUpStep1 from '@/components/sign/DetailSignUpStep1.vue'
 import DetailSignUpStep2 from '@/components/sign/DetailSignUpStep2.vue'
 import DetailSignUpStep3 from '@/components/sign/DetailSignUpStep3.vue'
 import DetailSignUpStep4 from '@/components/sign/DetailSignUpStep4.vue'
+
+import MyBoxHome from '@/components/mybox/MyBoxHome.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -97,7 +98,14 @@ var router =  new Router({
       component: MyBox,
       meta: {
         authRequired: true
-      }
+      },
+      children: [
+        {
+          path: 'home',
+          name: 'mybox/home',
+          component: MyBoxHome
+        }
+      ]
     },
     {
       path: '/sitemap',

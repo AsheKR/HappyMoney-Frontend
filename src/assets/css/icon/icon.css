@@ -334,3 +334,76 @@
   width: 28px;
   height: 25px;
 }
+
+/* HappyBox */
+
+span.happyBoxIcon {
+  background-image: url(../images/mybox/ico_1.png) !important;
+  background-repeat: no-repeat;
+}
+
+span.happyBoxIcon.happyBoxTitleIcon {
+  background-position: 0 0;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+
+span.happyBoxRatingBenefit {
+  background-image: url(../images/mybox/index.png) !important;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 15px;
+  height: 14px;
+}
+
+span.happyBoxMemInfo {
+  background-image: url(../images/mybox/index.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+span.happyBoxMemInfo.myBoxHC {
+  background-position: 0 -23px;
+  width: 19px;
+  height: 19px;
+}
+
+span.happyBoxMemInfo.myBoxHM {
+  background-position: 0 -52px;
+  width: 19px;
+  height: 19px;
+}
+
+span.happyBoxMemInfo.myBoxGift {
+  background-position: 0 -81px;
+  width: 24px;
+  height: 19px;
+}
+
+span.happyBoxMemInfo.myBoxCoupon {
+  background-position: 0 -108px;
+  width: 28px;
+  height: 19px;
+}
+
+span.happyBoxMemInfo.memModify {
+  background-position: 0 -274px;
+  width: 28px;
+  height: 32px;
+  display: block;
+}
+
+span.happyBoxMemInfo.memPassword {
+  background-position: 0 -316px;
+  width: 28px;
+  height: 32px;
+  display: block;
+}
+
+span.happyBoxMemInfo.memLoginInfo {
+  background-position: 0 -358px;
+  width: 28px;
+  height: 32px;
+  display: block;
+}

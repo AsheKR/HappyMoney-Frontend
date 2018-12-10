@@ -24,7 +24,7 @@
                   </transition>
                 </div>
               </div>
-              <slot v-if="!checkLogin()">
+              <slot v-if="!is_login">
                 <div class="aside-menu-item"><router-link :to="{ name: 'login' }">로그인</router-link></div>
                 <div class="aside-menu-item"><router-link :to="{ name: 'signup' }">회원가입</router-link></div>
               </slot>
