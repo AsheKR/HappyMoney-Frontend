@@ -60,29 +60,44 @@ var router =  new Router({
         {
           path: 'up/step1',
           name: 'signup/step1',
-          component: DetailSignUpStep1
+          component: DetailSignUpStep1,
+          meta: {
+            authCantAccess: true
+          }
         },
         {
           path: 'up/step2',
           name: 'signup/step2',
-          component: DetailSignUpStep2
+          component: DetailSignUpStep2,
+          meta: {
+            authCantAccess: true
+          }
         },
         {
           path: 'up/step3',
           name: 'signup/step3',
-          component: DetailSignUpStep3
+          component: DetailSignUpStep3,
+          meta: {
+            authCantAccess: true
+          }
         },
         {
           path: 'up/step4',
           name: 'signup/step4',
-          component: DetailSignUpStep4
+          component: DetailSignUpStep4,
+          meta: {
+            authCantAccess: true
+          }
         }
       ],
     },
     {
       path: '/mybox',
       name: 'mybox',
-      component: MyBox
+      component: MyBox,
+      meta: {
+        authRequired: true
+      }
     },
     {
       path: '/sitemap',
