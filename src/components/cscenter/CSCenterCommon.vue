@@ -18,8 +18,8 @@
         <div class="csCenter__title__inputForm" v-if="csList[nowCS].input">
           <div class="csCenter__searchForm--form">
             <span>
-              <span class="csCenter__searchForm--form--inputbox"><input type="text" v-model="vsearchItem" placeholder="검색어를 입력하세요"></span>
-              <span class="csCenter__searchForm--form--button" @click="setSearchItem()">조회</span>
+              <span class="csCenter__searchForm--form--inputbox"><input type="text" placeholder="검색어를 입력하세요" v-model="vsearchItem"></span>
+              <span class="csCenter__searchForm--form--button" @click="clickSearch()">조회</span>
             </span>
           </div>
         </div>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { EventBus } from '../common/EventBus.js';
+
 export default {
   data() {
     return {
@@ -65,6 +67,7 @@ export default {
         },
       },
       nowCS: undefined,
+      vsearchItem: '',
     }
   },
   watch: {
@@ -75,6 +78,9 @@ export default {
   methods: {
     changeNowCS() {
       this.nowCS = this.$route.name;
+    },
+    clickSearch() {
+      EventBus.$emit('CSCenterSearch', this.vsearchItem);
     }
   },
   created() {
@@ -171,6 +177,7 @@ export default {
                border: 1px solid #454545;
                background-color: #4f4f4f;
                color: #fff;
+               cursor: pointer;
              }
            }
          }

@@ -29,6 +29,7 @@ import PreEvent from '@/components/event/PreEvent.vue'
 import WinnerEvent from '@/components/event/WinnerEvent.vue'
 
 import FAQ from '@/components/cscenter/FAQ.vue'
+import CSCenterNotice from '@/components/cscenter/CSCenterNotice.vue'
 
 Vue.use(Router)
 
@@ -201,7 +202,8 @@ var router =  new Router({
         },
         {
           path: 'notice',
-          name: 'notice'
+          name: 'notice',
+          component: CSCenterNotice,
         },
         {
           path: 'pcsecure',
