@@ -6,7 +6,7 @@
     </span>
     <span class="notice_section notice_section2">
       <transition :name="transitionName" mode="out-in">
-        <div class="recent_notice_list" :key="current" v-if="show">
+        <div class="recent_notice_list" :key="current" v-if="show" @click="routeNotice(recent_notice[current].id)">
           <span class="recent_notice_title">{{ NoticeLimited(recent_notice[current].title) }}</span>
           <span class="recent_notice_date">{{ recent_notice[current].created_at }}</span>
         </div>
@@ -24,7 +24,7 @@
       </div>
     </span>
     <span class="notice_section notice_section4">
-      <a href="#">더보기 +</a>
+      <router-link :to="{ name: 'notice' }">더보기 +</router-link>
     </span>
   </div>
 </template>
@@ -42,6 +42,14 @@
       }
     },
     methods: {
+      routeNotice(id) {
+        this.$router.push({
+          name: 'notice',
+          params: {
+            'id': id
+          }
+        })
+      },
       slide(dir) {
         this.direction = dir;
         dir === 1
@@ -152,6 +160,7 @@
         > .recent_notice_list {
           color: #fff;
           font-size: 0.8em;
+          cursor: pointer;
 
           > .recent_notice_date {
             margin-left: 10em;

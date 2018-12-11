@@ -193,6 +193,9 @@
       EventBus.$on('CSCenterSearch', (vsearchItem) => {
         this.searchItem = vsearchItem;
       })
+      if (this.$route.params.id) {
+        this.notice_now_active = this.$route.params.id;
+      }
     },
     mounted() {
       this.getAPINoticeList(1, this.getAllCategory());
