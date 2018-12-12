@@ -7,6 +7,7 @@ import JoinStoreView from './views/JoinStoreView.vue'
 import EventView from './views/EventView.vue'
 import CustomerCenter from './views/CustomerCenter.vue'
 import MyBox from './views/MyBox.vue'
+import Card from './views/Card.vue'
 
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
@@ -30,6 +31,8 @@ import WinnerEvent from '@/components/event/WinnerEvent.vue'
 
 import FAQ from '@/components/cscenter/FAQ.vue'
 import CSCenterNotice from '@/components/cscenter/CSCenterNotice.vue'
+
+import GiftCardBuyInfo from '@/components/giftcard/GiftCardBuyInfo'
 
 Vue.use(Router)
 
@@ -160,6 +163,17 @@ var router =  new Router({
           path: 'offlineStore',
           component: Store
         }
+      ]
+    },
+    {
+      path: '/card',
+      component: Card,
+      children: [
+        {
+          path: 'giftCardBuyInfo',
+          name: 'giftCardBuyInfo',
+          component: GiftCardBuyInfo,
+        },
       ]
     },
     {
