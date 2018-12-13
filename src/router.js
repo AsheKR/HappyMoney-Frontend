@@ -20,6 +20,7 @@ import MyBoxHome from '@/components/mybox/MyBoxHome.vue'
 import MyBoxEditStep1 from '@/components/mybox/MyBoxEditStep1.vue'
 import MyBoxEditStep2 from '@/components/mybox/MyBoxEditStep2.vue'
 import PasswordEdit from '@/components/mybox/PasswordEdit.vue'
+import MyBoxInquiry from '@/components/mybox/MyBoxInquiry.vue'
 
 import HappyJoinStore from '@/components/joinStore/HappyJoinStore.vue'
 import Store from '@/components/joinStore/Store.vue'
@@ -127,6 +128,11 @@ var router =  new Router({
           path: 'passwordEdit',
           name: 'mybox/passwordEdit',
           component: PasswordEdit
+        },
+        {
+          path: 'inquiry',
+          name: 'mybox/inquiry',
+          component: MyBoxInquiry
         }
       ]
     },
