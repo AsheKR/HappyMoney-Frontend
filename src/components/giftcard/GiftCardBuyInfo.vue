@@ -8,22 +8,22 @@
         <span>상품권 구입</span>
       </div>
     </div>
-    <div class="giftcardbuy_user">
+    <div class="giftcardbuy_user" v-if="userShow">
       <h4>주문하시는 분</h4>
       <div class="giftcardbuy_user_wrap giftcardbuy_user_sms_wrap" v-if="nowBuyType == 'sms' | nowBuyType == 'address'">
         <div class="giftcardbuy_user_name">
           <span>주문자명</span>
           <span>
-            <input type="checkbox" name="" value="">
-            <label for=""></label>
+            <input type="radio" id="username" checked/>
+            <label for="username">{{ userInfo.name }}</label>
           </span>
         </div>
         <div class="giftcardbuy_user_sms_info">
           <span>휴대폰번호</span>
           <span>
-            <input type="text" name="" value="">-
-            <input type="text" name="" value="">-
-            <input type="text" name="" value="">
+            <input type="text" name="" :value="'0'+userInfo.phone.slice(3, 5)">-
+            <input type="text" name="" :value="userInfo.phone.slice(5, 9)">-
+            <input type="text" name="" :value="userInfo.phone.slice(9, 13)">
           </span>
         </div>
       </div>
@@ -31,22 +31,22 @@
         <div class="giftcardbuy_user_name">
           <span>주문자명</span>
           <span>
-            <input type="checkbox" name="" value="">
-            <label for=""></label>
+            <input type="radio" id="username" checked/>
+            <label for="username">{{ userInfo.name }}</label>
           </span>
         </div>
         <div class="giftcardbuy_user_email_info">
           <span>이메일</span>
           <span>
-            <input type="text" name="" value="">
+            <input type="text" name="" :value="userInfo.email">
           </span>
         </div>
         <div class="giftcardbuy_user_sms_info">
           <span>휴대폰번호</span>
           <span>
-            <input type="text" name="" value="">-
-            <input type="text" name="" value="">-
-            <input type="text" name="" value="">
+            <input type="text" name="" :value="'0'+userInfo.phone.slice(3, 5)">-
+            <input type="text" name="" :value="userInfo.phone.slice(5, 9)">-
+            <input type="text" name="" :value="userInfo.phone.slice(9, 13)">
           </span>
         </div>
       </div>
@@ -60,7 +60,8 @@
               <span>이름</span>
             </td>
             <td class="giftcard_to_user--type">
-              <span>휴대폰번호 또는 이메일</span>
+              <span v-if="this.nowBuyType == 'email'">이메일</span>
+              <span v-else-if="this.nowBuyType == 'sms'">휴대폰번호</span>
             </td>
             <td class="giftcard_to_user--price" v-for="giftcard in giftcardList" :key="giftcard.id">
               <span>{{giftcard.price}}원</span>
@@ -118,7 +119,7 @@
             <tr class="method">
               <td>결제방법</td>
               <td>
-                <input type="radio" name="payment_method" value="kakao" id="kakao">
+                <input type="radio" name="payment_method" value="kakao" id="kakao" checked>
                 <label for="kakao">카카오페이</label>
                 <input type="radio" name="payment_method" value="happyCash" id="happyCash">
                 <label for="happyCash">해피캐시</label>
@@ -228,6 +229,14 @@
 
         paid_amount: 0,
         card_amount: 0,
+
+        userInfo: undefined,
+        userShow: false,
+      }
+    },
+    watch: {
+      nowBuyType() {
+        this.getHappyGiftCard();
       }
     },
     components: {
@@ -244,6 +253,20 @@
         } else {
           return String(result / 10) + '만원권';
         }
+      },
+      getAPIUserProfileInfo() {
+        const url = this.hostname + '/apis/members/get/';
+        const Authorization = this.$cookie.get('Authorization');
+        this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+          response => {
+            if (response.status == '200') {
+              this.userInfo = response.data;
+              this.userShow = true;
+            }
+          },
+          error => {
+            console.log(error);
+          });
       },
       getHappyGiftCard() {
         const url = this.hostname + '/apis/giftcards/happy-giftcard/?delivery_type='+this.nowBuyType;
@@ -277,6 +300,11 @@
         }
       },
       clickPurchaseButton() {
+        if (this.paid_amount == 0) {
+          alert("구매하실 상품권 개수를 선택해주세요!");
+          return;
+        }
+
         var data = {
           paid_amount: this.paid_amount,
           purchase: {
@@ -288,7 +316,11 @@
         data.purchase.purchase_list = this.giftcardResult.map((value, index) => {
           var purchaseItem = Object();
           purchaseItem.name = value.name;
-          purchaseItem.infoTo = value.infoTo;
+          if (this.nowBuyType == 'sms') {
+              purchaseItem.infoTo = '+82' + value.infoTo;
+          } else {
+            purchaseItem.infoTo = value.infoTo;
+          }
           purchaseItem.giftcard_info = [];
 
           value.giftcardValues.map((value, index) => {
@@ -335,6 +367,13 @@
                   .then(
                     response => {
                       console.log(response);
+                      this.$router.push({
+                        name: 'purchase_complete',
+                        params: {
+                          userInfo: this.userInfo,
+                          response: response
+                        }
+                      })
                     },
                     error => {
                       console.log(error);
@@ -354,6 +393,7 @@
     },
     created() {
       this.getHappyGiftCard()
+      this.getAPIUserProfileInfo()
 
       this.giftcardResult.push({
         name: '디버깅',

@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       hostname: require('@/assets/js/variable.js').hostname,
-      nowBuyType: 'email',
+      nowBuyType: 'email'
     }
   },
   components: {

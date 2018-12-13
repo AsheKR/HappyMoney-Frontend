@@ -33,6 +33,7 @@ import FAQ from '@/components/cscenter/FAQ.vue'
 import CSCenterNotice from '@/components/cscenter/CSCenterNotice.vue'
 
 import GiftCardBuyInfo from '@/components/giftcard/GiftCardBuyInfo'
+import AfterPurchase from '@/components/common/AfterPurchase.vue'
 
 Vue.use(Router)
 
@@ -174,7 +175,15 @@ var router =  new Router({
           name: 'giftCardBuyInfo',
           component: GiftCardBuyInfo,
         },
-      ]
+      ],
+      meta: {
+        authRequired: true
+      }
+    },
+    {
+      path: '/complete',
+      name: 'purchase_complete',
+      component: AfterPurchase,
     },
     {
       path: '/event',
