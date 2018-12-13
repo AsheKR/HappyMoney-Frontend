@@ -407,3 +407,113 @@ span.happyBoxMemInfo.memLoginInfo {
   height: 32px;
   display: block;
 }
+
+/* giftCardPurchase */
+
+span.giftCardPurchaseIcon {
+  background-image: url(../images/card/ico_2.png);
+  background-repeat: no-repeat;
+}
+
+span.giftCardPurchaseIcon.address {
+  display: block;
+  background-position: -4px -4px;
+  width: 30px;
+  height: 21px;
+}
+
+span.giftCardPurchaseIcon.email {
+  display: block;
+  background-position: -4px -84px;
+  width: 30px;
+  height: 21px;
+}
+
+span.giftCardPurchaseIcon.sms {
+  display: block;
+  background-position: -4px -164px;
+  width: 30px;
+  height: 24px;
+}
+
+span.giftCardPurchaseIcon.address.active {
+  display: block;
+  background-position: -145px -4px;
+  width: 29px;
+  height: 21px;
+}
+
+span.giftCardPurchaseIcon.email.active {
+  display: block;
+  background-position: -145px -84px;
+  width: 29px;
+  height: 21px;
+}
+
+span.giftCardPurchaseIcon.sms.active {
+  display: block;
+  background-position: -145px -164px;
+  width: 29px;
+  height: 24px;
+}
+
+span.giftCardComment {
+  background-image: url(../images/card/ico_3.png);
+  background-repeat: no-repeat;
+  display: block;
+}
+
+span.giftCardComment.comment_1 {
+  background-position: 0 0;
+  width: 70px;
+  height: 70px;
+}
+
+span.giftCardComment.comment_2 {
+  background-position: 0px -120px;
+  width: 70px;
+  height: 70px;
+}
+
+span.giftCardComment.comment_3 {
+  background-image: url(../images/card/tl_1.png);
+  width: 140px;
+  height: 140px;
+}
+
+span.giftCardComment.comment_4 {
+  background-position: 0px -240px;
+  width: 70px;
+  height: 70px;
+}
+
+span.giftCardComment.comment_5 {
+  background-position: 0px -360px;
+  width: 70px;
+  height: 70px;
+}
+
+span.giftCardListCon {
+  background-image: url(../images/card/icoListAdd.png);
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 13px;
+}
+
+span.giftCardIco1 {
+  background-image: url(../images/card/ico_1.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+span.giftCardIco1.Won {
+  background-position: 0 -297px;
+  width: 46px;
+  height: 46px;
+}
+
+span.giftCardIco1.checkPoint {
+  background-position: 0 0;
+  width: 20px;
+  height: 20px;
+}
