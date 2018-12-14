@@ -119,9 +119,9 @@
             <tr class="method">
               <td>결제방법</td>
               <td>
-                <input type="radio" name="payment_method" value="kakao" id="kakao" checked>
+                <input type="radio" name="payment_method" value="kakao" id="kakao" v-model="payment_method">
                 <label for="kakao">카카오페이</label>
-                <input type="radio" name="payment_method" value="happyCash" id="happyCash">
+                <input type="radio" name="payment_method" value="happyCash" id="happyCash" v-model="payment_method">
                 <label for="happyCash">해피캐시</label>
               </td>
             </tr>
@@ -232,6 +232,8 @@
 
         userInfo: undefined,
         userShow: false,
+
+        payment_method:'kakao',
       }
     },
     watch: {
@@ -371,7 +373,10 @@
                         name: 'purchase_complete',
                         params: {
                           userInfo: this.userInfo,
-                          response: response
+                          response: response,
+                          giftcardList: this.giftcardList,
+                          menu: 'giftCard',
+                          payment_method: this.payment_method,
                         }
                       })
                     },

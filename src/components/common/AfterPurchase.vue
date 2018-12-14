@@ -13,15 +13,36 @@
           <div class="merchant_uid_wrap">
             <div class="merchant_uid">
               <span>주문번호</span>
-              <span>{{ response.data[0].merchant_uid }}</span>
+              <span>{{ response.data[0].merchant_uid.split('_')[1] }}</span>
             </div>
-            <div class="paid_amount">
+            <div class="paid_amount" v-if="menu == 'happyCash'">
               <span>총 결제금액</span>
               <span>{{ response.data[0].full_amount }} 원</span>
             </div>
+            <div class="paid_amount" v-if="menu == 'giftCard'">
+              <span>결제방법</span>
+              <span> {{ payment_methodToHumanize(payment_method) }} </span>
+            </div>
+            <div class="paid_amount" v-if="menu == 'giftCard'">
+              <span>받으시는 분</span>
+              <span>{{ response.data[0].name }}</span>
+              <span>외 ({{ response.data.length - 1 }})명</span>
+            </div>
           </div>
         </div>
-        <span>* 주문내역 및 증빙서류는 <strong>마이페이지 > 이용현황 > 해피캐시 내역조회</strong> 에서 확인 및 출력 가능합니다</span>
+        <span>* 주문내역 및 증빙서류는 <strong>{{ payment_methodToHumanizeResult() }}</strong> 에서 확인 및 출력 가능합니다</span>
+      </div>
+      <div class="giftcard_content" v-if="menu == 'giftCard'">
+        <div class="giftcard_type" v-for="giftcard in giftcardList" :key="giftcard.id">
+          <span>{{ numberToLocaleString(giftcard.price) }}원권</span>
+          <span>{{ giftcard.amount }}매</span>
+          <span> <strong>{{ numberToLocaleString(giftcard.price * giftcard.amount) }}</strong> 원</span>
+        </div>
+        <div class="result">
+          <span class="giftCardIco1 Won"></span>
+          <span>결제금액</span>
+          <span> <strong>{{ numberToLocaleString(response.data[0].full_amount ) }}</strong> 원</span>
+        </div>
       </div>
       <div class="signUpDetailStep2__button">
         <div class="signUpDetailStep2__button--reset" @click.prevent="$router.push({ name: '' })">
@@ -43,15 +64,39 @@
       return {
         userInfo: undefined,
         response: undefined,
+        giftcardList: undefined,
+        menu: undefined,
+        payment_method: undefined,
       }
     },
     components: {
       Balance
     },
+    methods: {
+      numberToLocaleString(value) {
+        return value.toLocaleString()
+      },
+      payment_methodToHumanize(value) {
+        if (value == 'kakao') {
+          return '카카오페이'
+        } else if (value == 'happyCash') {
+          return '해피캐시'
+        }
+      },
+      payment_methodToHumanizeResult() {
+        if (this.menu == 'happyCash') {
+          return '마이페이지 > 이용현황 > 해피캐시 내역조회'
+        } else if (this.menu == 'giftCard') {
+           return '마이페이지 > 이용현황 > 상품권 주문내역조회'
+        }
+      }
+    },
     created() {
       this.userInfo = this.$route.params.userInfo;
       this.response = this.$route.params.response;
-      console.log(this.response);
+      this.giftcardList = this.$route.params.giftcardList;
+      this.menu = this.$route.params.menu;
+      this.payment_method = this.$route.params.payment_method;
     }
   }
 </script>
@@ -113,7 +158,7 @@
               display: flex;
               flex-direction: column;
 
-              > span:last-child {
+              > span:nth-child(2) {
                 margin-top: 15px;
                 color: black;
                 font-size: 1.1rem;
@@ -130,6 +175,63 @@
 
           > strong {
             color: #f35923;
+          }
+        }
+      }
+
+      > .giftcard_content {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-auto-flow: column;
+        background-color: #555;
+        margin-top: 30px;
+
+        > .giftcard_type {
+          color: #ffe7a7;
+          font-size: 0.8em;
+          padding-top: 30px;
+          padding-right: 15px;
+          border-right: 1px solid #666;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          > span:last-child {
+            padding: 20px 0;
+            color: white;
+            font-size: 1.0rem;
+
+            > strong {
+              font-size: 1.2rem;
+              font-weight: normal;
+            }
+          }
+        }
+
+        > .result {
+          grid-column: span 3;
+          padding-bottom: 20px;
+          padding-right: 15px;
+          background-color: #f98015;
+          color: #fff;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: flex-end;
+          font-weight: bold;
+          font-size: 0.8em;
+          position: relative;
+
+          > span.giftCardIco1.Won {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          }
+
+          > span {
+            > strong {
+              font-size: 1.5rem;
+            }
           }
         }
       }
