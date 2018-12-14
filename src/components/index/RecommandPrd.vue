@@ -42,9 +42,10 @@
       },
     },
     created() {
-      const url = this.hostname + '/apis/giftcards/?hot=hot';
+      const url = this.hostname + '/apis/giftcards/';
       this.$http.get(url).then(
         response => {
+          console.log(response);
           if (response.status == '200') {
             this.prdList = response.data;
           }
@@ -82,7 +83,7 @@
 
     > .recommandPrdList {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-auto-flow: column;
       grid-gap: 0.8rem;
 
       .prdWrap {
