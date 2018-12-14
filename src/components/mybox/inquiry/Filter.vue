@@ -96,18 +96,19 @@
     methods: {
       calcDateRange(value, active_number) {
         this.now = new Date();
+        this.pre = new Date();
         this.pre = new Date(this.pre.setDate(this.now.getDate() - value));
         this.dateRangeActive = active_number;
       },
       calcMonthRange(value, active_number) {
         this.now = new Date();
+        this.pre = new Date();
         this.pre = new Date(this.pre.setMonth(this.now.getMonth() - value));
         this.dateRangeActive = active_number;
       }
     },
     created() {
-      this.calcDateRange(7);
-      this.dateRangeActive = 1;
+      this.calcDateRange(7, 1);
     }
   }
 </script>
