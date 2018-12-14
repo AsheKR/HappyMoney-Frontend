@@ -14,7 +14,6 @@ import DetailSignUp from '@/components/sign/DetailSignUp.vue'
 import DetailSignUpStep1 from '@/components/sign/DetailSignUpStep1.vue'
 import DetailSignUpStep2 from '@/components/sign/DetailSignUpStep2.vue'
 import DetailSignUpStep3 from '@/components/sign/DetailSignUpStep3.vue'
-import DetailSignUpStep4 from '@/components/sign/DetailSignUpStep4.vue'
 
 import MyBoxHome from '@/components/mybox/MyBoxHome.vue'
 import MyBoxEditStep1 from '@/components/mybox/MyBoxEditStep1.vue'
@@ -91,14 +90,6 @@ var router =  new Router({
             authCantAccess: true
           }
         },
-        {
-          path: 'up/step4',
-          name: 'signup/step4',
-          component: DetailSignUpStep4,
-          meta: {
-            authCantAccess: true
-          }
-        }
       ],
     },
     {

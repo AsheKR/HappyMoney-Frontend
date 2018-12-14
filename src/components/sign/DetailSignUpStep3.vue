@@ -156,11 +156,9 @@
                 if (response.status == '201') {
                   this.$cookie.set('Authorization', 'Token ' + response.data.token);
 
-                  console.log(response);
-
-                  this.$router.push({
-                    name: 'signup/step4',
-                    params: response.data
+                  alert("회원가입이 완료되었습니다!");
+                  this.$router.go({
+                    path: '/'
                   })
                 }
               },
