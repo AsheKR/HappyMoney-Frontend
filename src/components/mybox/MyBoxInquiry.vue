@@ -5,27 +5,71 @@
       <span>즐거움과 생활이 연결되는 새로운 선물문화</span>
       <img :src="require('@/assets/css/images/mybox/tlUtil.png')" alt="">
     </div>
-    <happyCash />
+    <FilterInquiry :nowItem="menu"/>
+    <ListInquiry :nowItem="menu" :orderResponse="orderResponse"/>
   </div>
 </template>
 
 <script>
-import happyCash from '@/components/mybox/inquiry/happyCash.vue'
+import FilterInquiry from '@/components/mybox/inquiry/Filter.vue'
+import ListInquiry from '@/components/mybox/inquiry/List.vue'
 
 export default {
+  props: ['hostname'],
   data() {
     return {
       menu: undefined,
       title: '',
+
+      orderResponse: undefined,
     }
   },
   components: {
-    happyCash
+    FilterInquiry,
+    ListInquiry,
+  },
+  watch: {
+    '$route.query.name': function() {
+      this.menu = this.$route.query.name;
+      this.title = this.$route.query.title;
+      this.getOrderList();
+    }
+  },
+  methods: {
+    getOrderList() {
+      if ( this.menu == 'happyCash' ) {
+        this.getOrderHappyCashList();
+      } else if (this.menu == 'hammer') {
+        this.getOrderHammerList();
+      } else if (this.menu == 'giftCard') {
+        this.getOrderGiftCardList();
+      }
+    },
+    getOrderGiftCardList() {
+      const url = this.hostname + '/apis/giftcards/purchase-list/'
+      const Authorization = this.$cookie.get('Authorization');
+
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            this.orderResponse = response.data;
+          }
+        },
+        error => {
+          console.log(error);
+        });
+    },
+    getOrderHappyCashList() {
+
+    },
+    getOrderHammerList() {
+
+    }
   },
   created() {
-    console.log(this.$route);
-    this.menu = this.$route.params.name;
-    this.title = this.$route.params.title;
+    this.menu = this.$route.query.name;
+    this.title = this.$route.query.title;
+    this.getOrderList();
   }
 }
 </script>

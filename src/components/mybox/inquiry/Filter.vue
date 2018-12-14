@@ -1,29 +1,60 @@
 <template>
   <div class="inquiryhappyCash">
-    <div class="use_or_save filtering">
-      <div class="title">
-        <span>조회구분</span>
+    <slot v-if="nowItem == 'happyCash'">
+      <div class="use_or_save filtering">
+        <div class="title">
+          <span>조회구분</span>
+        </div>
+        <div class="content">
+          <select v-model="happy_use_or_save">
+            <option value="">전체</option>
+            <option value="s">충전캐시</option>
+            <option value="u">사용캐시</option>
+          </select>
+        </div>
       </div>
-      <div class="content">
-        <select v-model="use_or_save">
-          <option value="">전체</option>
-          <option value="s">충전캐시</option>
-          <option value="u">사용캐시</option>
-        </select>
+      <div class="status filtering">
+        <div class="title">
+          <span>주문상태</span>
+        </div>
+        <div class="content">
+          <select v-model="status">
+            <option value="">전체</option>
+            <option value="False">주문취소</option>
+            <option value="True">결제완료</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="status filtering">
-      <div class="title">
-        <span>주문상태</span>
+    </slot>
+    <slot v-else-if="nowItem == 'giftCard'">
+      <div class="filtering">
+        <div class="title">
+          <span>조회구분</span>
+        </div>
+        <div class="content">
+          <select v-model="giftcardType">
+            <option value="">전체</option>
+            <option value="address">해피머니 상품권</option>
+            <option value="email">해피머니 상품권(이메일)</option>
+            <option value="sms">해피머니 상품권(SMS)</option>
+          </select>
+        </div>
       </div>
-      <div class="content">
-        <select v-model="status">
-          <option value="">전체</option>
-          <option value="False">주문취소</option>
-          <option value="True">결제완료</option>
-        </select>
+    </slot>
+    <slot v-else-if="nowItem == 'hammer'">
+      <div class="use_or_save filtering">
+        <div class="title">
+          <span>조회구분</span>
+        </div>
+        <div class="content">
+          <select v-model="hammer_use_or_save">
+            <option value="">전체</option>
+            <option value="s">충전캐시</option>
+            <option value="u">사용캐시</option>
+          </select>
+        </div>
       </div>
-    </div>
+    </slot>
     <div class="date filtering">
       <div class="title">
         <span>조회기간</span>
@@ -44,10 +75,15 @@
   import Datepicker from 'vuejs-datepicker';
 
   export default {
+    props: ['nowItem'],
     data() {
       return {
-        use_or_save: '',
+        happy_use_or_save: '',
         status: '',
+
+        giftcardType: '',
+
+        hammer_use_or_save: '',
 
         now: new Date(),
         pre: new Date(),

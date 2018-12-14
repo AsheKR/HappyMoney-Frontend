@@ -17,8 +17,8 @@
     <div class="leftMyBoxMenu__item">
       <span class="title">이용현황</span>
       <span @click="routeInquiry({name: 'happyCash', title:'해피캐시 내역 조회'})">- 해피캐시 내역 조회</span>
-      <span @click="">- 상품권 주문내역 조회</span>
-      <span @click="">- 해머내역 조회</span>
+      <span @click="routeInquiry({name: 'hammer', title:'해머 내역 조회'})">- 해머내역 조회</span>
+      <span @click="routeInquiry({name: 'giftCard', title:'상품권 주문 내역 조회'})">- 상품권 주문내역 조회</span>
     </div>
     <div class="leftMyBoxMenu__item">
       <span class="title">보안 관리</span>
@@ -42,10 +42,17 @@
 export default {
   methods: {
     routeInquiry(object) {
-      this.$router.push({
-        name: 'mybox/inquiry',
-        params: object
-      });
+      if (this.$route.name !== 'mybox/inquiry') {
+        this.$router.push({
+          name: 'mybox/inquiry',
+          query: object
+        });
+      } else {
+        this.$router.replace({
+          name: 'mybox/inquiry',
+          query: object
+        });
+      }
     }
   }
 }
