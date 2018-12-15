@@ -49,8 +49,8 @@
         <div class="content">
           <select v-model="hammer_use_or_save">
             <option value="">전체</option>
-            <option value="s">충전캐시</option>
-            <option value="u">사용캐시</option>
+            <option value="s">충전해머</option>
+            <option value="u">사용해머</option>
           </select>
         </div>
       </div>
@@ -67,12 +67,19 @@
         <span> ~&nbsp;&nbsp;</span>
         <Datepicker v-model="now" :format="'yyyy-MM-dd'"/>
       </div>
+      <div class="buttonWrap" @click="filterItem()">
+        <button type="button" name="button">
+          <span class="joinStoreSearch icoSearch btnSubmit"></span>
+          <span>조회</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import Datepicker from 'vuejs-datepicker';
+  import { EventBus } from '@/components/common/EventBus.js'
 
   export default {
     props: ['nowItem'],
@@ -105,6 +112,22 @@
         this.pre = new Date();
         this.pre = new Date(this.pre.setMonth(this.now.getMonth() - value));
         this.dateRangeActive = active_number;
+      },
+      filterItem() {
+        var object = Object();
+
+        if (this.nowItem == 'giftCard') {
+          object.giftcardType = this.giftcardType;
+        } else if (this.nowItem == 'happyCash') {
+          object.happy_use_or_save = this.happy_use_or_save;
+          object.status = this.status;
+        } else if (this.nowItem == 'hammer') {
+          object.hammer_use_or_save = this.hammer_use_or_save;
+        }
+        object.start = this.now;
+        object.end = this.pre;
+
+        EventBus.$emit('myBoxInquiryfilterItem', object);
       }
     },
     created() {
@@ -176,6 +199,20 @@
           }
         }
 
+      }
+
+      > .buttonWrap {
+        margin-top: 10px;
+
+        > button {
+          border: 1px solid #d54e1f;
+          background-color: #f35923;
+          color: white;
+          text-align: center;
+          font-weight: bold;
+
+          padding: 5px 10px;
+        }
       }
     }
   }

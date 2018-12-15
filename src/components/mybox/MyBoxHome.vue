@@ -86,17 +86,6 @@
               <span> <strong>캐시잔액(원)</strong> </span>
             </div>
           </div>
-          <div class="myBoxHome__recent__itemList" v-for="event in eventList" :key="event.id">
-            <div class="myBoxHome__recent--item">
-              <span>{{ event.id }}</span>
-            </div>
-            <div class="myBoxHome__recent--item">
-              <span>{{ event.title }}</span>
-            </div>
-            <div class="myBoxHome__recent--item">
-              <span>{{ event.start }} ~ {{ event.end }}</span>
-            </div>
-          </div>
           <div class="myBoxHome__recent__button">
             <button type="button" >주문내역 전체보기</button>
           </div>

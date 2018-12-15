@@ -2,9 +2,76 @@
   <div class="myboxInquiryList">
     <div class="myBoxHome__recent">
       <div class="myBoxHome__recent__ordering">
-        <h4>최근 이용현황</h4>
+        <h4>주문 내역</h4>
       </div>
-      <table class="myBoxHome__recentWrap">
+      <table class="myBoxHome__recentWrap" v-if="nowItem == 'giftCard'">
+        <tr class="myBoxHome__recent myBoxHome__recent--desc">
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 주문번호 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 주문일시 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 상품명 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 주문금액 (원)</strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 주문상태 </strong> </span>
+          </th>
+        </tr>
+        <tr class="myBoxHome__recent" v-for="order in orderList" :key="order.id">
+          <td class="myBoxHome__recent--item">
+            <span>{{ order.merchant_uid.split('_')[1] }}</span>
+          </td>
+          <td class="myBoxHome__recent--item">
+            <span>{{ dateHumanize(order.created_at) }}</span>
+          </td>
+          <td class="myBoxHome__recent--item">
+            <span>{{ giftcardTypeHumanize(order.delivery_type) }}</span>
+          </td>
+          <td class="myBoxHome__recent--item myBoxHome__recent--won">
+            <span>{{ numberToLocaleString(order.full_amount) }}</span>
+          </td>
+          <td class="myBoxHome__recent--item">
+            <span v-if="order.is_purchase == true">결제완료</span>
+            <span v-if="order.is_purchase == false">주문취소</span>
+          </td>
+        </tr>
+      </table>
+      <table class="myBoxHome__recentWrap" v-if="nowItem == 'hammer'">
+        <tr class="myBoxHome__recent myBoxHome__recent--desc">
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 날짜 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 내용 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 사용해머 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 적립해머 </strong> </span>
+          </th>
+        </tr>
+        <tr class="myBoxHome__recent" v-for="order in orderList" :key="order.id">
+          <td class="myBoxHome__recent--item">
+            <span>{{ dateHumanize(order.created_at) }}</span>
+          </td>
+          <td class="myBoxHome__recent--item">
+            <span>{{ order.content }}</span>
+          </td>
+          <td class="myBoxHome__recent--item myBoxHome__recent--won">
+            <span>{{ order.use_or_save == 'u' ? order.amount+'톤' : ''  }}</span>
+          </td>
+          <td class="myBoxHome__recent--item myBoxHome__recent--won">
+            <span>{{ order.use_or_save == 's' ? order.amount+'톤' : ''  }}</span>
+          </td>
+        </tr>
+      </table>
+      <table class="myBoxHome__recentWrap" v-if="nowItem == 'happyCash'">
         <tr class="myBoxHome__recent myBoxHome__recent--desc">
           <th class="myBoxHome__recent--item">
             <span> <strong> 주문번호 </strong> </span>
@@ -42,16 +109,27 @@
         </tr>
       </table>
     </div>
+    <div class="nowEvent__pagination">
+      <a @click.prevent="getMyBoxInquryEventBus(pre)" v-if="pre"><</a>
+      <a @click.prevent="getMyBoxInquryEventBus(page[1])" v-for="page in pageList" :class="{ active: page[2] }">
+        <span v-if="page[1] == null">...</span>
+        <span v-else>{{ page[1] }}</span>
+      </a>
+      <a @click.prevent="getMyBoxInquryEventBus(next)" v-if="next">></a>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    props: ['orderResponse'],
+    props: ['orderResponse', 'nowItem'],
     watch: {
       orderResponse: {
         handler(val) {
           this.orderList = val.results;
+          this.pre = val.previous;
+          this.next = val.next;
+          this.pageList = val.page_links;
         },
         deep: true
       },
@@ -68,6 +146,8 @@
       return {
         pre: undefined,
         next: undefined,
+        pageList: undefined,
+
         orderList: [],
       }
     },
@@ -90,6 +170,9 @@
       },
       getTwpDigits(date) {
         return ("0" + date).slice(-2);
+      },
+      getMyBoxInquryEventBus() {
+
       },
     }
   }
@@ -172,6 +255,24 @@
               text-align: center;
             }
           }
+        }
+      }
+    }
+
+    > .nowEvent__pagination {
+      margin-top: 50px;
+
+      > a {
+        display: inline-block;
+        padding: 7px 11px;
+        background-color: white;
+        border: 1px solid #ccc;
+        cursor: pointer;
+
+        &.active {
+          background-color: black;
+          color: white;
+          border: 1px solid black;
         }
       }
     }

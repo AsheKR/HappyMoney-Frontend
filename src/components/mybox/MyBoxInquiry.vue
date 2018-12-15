@@ -13,6 +13,7 @@
 <script>
 import FilterInquiry from '@/components/mybox/inquiry/Filter.vue'
 import ListInquiry from '@/components/mybox/inquiry/List.vue'
+import { EventBus } from '@/components/common/EventBus.js'
 
 export default {
   props: ['hostname'],
@@ -32,21 +33,55 @@ export default {
     '$route.query.name': function() {
       this.menu = this.$route.query.name;
       this.title = this.$route.query.title;
-      this.getOrderList();
+      this.getOrderList(Object());
     }
   },
   methods: {
-    getOrderList() {
+    dateToUrl(date) {
+      return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+    },
+    getOrderList(object) {
       if ( this.menu == 'happyCash' ) {
-        this.getOrderHappyCashList();
+        this.getOrderHappyCashList(object);
       } else if (this.menu == 'hammer') {
-        this.getOrderHammerList();
+        this.getOrderHammerList(object);
       } else if (this.menu == 'giftCard') {
-        this.getOrderGiftCardList();
+        this.getOrderGiftCardList(object);
       }
     },
-    getOrderGiftCardList() {
-      const url = this.hostname + '/apis/giftcards/purchase-list/'
+    undefinedToEmptyString(value) {
+      if (value == undefined) {
+        return '';
+      }
+      return value;
+    },
+    getOrderGiftCardList(object) {
+      var start = this.undefinedToEmptyString(object.start);
+      var end = this.undefinedToEmptyString(object.end);
+      const giftcardType = this.undefinedToEmptyString(object.giftcardType);
+
+      if (start !== '') {
+        start = this.dateToUrl(start);
+        end = this.dateToUrl(end);
+      }
+
+      const url = this.hostname + '/apis/giftcards/purchase-list/?created_at__lt='+start
+          +'&created_at__gte='+end+'&delivery_type='+giftcardType;
+      const Authorization = this.$cookie.get('Authorization');
+
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            console.log(response);
+            this.orderResponse = response.data;
+          }
+        },
+        error => {
+          console.log(error);
+        });
+    },
+    getOrderHappyCashList(object) {
+      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hc';
       const Authorization = this.$cookie.get('Authorization');
 
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
@@ -59,17 +94,29 @@ export default {
           console.log(error);
         });
     },
-    getOrderHappyCashList() {
+    getOrderHammerList(object) {
+      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hm';
+      const Authorization = this.$cookie.get('Authorization');
 
-    },
-    getOrderHammerList() {
-
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            this.orderResponse = response.data;
+          }
+        },
+        error => {
+          console.log(error);
+        });
     }
   },
   created() {
     this.menu = this.$route.query.name;
     this.title = this.$route.query.title;
-    this.getOrderList();
+    this.getOrderList(Object());
+
+    EventBus.$on('myBoxInquiryfilterItem', (object) => {
+      this.getOrderList(object);
+    })
   }
 }
 </script>
