@@ -3,7 +3,7 @@
     <div class="userInfo">
       <img :src="require('@/assets/css/images/card/memberImg.png')" alt="">
       <div class="userInfo_desc">
-        <span>{{ userInfo.name }}님</span>
+        <span v-if="userInfo">{{ userInfo.name }}님</span>
         <span>결제비밀번호 신청하기</span>
         <span>키보드보안</span>
       </div>
@@ -11,13 +11,13 @@
     <div class="happyCash cash">
       <span>해피캐시 잔액</span>
       <span>
-        <strong>{{ numberToLocaleString(userInfo.happy_cash) }}</strong>원
+        <strong v-if="userInfo">{{ numberToLocaleString(userInfo.happy_cash) }}</strong>원
       </span>
     </div>
     <div class="hammer cash">
       <span>해머 잔액</span>
       <span>
-        <strong>{{ numberToLocaleString(userInfo.hammer) }}</strong>톤
+        <strong v-if="userInfo">{{ numberToLocaleString(userInfo.hammer) }}</strong>톤
       </span>
     </div>
   </div>
@@ -26,10 +26,18 @@
 <script>
 export default {
   props: ['userInfo'],
+  data() {
+    return {
+      show: false
+    }
+  },
   methods: {
     numberToLocaleString(value) {
       return value.toLocaleString()
     }
+  },
+  mounted() {
+    this.show = true;
   }
 }
 </script>

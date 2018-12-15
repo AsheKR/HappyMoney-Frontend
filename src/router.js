@@ -8,6 +8,7 @@ import EventView from './views/EventView.vue'
 import CustomerCenter from './views/CustomerCenter.vue'
 import MyBox from './views/MyBox.vue'
 import Card from './views/Card.vue'
+import Cash from './views/Cash.vue'
 
 import DetailSignIn from '@/components/sign/DetailSignIn.vue'
 import DetailSignUp from '@/components/sign/DetailSignUp.vue'
@@ -34,6 +35,8 @@ import CSCenterNotice from '@/components/cscenter/CSCenterNotice.vue'
 
 import GiftCardBuyInfo from '@/components/giftcard/GiftCardBuyInfo'
 import AfterPurchase from '@/components/common/AfterPurchase.vue'
+
+import GiftCardCharge from '@/components/cash/pay.vue'
 
 Vue.use(Router)
 
@@ -176,6 +179,17 @@ var router =  new Router({
       meta: {
         authRequired: true
       }
+    },
+    {
+      path: '/cash',
+      component: Cash,
+      children: [
+        {
+          path: 'giftCardCharge',
+          name: 'giftCardCharge',
+          component: GiftCardCharge
+        }
+      ]
     },
     {
       path: '/complete',

@@ -368,11 +368,10 @@
                   this.$http.post(after_url, after_data, {headers: {'Authorization': Authorization}})
                   .then(
                     response => {
-                      console.log(response);
                       this.$router.push({
                         name: 'purchase_complete',
                         params: {
-                          userInfo: this.userInfo,
+                          hostname: this.hostname,
                           response: response,
                           giftcardList: this.giftcardList,
                           menu: 'giftCard',
