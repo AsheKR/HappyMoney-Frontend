@@ -108,6 +108,62 @@
           </td>
         </tr>
       </table>
+      <table class="myBoxHome__recentWrap" v-if="nowItem == 'emailGiftCard'">
+        <tr class="myBoxHome__recent myBoxHome__recent--desc">
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 주문번호 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 수령인 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 이메일 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> <p>핀번호</p> <p>(발행일)</p> </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> <p>사용</p> <p>여부</p> </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 금액 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 주문일 </strong> </span>
+          </th>
+          <th class="myBoxHome__recent--item">
+            <span> <strong> 재발송 </strong> </span>
+          </th>
+        </tr>
+        <tr class="myBoxHome__recent" v-for="(order, index) in orderList" :key="order.id">
+          <td class="myBoxHome__recent--item">
+            <span>{{ order.created_in_order.order_gift_card.merchant_uid.split('_')[1] }}</span>
+          </td>
+          <td class="myBoxHome__recent--item">
+            {{ order.created_in_order.order_gift_card.name }}
+          </td>
+          <td class="myBoxHome__recent--item">
+            {{ order.created_in_order.order_gift_card.email }}
+          </td>
+          <td class="myBoxHome__recent--item">
+            <p>{{ order.PIN }}</p>
+            <p>{{ dateHumanizeYYDDMM(order.created_at) }}</p>
+          </td>
+          <td class="myBoxHome__recent--item">
+            <span v-if="order.is_used == false">미사용</span>
+            <span v-else>사용</span>
+          </td>
+          <td class="myBoxHome__recent--item">
+            {{ order.created_in_order.gift_card.price }}
+          </td>
+          <td class="myBoxHome__recent--item">
+            {{ dateHumanizeYYDDMM(order.created_in_order.order_gift_card.created_at) }}
+          </td>
+          <td class="myBoxHome__recent--item">
+            재발송
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="nowEvent__pagination">
       <a @click.prevent="getMyBoxInquryEventBus(pre)" v-if="pre"><</a>
@@ -163,6 +219,10 @@
         } else if (type == 'address') {
           return '해피머니 온라인상품권';
         }
+      },
+      dateHumanizeYYDDMM(dateStr) {
+        var date = new Date(dateStr);
+        return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + this.getTwpDigits(date.getDate())
       },
       dateHumanize(dateStr) {
         var date = new Date(dateStr);
@@ -236,6 +296,10 @@
             border-right: 1px solid #ddd;
             border-bottom: 1px solid #ddd;
 
+            p {
+              margin: 0;
+            }
+
             &.myBoxHome__recent--won {
               text-align: right;
               padding-right: 10px;
@@ -251,6 +315,7 @@
             background-color: #f5f5f5;
 
             > th {
+              border-top: 1px solid black;
               color: black !important;
               text-align: center;
             }

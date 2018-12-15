@@ -6,8 +6,8 @@
     </div>
     <div class="leftMyBoxMenu__item">
       <span class="title">해피머니 관리</span>
-      <span>- 이메일상품권 재발송</span>
-      <span>- SMS상품권 재발송</span>
+      <span @click="routeInquiry({name: 'emailGiftCard', title: '이메일 상품권 재발송'})">- 이메일상품권 재발송</span>
+      <span @click="routeInquiry({name: 'smsGiftCard', title: 'SMS 상품권 재발송'})">- SMS 상품권 재발송</span>
       <span>- 모바일상품권 재발송</span>
       <span>- 모바일상품권 유효기간연장</span>
       <span>- 모바일상품권 잔액 환불</span>

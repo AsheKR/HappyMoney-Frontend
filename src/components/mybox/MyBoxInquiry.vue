@@ -47,6 +47,10 @@ export default {
         this.getOrderHammerList(object);
       } else if (this.menu == 'giftCard') {
         this.getOrderGiftCardList(object);
+      } else if (this.menu == 'smsGiftCard') {
+        this.getOrderSMSPINList(object);
+      } else if (this.menu == 'emailGiftCard') {
+        this.getOrderEmailPINList(object);
       }
     },
     undefinedToEmptyString(value) {
@@ -55,24 +59,33 @@ export default {
       }
       return value;
     },
+    calcStartEnd(start, end) {
+      if (start !== '') {
+        start = this.dateToUrl(new Date(start.setDate(start.getDate() + 1)));
+        end = this.dateToUrl(end);
+      }
+
+      const startEndObject = {
+        start: start,
+        end: end
+      }
+
+      return startEndObject
+    },
     getOrderGiftCardList(object) {
       var start = this.undefinedToEmptyString(object.start);
       var end = this.undefinedToEmptyString(object.end);
       const giftcardType = this.undefinedToEmptyString(object.giftcardType);
 
-      if (start !== '') {
-        start = this.dateToUrl(start);
-        end = this.dateToUrl(end);
-      }
+      const startEndObject = this.calcStartEnd(start, end);
 
-      const url = this.hostname + '/apis/giftcards/purchase-list/?created_at__lt='+start
-          +'&created_at__gte='+end+'&delivery_type='+giftcardType;
+      const url = this.hostname + '/apis/giftcards/purchase-list/?created_at__lte='+startEndObject.start
+          +'&created_at__gte='+startEndObject.end+'&delivery_type='+giftcardType;
       const Authorization = this.$cookie.get('Authorization');
 
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
         response => {
           if (response.status == '200') {
-            console.log(response);
             this.orderResponse = response.data;
           }
         },
@@ -81,7 +94,16 @@ export default {
         });
     },
     getOrderHappyCashList(object) {
-      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hc';
+      var start = this.undefinedToEmptyString(object.start);
+      var end = this.undefinedToEmptyString(object.end);
+      var use_or_save = this.undefinedToEmptyString(object.hammer_use_or_save)
+
+      const startEndObject = this.calcStartEnd(start, end);
+
+      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hc&use_or_save='+use_or_save
+                  +'&created_at__lte='+startEndObject.start
+                  + '&created_at__gte='+startEndObject.end;
+
       const Authorization = this.$cookie.get('Authorization');
 
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
@@ -95,7 +117,15 @@ export default {
         });
     },
     getOrderHammerList(object) {
-      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hm';
+      var start = this.undefinedToEmptyString(object.start);
+      var end = this.undefinedToEmptyString(object.end);
+      var use_or_save = this.undefinedToEmptyString(object.hammer_use_or_save)
+
+      const startEndObject = this.calcStartEnd(start, end);
+
+      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hm&use_or_save='+use_or_save
+                  +'&created_at__lte='+startEndObject.start
+                  + '&created_at__gte='+startEndObject.end;
       const Authorization = this.$cookie.get('Authorization');
 
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
@@ -107,7 +137,51 @@ export default {
         error => {
           console.log(error);
         });
-    }
+    },
+    getOrderSMSPINList(object) {
+      var start = this.undefinedToEmptyString(object.start);
+      var end = this.undefinedToEmptyString(object.end);
+
+      const startEndObject = this.calcStartEnd(start, end);
+
+      const url = this.hostname + '/apis/giftcards/pin-list/?delivery_type=sms'
+                                +'&created_at__lte='+startEndObject.start
+                                + '&created_at__gte='+startEndObject.end;
+
+      const Authorization = this.$cookie.get('Authorization');
+
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            this.orderResponse = response.data;
+          }
+        },
+        error => {
+          console.log(error);
+        });
+    },
+    getOrderEmailPINList(object) {
+      var start = this.undefinedToEmptyString(object.start);
+      var end = this.undefinedToEmptyString(object.end);
+
+      const startEndObject = this.calcStartEnd(start, end);
+
+      const url = this.hostname + '/apis/giftcards/pin-list/?delivery_type=email'
+                                +'&created_at__lte='+startEndObject.start
+                                + '&created_at__gte='+startEndObject.end;
+
+      const Authorization = this.$cookie.get('Authorization');
+
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            this.orderResponse = response.data;
+          }
+        },
+        error => {
+          console.log(error);
+        });
+    },
   },
   created() {
     this.menu = this.$route.query.name;
