@@ -61,7 +61,7 @@
             <span>{{ dateHumanize(order.created_at) }}</span>
           </td>
           <td class="myBoxHome__recent--item">
-            <span>{{ order.content }}</span>
+            <span>{{ order.merchant_uid }}</span>
           </td>
           <td class="myBoxHome__recent--item myBoxHome__recent--won">
             <span>{{ order.use_or_save == 'u' ? order.amount+'톤' : ''  }}</span>
@@ -77,16 +77,13 @@
             <span> <strong> 주문번호 </strong> </span>
           </th>
           <th class="myBoxHome__recent--item">
-            <span> <strong> 주문일시 </strong> </span>
+            <span> <strong> 날짜 </strong> </span>
           </th>
           <th class="myBoxHome__recent--item">
-            <span> <strong> 상품명 </strong> </span>
+            <span> <strong> 사용캐시(원) </strong> </span>
           </th>
           <th class="myBoxHome__recent--item">
-            <span> <strong> 주문금액 (원)</strong> </span>
-          </th>
-          <th class="myBoxHome__recent--item">
-            <span> <strong> 주문상태 </strong> </span>
+            <span> <strong> 충전캐시(원) </strong> </span>
           </th>
         </tr>
         <tr class="myBoxHome__recent" v-for="order in orderList" :key="order.id">
@@ -96,15 +93,11 @@
           <td class="myBoxHome__recent--item">
             <span>{{ dateHumanize(order.created_at) }}</span>
           </td>
-          <td class="myBoxHome__recent--item">
-            <span>{{ giftcardTypeHumanize(order.delivery_type) }}</span>
+          <td class="myBoxHome__recent--item myBoxHome__recent--won">
+            <span>{{ order.use_or_save == 'u' ? order.amount+'원' : ''  }}</span>
           </td>
           <td class="myBoxHome__recent--item myBoxHome__recent--won">
-            <span>{{ numberToLocaleString(order.full_amount) }}</span>
-          </td>
-          <td class="myBoxHome__recent--item">
-            <span v-if="order.is_purchase == true">결제완료</span>
-            <span v-if="order.is_purchase == false">주문취소</span>
+            <span>{{ order.use_or_save == 's' ? order.amount+'원' : ''  }}</span>
           </td>
         </tr>
       </table>
@@ -230,9 +223,6 @@
       },
       getTwpDigits(date) {
         return ("0" + date).slice(-2);
-      },
-      getMyBoxInquryEventBus() {
-
       },
     }
   }
