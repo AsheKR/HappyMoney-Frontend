@@ -23,6 +23,7 @@ export default {
       title: '',
 
       orderResponse: undefined,
+      nowSearchObject: undefined,
     }
   },
   components: {
@@ -73,14 +74,24 @@ export default {
       return startEndObject
     },
     getOrderGiftCardList(object) {
-      var start = this.undefinedToEmptyString(object.start);
-      var end = this.undefinedToEmptyString(object.end);
-      const giftcardType = this.undefinedToEmptyString(object.giftcardType);
+      var page = 1;
+      if (object.page_direction) {
+        page = object.page;
+      } else {
+        var start = this.undefinedToEmptyString(object.start);
+        var end = this.undefinedToEmptyString(object.end);
+        const giftcardType = this.undefinedToEmptyString(object.giftcardType);
 
-      const startEndObject = this.calcStartEnd(start, end);
+        const startEndObject = this.calcStartEnd(start, end);
+        this.nowSearchObject = {
+          startEndObject: startEndObject,
+          giftcardType: giftcardType,
+        }
+      }
 
-      const url = this.hostname + '/apis/giftcards/purchase-list/?created_at__lte='+startEndObject.start
-          +'&created_at__gte='+startEndObject.end+'&delivery_type='+giftcardType;
+      const url = this.hostname + '/apis/giftcards/purchase-list/?created_at__lte='+this.nowSearchObject.startEndObject.start
+          +'&created_at__gte='+this.nowSearchObject.startEndObject.end+'&delivery_type='+this.nowSearchObject.giftcardType
+          +'&page='+page;
       const Authorization = this.$cookie.get('Authorization');
 
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
@@ -94,15 +105,25 @@ export default {
         });
     },
     getOrderHappyCashList(object) {
-      var start = this.undefinedToEmptyString(object.start);
-      var end = this.undefinedToEmptyString(object.end);
-      var use_or_save = this.undefinedToEmptyString(object.hammer_use_or_save)
+      var page = 1;
+      if (object.page_direction) {
+        page = object.page;
+      } else {
+        var start = this.undefinedToEmptyString(object.start);
+        var end = this.undefinedToEmptyString(object.end);
+        var use_or_save = this.undefinedToEmptyString(object.happy_use_or_save)
 
-      const startEndObject = this.calcStartEnd(start, end);
+        const startEndObject = this.calcStartEnd(start, end);
+        this.nowSearchObject = {
+          startEndObject: startEndObject,
+          use_or_save: use_or_save,
+        }
+      }
 
-      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hc&use_or_save='+use_or_save
-                  +'&created_at__lte='+startEndObject.start
-                  + '&created_at__gte='+startEndObject.end;
+      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hc&use_or_save='+this.nowSearchObject.use_or_save
+                  +'&created_at__lte='+this.nowSearchObject.startEndObject.start
+                  + '&created_at__gte='+this.nowSearchObject.startEndObject.end
+                  +'&page='+page;
 
       const Authorization = this.$cookie.get('Authorization');
 
@@ -117,15 +138,26 @@ export default {
         });
     },
     getOrderHammerList(object) {
-      var start = this.undefinedToEmptyString(object.start);
-      var end = this.undefinedToEmptyString(object.end);
-      var use_or_save = this.undefinedToEmptyString(object.hammer_use_or_save)
+      var page = 1;
+      if (object.page_direction) {
+        page = object.page;
+      } else {
+        var start = this.undefinedToEmptyString(object.start);
+        var end = this.undefinedToEmptyString(object.end);
+        var use_or_save = this.undefinedToEmptyString(object.hammer_use_or_save)
 
-      const startEndObject = this.calcStartEnd(start, end);
+        const startEndObject = this.calcStartEnd(start, end);
+        this.nowSearchObject = {
+          startEndObject: startEndObject,
+          use_or_save: use_or_save,
+        }
+      }
 
-      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hm&use_or_save='+use_or_save
-                  +'&created_at__lte='+startEndObject.start
-                  + '&created_at__gte='+startEndObject.end;
+      const url = this.hostname + '/apis/cashes/purchase-list/?hammer_or_cash=hm&use_or_save='+this.nowSearchObject.use_or_save
+                  +'&created_at__lte='+this.nowSearchObject.startEndObject.start
+                  + '&created_at__gte='+this.nowSearchObject.startEndObject.end
+                  +'&page='+page;
+
       const Authorization = this.$cookie.get('Authorization');
 
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
@@ -139,14 +171,23 @@ export default {
         });
     },
     getOrderSMSPINList(object) {
-      var start = this.undefinedToEmptyString(object.start);
-      var end = this.undefinedToEmptyString(object.end);
+      var page = 1;
+      if (object.page_direction) {
+        page = object.page;
+      } else {
+        var start = this.undefinedToEmptyString(object.start);
+        var end = this.undefinedToEmptyString(object.end);
 
-      const startEndObject = this.calcStartEnd(start, end);
+        const startEndObject = this.calcStartEnd(start, end);
+        this.nowSearchObject = {
+          startEndObject: startEndObject,
+        }
+      }
 
       const url = this.hostname + '/apis/giftcards/pin-list/?delivery_type=sms'
-                                +'&created_at__lte='+startEndObject.start
-                                + '&created_at__gte='+startEndObject.end;
+                                +'&created_at__lte='+this.nowSearchObject.startEndObject.start
+                                + '&created_at__gte='+this.nowSearchObject.startEndObject.end
+                                +'&page='+page;
 
       const Authorization = this.$cookie.get('Authorization');
 
@@ -161,14 +202,23 @@ export default {
         });
     },
     getOrderEmailPINList(object) {
-      var start = this.undefinedToEmptyString(object.start);
-      var end = this.undefinedToEmptyString(object.end);
+      var page = 1;
+      if (object.page_direction) {
+        page = object.page;
+      } else {
+        var start = this.undefinedToEmptyString(object.start);
+        var end = this.undefinedToEmptyString(object.end);
 
-      const startEndObject = this.calcStartEnd(start, end);
+        const startEndObject = this.calcStartEnd(start, end);
+        this.nowSearchObject = {
+          startEndObject: startEndObject,
+        }
+      }
 
       const url = this.hostname + '/apis/giftcards/pin-list/?delivery_type=email'
-                                +'&created_at__lte='+startEndObject.start
-                                + '&created_at__gte='+startEndObject.end;
+                                +'&created_at__lte='+this.nowSearchObject.startEndObject.start
+                                + '&created_at__gte='+this.nowSearchObject.startEndObject.end
+                                +'&page='+page;
 
       const Authorization = this.$cookie.get('Authorization');
 
@@ -189,6 +239,9 @@ export default {
     this.getOrderList(Object());
 
     EventBus.$on('myBoxInquiryfilterItem', (object) => {
+      this.getOrderList(object);
+    })
+    EventBus.$on('getMyBoxInquryEventBus', (object) => {
       this.getOrderList(object);
     })
   }

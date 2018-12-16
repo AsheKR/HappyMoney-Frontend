@@ -170,14 +170,29 @@
 </template>
 
 <script>
+  import { EventBus } from '@/components/common/EventBus.js'
+
   export default {
     props: ['orderResponse', 'nowItem'],
     watch: {
       orderResponse: {
         handler(val) {
           this.orderList = val.results;
-          this.pre = val.previous;
-          this.next = val.next;
+          if (val.next !== null) {
+            this.next = val.next.split('&page=')[1].slice(0, 1);
+          } else {
+            this.next = null;
+          }
+          if (val.previous !== null) {
+            this.pre = val.previous.split('&page=')[1];
+            if (this.pre == null) {
+              this.pre = 1;
+            } else {
+              this.pre = this.pre.slice(0, 1);
+            }
+          } else {
+            this.pre = null;
+          }
           this.pageList = val.page_links;
         },
         deep: true
@@ -215,7 +230,6 @@
       },
       dateHumanizeYYMMDD(dateStr) {
         var date = new Date(dateStr);
-        console.log(date);
         return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + this.getTwpDigits(date.getDate())
       },
       dateHumanize(dateStr) {
@@ -225,6 +239,13 @@
       getTwpDigits(date) {
         return ("0" + date).slice(-2);
       },
+      getMyBoxInquryEventBus(page) {
+        const object = {
+          page_direction: true,
+          page: page,
+        }
+        EventBus.$emit('getMyBoxInquryEventBus', object);
+      }
     }
   }
 </script>

@@ -13,18 +13,6 @@
           </select>
         </div>
       </div>
-      <div class="status filtering">
-        <div class="title">
-          <span>주문상태</span>
-        </div>
-        <div class="content">
-          <select v-model="status">
-            <option value="">전체</option>
-            <option value="False">주문취소</option>
-            <option value="True">결제완료</option>
-          </select>
-        </div>
-      </div>
     </slot>
     <slot v-else-if="nowItem == 'giftCard'">
       <div class="filtering">
