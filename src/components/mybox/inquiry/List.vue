@@ -140,7 +140,7 @@
           </td>
           <td class="myBoxHome__recent--item">
             <p>{{ order.PIN }}</p>
-            <p>{{ dateHumanizeYYDDMM(order.created_at) }}</p>
+            <p>{{ order.created_at }}</p>
           </td>
           <td class="myBoxHome__recent--item">
             <span v-if="order.is_used == false">미사용</span>
@@ -150,7 +150,7 @@
             {{ order.created_in_order.gift_card.price }}
           </td>
           <td class="myBoxHome__recent--item">
-            {{ dateHumanizeYYDDMM(order.created_in_order.order_gift_card.created_at) }}
+            {{ dateHumanizeYYMMDD(order.created_in_order.order_gift_card.created_at) }}
           </td>
           <td class="myBoxHome__recent--item">
             재발송
@@ -213,8 +213,9 @@
           return '해피머니 온라인상품권';
         }
       },
-      dateHumanizeYYDDMM(dateStr) {
+      dateHumanizeYYMMDD(dateStr) {
         var date = new Date(dateStr);
+        console.log(date);
         return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + this.getTwpDigits(date.getDate())
       },
       dateHumanize(dateStr) {

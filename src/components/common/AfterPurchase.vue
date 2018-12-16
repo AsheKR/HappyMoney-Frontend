@@ -8,6 +8,44 @@
         <span> <strong>구매가 완료</strong>되었습니다.</span>
       </div>
       <div class="purchase_content">
+        <div class="charge_content_detail" v-if="menu == 'giftCardToHappyCash'">
+          <table class="myBoxHome__recentWrap">
+            <tr class="myBoxHome__recent myBoxHome__recent--desc">
+              <th class="myBoxHome__recent--item">
+                <span> <strong> 번호 </strong> </span>
+              </th>
+              <th class="myBoxHome__recent--item">
+                <span> <strong> 주문번호 </strong> </span>
+              </th>
+              <th class="myBoxHome__recent--item">
+                <span> <strong> 핀(PIN)/바코드번호 </strong> </span>
+              </th>
+              <th class="myBoxHome__recent--item">
+                <span> <strong> 발행일/인증번호 </strong> </span>
+              </th>
+              <th class="myBoxHome__recent--item">
+                <span> <strong> 충전금액 </strong> </span>
+              </th>
+            </tr>
+            <tr v-for="(order, index) in response.data.datas" class="myBoxHome__recent">
+              <td class="myBoxHome__recent--item">
+                <span> {{ index+1 }} </span>
+              </td>
+              <td class="myBoxHome__recent--item">
+                <span> {{ response.data.merchant_uid.split('_')[1] }} </span>
+              </td>
+              <td class="myBoxHome__recent--item">
+                <span> {{ order.PIN }} </span>
+              </td>
+              <td class="myBoxHome__recent--item">
+                <span> {{ order.created_at }} </span>
+              </td>
+              <td class="myBoxHome__recent--item">
+                <span> {{ numberToLocaleString(order.price) }} 원 </span>
+              </td>
+            </tr>
+          </table>
+        </div>
         <div class="purchase_content_detail">
           <h4>결제 내역</h4>
           <div class="merchant_uid_wrap">
@@ -33,7 +71,17 @@
               </div>
               <div class="paid_amount">
                 <span>총 결제금액</span>
-                <span>{{ paid_amount }} 원</span>
+                <span>{{ numberToLocaleString(paid_amount) }} 원</span>
+              </div>
+            </slot>
+            <slot v-if="menu == 'giftCardToHappyCash'">
+              <div class="merchant_uid">
+                <span>결제방법</span>
+                <span>해피머니상품</span>
+              </div>
+              <div class="paid_amount">
+                <span>총 결제금액</span>
+                <span>{{ numberToLocaleString(response.data.full_amount) }} 원</span>
               </div>
             </slot>
 
@@ -97,7 +145,7 @@
         }
       },
       payment_methodToHumanizeResult() {
-        if (this.menu == 'happyCash') {
+        if (this.menu == 'happyCash' | this.menu == 'giftCardToHappyCash') {
           return '마이페이지 > 이용현황 > 해피캐시 내역조회'
         } else if (this.menu == 'giftCard') {
            return '마이페이지 > 이용현황 > 상품권 주문내역조회'
@@ -160,6 +208,50 @@
       }
 
       > .purchase_content {
+
+        > .charge_content_detail {
+          > .myBoxHome__recentWrap {
+              border-spacing: 0;
+              width: 100%;
+
+            > tr.myBoxHome__recent {
+              border-bottom: 1px solid #dcdcdc;
+
+              > .myBoxHome__recent--item {
+                padding: 10px 0;
+                font-size: 0.8em;
+                color: #666;
+                border-right: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+
+
+                p {
+                  margin: 0;
+                }
+
+                &.myBoxHome__recent--won {
+                  text-align: right;
+                  padding-right: 10px;
+                }
+
+                &:last-child {
+                  border-right: none;
+                }
+              }
+
+              &:first-child {
+                border-top: 1px solid black;
+                background-color: #f5f5f5;
+
+                > th {
+                  border-top: 1px solid black;
+                  color: black !important;
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
 
         .purchase_content_detail {
 
