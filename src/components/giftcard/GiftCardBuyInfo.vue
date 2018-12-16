@@ -125,6 +125,10 @@
                 <label for="happyCash">해피캐시</label>
               </td>
             </tr>
+            <tr v-if="payment_method == 'happyCash'">
+              <td>해피캐시 잔액</td>
+              <td>회원님이 보유한 해피캐시는 <strong>{{ numberToLocaleString(userInfo.happy_cash) }}</strong> 입니다.</td>
+            </tr>
             <tr class="cashback">
               <td>캐시백 금액</td>
               <td>0원</td>
@@ -340,6 +344,28 @@
         const Authorization = this.$cookie.get('Authorization');
         const before_url = this.hostname + '/apis/giftcards/before-purchase/';
         const after_url = this.hostname + '/apis/giftcards/after-purchase/';
+
+        if (this.payment_method == 'happyCash') {
+          data['is_happyCash'] = true;
+          this.$http.post(before_url, data, {headers: {'Authorization': Authorization}}).then(
+            response => {
+              this.$router.push({
+                name: 'purchase_complete',
+                params: {
+                  hostname: this.hostname,
+                  response: response,
+                  giftcardList: this.giftcardList,
+                  menu: 'happyCashToGiftCard',
+                  payment_method: this.payment_method,
+                }
+              })
+            },
+            error => {
+              console.log(error);
+            }
+          )
+          return;
+        }
 
         this.$http.post(before_url, data, {headers: {'Authorization': Authorization}}).then(
           response => {
@@ -825,6 +851,11 @@
             border-top: 1px solid black;
             width: 100%;
             font-size: 0.8em;
+
+            strong {
+              color: #f35923;
+              font-size: 1.0rem;
+            }
 
             > tr {
               text-align: left;

@@ -84,15 +84,21 @@
                 <span>{{ numberToLocaleString(response.data.full_amount) }} 원</span>
               </div>
             </slot>
-
-
-
-
+            <slot v-if="menu == 'happyCashToGiftCard'">
+              <div class="merchant_uid">
+                <span>주문번호</span>
+                <span>{{ response.data.merchant_uid.split('_')[1] }}</span>
+              </div>
+              <div class="paid_amount">
+                <span>결제방법</span>
+                <span>{{ payment_methodToHumanize(payment_method) }}</span>
+              </div>
+            </slot>
           </div>
         </div>
         <span>* 주문내역 및 증빙서류는 <strong>{{ payment_methodToHumanizeResult() }}</strong> 에서 확인 및 출력 가능합니다</span>
       </div>
-      <div class="giftcard_content" v-if="menu == 'giftCard'">
+      <div class="giftcard_content" v-if="menu == 'giftCard' | menu == 'happyCashToGiftCard'">
         <div class="giftcard_type" v-for="giftcard in giftcardList" :key="giftcard.id">
           <span>{{ numberToLocaleString(giftcard.price) }}원권</span>
           <span>{{ giftcard.amount }}매</span>
@@ -101,7 +107,8 @@
         <div class="result">
           <span class="giftCardIco1 Won"></span>
           <span>결제금액</span>
-          <span> <strong>{{ numberToLocaleString(response.data[0].full_amount ) }}</strong> 원</span>
+          <span v-if="menu == 'giftCard'"> <strong>{{ numberToLocaleString(response.data[0].full_amount ) }}</strong> 원</span>
+          <span v-if="menu == 'happyCashToGiftCard'"> <strong>{{ numberToLocaleString(response.data.full_amount ) }}</strong> 원</span>
         </div>
       </div>
       <div class="signUpDetailStep2__button">
@@ -147,7 +154,7 @@
       payment_methodToHumanizeResult() {
         if (this.menu == 'happyCash' | this.menu == 'giftCardToHappyCash') {
           return '마이페이지 > 이용현황 > 해피캐시 내역조회'
-        } else if (this.menu == 'giftCard') {
+        } else if (this.menu == 'giftCard' | this.menu == 'happyCashToGiftCard') {
            return '마이페이지 > 이용현황 > 상품권 주문내역조회'
         }
       },
@@ -170,7 +177,7 @@
       this.response = this.$route.params.response;
       this.menu = this.$route.params.menu;
 
-      if (this.menu == 'giftCard') {
+      if (this.menu == 'giftCard' | this.menu == 'happyCashToGiftCard') {
         this.giftcardList = this.$route.params.giftcardList;
         this.payment_method = this.$route.params.payment_method;
       } else if (this.menu == 'happyCash') {
