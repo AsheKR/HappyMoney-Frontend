@@ -68,7 +68,6 @@
         this.$http.get(url).then(
           response => {
             if (response.status == '200') {
-              console.log(response.data);
               this.eventList = response.data.results;
               if (response.data.next !== null) {
                 this.next = response.data.next.split('&page=')[1];

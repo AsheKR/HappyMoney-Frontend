@@ -85,7 +85,6 @@
               },
               error => {
                 if (error.status == '400') {
-                  console.log(error.data.detail);
                   this.validateErrorMessage = error.data.detail[0];
                 }
               });

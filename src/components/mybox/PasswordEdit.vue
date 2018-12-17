@@ -84,7 +84,6 @@ export default {
 
           this.$http.patch(url, data, {headers: {'Authorization': Authorization}}).then(
             response => {
-              console.log(response);
               if (response.status == '200') {
                 alert('정보가 정상적으로 수정되었습니다!');
                 this.$router.push({

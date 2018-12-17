@@ -142,7 +142,6 @@ export default {
       const Authorization = this.$cookie.get('Authorization');
       this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
         response => {
-          console.log(response);
           if (response.status == '200') {
             this.userInfo = response.data;
           }

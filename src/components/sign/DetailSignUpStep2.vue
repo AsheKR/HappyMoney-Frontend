@@ -102,7 +102,6 @@
       },
       isAllAgree() {
         if (this.checkedList.length !== 4) {
-          console.log("?");
           alert('모두 동의하기를 눌러주세요.');
         } else {
           this.$router.push({ name: 'signup/step3' });

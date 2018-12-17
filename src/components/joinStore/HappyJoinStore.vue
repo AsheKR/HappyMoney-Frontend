@@ -54,9 +54,6 @@ export default {
           console.log(error);
         });
     },
-    getAPIUsePointDetail() {
-      console.log("Detail");
-    },
     routeCheck() {
       if ('id' in this.$route.params) {
         // Detail 페이지로 넘어옴
