@@ -30,8 +30,8 @@
     </div>
     <div class="leftMyBoxMenu__item">
       <span class="title">내정보</span>
-      <span>- 내 정보 수정</span>
-      <span>- 비밀번호 변경</span>
+      <span @click="$router.push({ name: 'mybox/editstep1' })">- 내 정보 수정</span>
+      <span @click="$router.push({ name: 'mybox/passwordEdit' })">- 비밀번호 변경</span>
       <span>- 로그인 기록 조회</span>
       <span>- 회원 탈퇴</span>
     </div>
@@ -100,7 +100,16 @@ export default {
         font-size: 0.8em;
         padding: 5px 0;
         display: block;
-        cursor: pointer;
+
+        &:not(.title){
+          cursor: pointer;
+
+          &:hover {
+            background-color: #f5f5f5;
+            color: #222;
+          }
+        }
+
 
         &.title {
           padding: 10px 0;
