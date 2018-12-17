@@ -67,6 +67,8 @@
         online: 2,
 
         now_active: 1,
+
+        nowSearchObject: undefined
       }
     },
     components: {

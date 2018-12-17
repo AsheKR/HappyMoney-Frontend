@@ -3,6 +3,7 @@
     <h2>추천 제휴 상품</h2>
     <div class="recommandPrdList" v-if="show">
       <div v-for="prd in prdLimit" :key="prd.id" class="prdWrap">
+        <div class="prddim"></div>
         <a href="#">
           <div class="prdContentWrap">
             <img :src="prd.mall_category.shop_image" alt="">
@@ -42,7 +43,7 @@
       },
     },
     created() {
-      const url = this.hostname + '/apis/giftcards/';
+      const url = this.hostname + '/apis/giftcards/?page_size=5';
       this.$http.get(url).then(
         response => {
           console.log(response);
@@ -77,31 +78,62 @@
 
     img {
       width: 100%;
-      height: 100%;
       object-fit: cover;
     }
 
     > .recommandPrdList {
       display: grid;
       grid-auto-flow: column;
-      grid-gap: 0.8rem;
+      cursor: pointer;
+      max-width: 1200px;
+      margin: auto;
 
       .prdWrap {
         background-color: #fff;
         border: 1px solid #e3e3e3;
+        position: relative;
 
-        .prdText {
-          display: flex;
-          font-size: 0.87rem;
-          padding: 5px 10px;
-
-          > span {
-            margin-right: auto;
+        &:hover {
+          > .prddim {
+            display: block;
           }
+        }
 
-          > strong {
-            > .prdAmount {
-              color: red;
+        > .prddim {
+          position: absolute;
+          background-color: black;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.3;
+          z-index: 1;
+          display: none;
+        }
+
+        > a {
+          display: block;
+          height: 100%;
+
+          > .prdContentWrap {
+            display: grid;
+            grid-auto-flow: row;
+            height: 100%;
+
+            .prdText {
+              display: flex;
+              font-size: 0.87rem;
+              padding: 5px 10px;
+
+              > span {
+                margin-right: auto;
+              }
+
+              > strong {
+                > .prdAmount {
+                  color: red;
+                }
+              }
             }
           }
         }

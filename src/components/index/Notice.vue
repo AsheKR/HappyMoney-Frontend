@@ -1,31 +1,33 @@
 <template>
   <div id="notice">
-    <span class="notice_section notice_section1">
-      <span class="ico notice"></span>
-      <h2>공지사항</h2>
-    </span>
-    <span class="notice_section notice_section2">
-      <transition :name="transitionName" mode="out-in">
-        <div class="recent_notice_list" :key="current" v-if="show" @click="routeNotice(recent_notice[current].id)">
-          <span class="recent_notice_title">{{ NoticeLimited(recent_notice[current].title) }}</span>
-          <span class="recent_notice_date">{{ recent_notice[current].created_at }}</span>
+    <div class="notice_section_wrap">
+      <span class="notice_section notice_section1">
+        <span class="ico notice"></span>
+        <h2>공지사항</h2>
+      </span>
+      <span class="notice_section notice_section2">
+        <transition :name="transitionName" mode="out-in">
+          <div class="recent_notice_list" :key="current" v-if="show" @click="routeNotice(recent_notice[current].id)">
+            <span class="recent_notice_title">{{ NoticeLimited(recent_notice[current].title) }}</span>
+            <span class="recent_notice_date">{{ recent_notice[current].created_at }}</span>
+          </div>
+        </transition>
+      </span>
+      <span class="notice_section notice_section3">
+        <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
+          <span class="ico bx-prev"></span>
         </div>
-      </transition>
-    </span>
-    <span class="notice_section notice_section3">
-      <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
-        <span class="ico bx-prev"></span>
-      </div>
-      <div class="btn btn-next" aria-label="Stop Slide">
-        <span class="ico bx-stop"></span>
-      </div>
-      <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
-        <span class="ico bx-next"></span>
-      </div>
-    </span>
-    <span class="notice_section notice_section4">
-      <router-link :to="{ name: 'notice' }">더보기 +</router-link>
-    </span>
+        <div class="btn btn-next" aria-label="Stop Slide">
+          <span class="ico bx-stop"></span>
+        </div>
+        <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
+          <span class="ico bx-next"></span>
+        </div>
+      </span>
+      <span class="notice_section notice_section4">
+        <router-link :to="{ name: 'notice' }">더보기 +</router-link>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -84,7 +86,7 @@
         });
     },
     mounted() {
-      setInterval(() => { this.slide(1) }, 5000);
+      // setInterval(() => { this.slide(1) }, 5000);
     }
   }
 </script>
@@ -127,55 +129,70 @@
   #notice {
     box-sizing: content-box;
     background-color: #595d88;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    padding: 25px 0;
+    padding: 10px 0;
 
     .btn {
       cursor: pointer;
     }
 
-    > span.notice_section {
+    > div.notice_section_wrap {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
 
-      &.notice_section1 {
+      > span.notice_section {
+        display: block;
 
-        > span {
-          vertical-align: middle;
+        &.notice_section1 {
+
+          > span {
+            vertical-align: middle;
+          }
+          > h2 {
+            display: inline-block;
+            font-size: 0.8em;
+            border-right: 1px solid #fff;
+            padding-right: 15px;
+            color: #7ae8ff;
+          }
         }
-        > h2 {
-          display: inline-block;
-          font-size: 0.8em;
-          border-right: 1px solid #fff;
-          padding-right: 15px;
-          color: #7ae8ff;
+
+        &.notice_section2 {
+          padding-left: 15px;
+          display: flex;
+          justify-content: flex-start;
+          overflow: hidden;
+
+          > .recent_notice_list {
+            color: #fff;
+            font-size: 0.8em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            > .recent_notice_date {
+              margin-left: auto;
+            }
+          }
         }
-      }
 
-      &.notice_section2 {
-        padding-left: 15px;
-        margin-right: 10em;
-
-        > .recent_notice_list {
-          color: #fff;
+        &.notice_section4 {
+          margin-left: 10px;
           font-size: 0.8em;
-          cursor: pointer;
+          > a{
+            color: #7ae8ff;
 
-          > .recent_notice_date {
-            margin-left: 10em;
+            &:hover {
+              color: #ff9d7a;
+            }
           }
         }
       }
-
-      &.notice_section4 {
-        margin-left: 10px;
-        font-size: 0.8em;
-        > a{
-          color: #7ae8ff;
-        }
-      }
     }
+
   }
 
   @media only screen and (max-width: 800px) {

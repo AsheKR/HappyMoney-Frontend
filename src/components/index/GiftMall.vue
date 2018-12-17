@@ -11,20 +11,20 @@
           </div>
         </div>
       </div>
-      <div class="col col2">
+      <div class="col col2" @click="$router.push({'name': 'giftCardBuyInfo'})">
         <img :src="require('@/assets/css/images/index/201802071402401.jpg')" alt="이미지">
       </div>
-      <div class="col col3">
+      <div class="col col3" @click="$router.push({'name': 'giftCardBuyInfo'})">
         <img :src="require('@/assets/css/images/index/201802121402856.jpg')" alt="이미지">
       </div>
       <div class="col col4">
         <ul>
-          <li>- 해피머니상품권</li>
-          <li>- 해피머니상품권</li>
-          <li>- 해피머니상품권</li>
-          <li>- 해피머니상품권</li>
-          <li>- 해피머니상품권</li>
-          <li>- 해피머니상품권</li>
+          <li @click="$router.push({'name': 'giftCardBuyInfo'})">- 해피머니상품권</li>
+          <li @click="$router.push({'name': 'giftCardBuyInfo'})">- 해피머니온라인상품권(이메일)</li>
+          <li @click="$router.push({'name': 'giftCardBuyInfo'})">- 해피머니온라인상품권(SMS)</li>
+          <li @click="$router.push({'name': 'giftCardBuyInfo'})">- 해피머니온라인상품권(영수증)</li>
+          <li @click="$router.push({'name': 'giftCardBuyInfo'})">- 해피머니온라인상품권(바코드)</li>
+          <li @click="$router.push({'name': 'giftCardBuyInfo'})">- 사용처전용모바일상품권(바코드)</li>
         </ul>
       </div>
       <div class="col col5">
@@ -47,6 +47,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 1200px;
+    margin: auto;
 
     img {
       width: 100%;
@@ -60,6 +62,15 @@ export default {
       margin: 3rem 0;
 
       > .col {
+        box-sizing: border-box;
+
+        &.col2, &.col3, &.col5, &.col6 {
+          cursor: pointer;
+
+          &:hover {
+            border: 1px solid black;
+          }
+        }
 
         &.col1 {
           padding: 0 1rem;
@@ -112,7 +123,9 @@ export default {
             > li {
               color: #666;
               padding: 3px 0;
-              font-size: 0.8rem
+              font-size: 0.8rem;
+              cursor: pointer;
+
             }
           }
         }

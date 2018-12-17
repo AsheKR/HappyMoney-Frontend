@@ -5,7 +5,10 @@
       <a href="#">자세히 &#10095;</a>
       <div class="joinStoreWrap" v-if="show">
         <div class="store" v-for="store in joinStore" :key="store.id">
-          <img :src="store.shop_image" alt="">
+          <div class="">
+            <img :src="store.shop_image" alt="">
+          </div>
+          <span>{{ store.name }}</span>
         </div>
       </div>
     </div>
@@ -61,6 +64,10 @@
       > a {
         color: #aaa;
         font-size: 0.8em;
+
+        &:hover {
+          color: #f15922;
+        }
       }
 
       > .joinStoreWrap {
@@ -68,11 +75,36 @@
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
         margin-top: 10px;
         color: white;
+        cursor: pointer;
 
           > .store {
             background-color: #fff;
             border: 1px solid #ddd;
-            padding: 10px;
+            position: relative;
+
+            &:hover {
+              > span {
+                display: block;
+              }
+            }
+
+            > div {
+              > img {
+                padding: 10px;
+              }
+            }
+
+            > span {
+              display: none;
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              background-color: black;
+              text-align: center;
+              padding: 10px 0;
+              opacity: 0.6;
+              font-size: 0.8em;
+            }
 
             &:first-child {
               grid-row-start: 1;

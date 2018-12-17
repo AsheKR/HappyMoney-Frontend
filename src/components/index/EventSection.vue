@@ -8,6 +8,7 @@
           <div class="eventContentWrap">
             <img :src="event.general_image" alt="">
             <div class="eventText">
+              <div class="eventdim"></div>
               <span class="eventTitle">{{ EvenetTitleLimited(event.title) }}</span>
               <span class="eventDate">{{ event.start }} ~ {{ event.end }}</span>
             </div>
@@ -75,10 +76,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 1200px;
+  margin: auto;
 
   img {
     width: 100%;
-    height: 100%;
     object-fit: cover;
   }
 
@@ -100,22 +102,48 @@
       border: 1px solid #e3e3e3;
       text-align: left;
 
-      .eventText {
-        font-size: 0.87rem;
-        padding: 5px 10px;
-        padding-left: 15px;
-
-        > .eventTitle {
-          display: block;
-          font-size: 0.9em;
-          font-weight: bold;
+      &:hover {
+        .eventdim {
+          display: block !important;
         }
+      }
 
-        > .eventDate {
-          display: block;
-          padding: 10px 0 10px;
-          font-size: 0.9em;
-          color: #666;
+      > a{
+        display: block;
+
+        > .eventContentWrap {
+          display: grid;
+
+          .eventText {
+            font-size: 0.87rem;
+            padding: 10px 10px 0 15px;
+            position: relative;
+
+            > .eventdim {
+              position: absolute;
+              background-color: black;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              opacity: 0.3;
+              z-index: 1;
+              display: none;
+            }
+
+            > .eventTitle {
+              display: block;
+              font-size: 0.9em;
+              font-weight: bold;
+            }
+
+            > .eventDate {
+              display: block;
+              padding: 10px 0 10px;
+              font-size: 0.9em;
+              color: #666;
+            }
+          }
         }
       }
     }
