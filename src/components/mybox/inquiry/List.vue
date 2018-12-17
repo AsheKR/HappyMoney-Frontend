@@ -101,7 +101,7 @@
           </td>
         </tr>
       </table>
-      <table class="myBoxHome__recentWrap" v-if="nowItem == 'emailGiftCard'">
+      <table class="myBoxHome__recentWrap" v-if="nowItem == 'emailGiftCard' | nowItem == 'smsGiftCard'">
         <tr class="myBoxHome__recent myBoxHome__recent--desc">
           <th class="myBoxHome__recent--item">
             <span> <strong> 주문번호 </strong> </span>
@@ -110,7 +110,8 @@
             <span> <strong> 수령인 </strong> </span>
           </th>
           <th class="myBoxHome__recent--item">
-            <span> <strong> 이메일 </strong> </span>
+            <span v-if="nowItem == 'emailGiftCard'"> <strong> 이메일 </strong> </span>
+            <span v-if="nowItem == 'smsGiftCard'"> <strong> 연락처 </strong> </span>
           </th>
           <th class="myBoxHome__recent--item">
             <span> <strong> <p>핀번호</p> <p>(발행일)</p> </strong> </span>
@@ -136,7 +137,8 @@
             {{ order.created_in_order.order_gift_card.name }}
           </td>
           <td class="myBoxHome__recent--item">
-            {{ order.created_in_order.order_gift_card.email }}
+            <span v-if="nowItem == 'emailGiftCard'"> <strong> {{ order.created_in_order.order_gift_card.email }} </strong> </span>
+            <span v-if="nowItem == 'smsGiftCard'"> <strong> {{ '0'+order.created_in_order.order_gift_card.sms.split('+82')[1] }} </strong> </span>
           </td>
           <td class="myBoxHome__recent--item">
             <p>{{ order.PIN }}</p>

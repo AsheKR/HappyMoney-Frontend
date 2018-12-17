@@ -47,7 +47,7 @@
               <td>{{ Number(cashback_amount) + Number(paid_amount) }}원 ({{ Number(paid_amount) }}원 + 캐시백 {{ cashback_amount }}원)</td>
             </tr>
           </table>
-          <div class="purchase_desc">
+          <div class="purchase_desc" v-if="payment_method == 'giftCard'">
             <span>* 최대 10개까지 등록 가능합니다.</span>
             <span @click="clickPurchaseItem(1)">+ 더 충전하기</span>
           </div>
@@ -239,11 +239,11 @@
       padding-left: 30px;
       > table {
         width: 100%;
+        border-bottom: 1px solid #dcdcdc;
+        border-top: 1px solid black;
 
         td {
           padding: 10px;
-          border-bottom: 1px solid #dcdcdc;
-          border-top: 1px solid black;
 
           > span {
             padding-left: 30px;
@@ -251,6 +251,17 @@
 
           &:first-child {
             background-color: #f5f5f5;
+          }
+
+          &:last-child {
+            display: flex;
+            height: 100%;
+            align-items: center;
+
+            > span {
+              font-size: 0.8em;
+              align-items: center;
+            }
           }
         }
       }
@@ -460,6 +471,13 @@
               color: #fff;
               font-weight: bold;
               font-size: 1.1em;
+              cursor: pointer;
+
+              &:hover {
+                border: 1px solid #c13b0d;
+                background-color: #dd440f;
+                color: #fff;
+              }
             }
           }
         }

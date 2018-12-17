@@ -1,5 +1,6 @@
 <template>
   <div class="cash">
+    <Breadcrumb />
     <Balance :userInfo="userInfo"/>
     <div class="content">
       <router-view :hostname="hostname"/>
@@ -9,6 +10,7 @@
 
 <script>
 import Balance from '@/components/common/Balance.vue'
+import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 export default {
   data() {
@@ -18,7 +20,8 @@ export default {
     }
   },
   components: {
-    Balance
+    Balance,
+    Breadcrumb
   },
   methods: {
     getAPIUserProfileInfo() {

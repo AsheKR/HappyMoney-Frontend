@@ -6,7 +6,7 @@
         <aside v-show="activeAside">
           <div class="wrap">
             <div class="aside-logo clearfix">
-              <a href=""><span class="icon icon-user"></span></a>
+              <router-link :to="{ name: 'mybox/home' }"> <span class="icon icon-user"></span></router-link>
             </div>
 
             <div class="aside-items">
@@ -100,7 +100,7 @@
           </div>
           <div class="nav-wrap-3">
             <div class="linkWrap">
-              <a href="/svc/customer/faqList.hm" class="btnCS">고객센터 바로가기<span class="ico"></span></a>
+              <router-link :to="{ name: 'faq' }" class="btnCS">고객센터 바로가기<span class="ico"></span></router-link>
               <a href="http://www.happymoney.co.kr/svc/donation/index.hm" onclick="mainQuick_Action.setBannerReadCnt('941');" target="_blank" title="새창" class="banner"><img src="http://image.happymoney.co.kr/extimage/banner/201809191309686.jpg" alt="행복나눔 캠페인,빈곤을 해결하는 수단으로 행복나눔캠페인을 통해 공정무역 생산자를 지원합니다."></a></div>
           </div>
         </div>
@@ -496,6 +496,11 @@ export default {
               color: #aaa;
               font-size: 0.8em;
               padding: 2px 0;
+
+              &:hover {
+                color: #f15922;
+                text-decoration: underline;
+              }
             }
           }
         }

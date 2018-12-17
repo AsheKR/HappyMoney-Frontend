@@ -953,6 +953,12 @@
               color: #fff;
               font-weight: bold;
               font-size: 1.1em;
+
+              &:hover {
+                border: 1px solid #c13b0d;
+                background-color: #dd440f;
+                color: #fff;
+              }
             }
           }
         }

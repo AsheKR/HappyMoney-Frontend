@@ -155,6 +155,12 @@ export default {
         font-size: 0.8em;
         font-weight: bold;
         color: #666;
+        cursor: pointer;
+
+        &:hover {
+          color: #f15922;
+          text-decoration: underline;
+        }
 
         &:last-child {
           border: none;
@@ -230,8 +236,14 @@ export default {
               border-bottom: 1px solid #eee;
             }
 
-            > span {
+            > span:not(.title) {
               padding: 5px 0;
+              cursor: pointer;
+
+              &:hover {
+                color: #f15922 !important;
+                text-decoration: underline;
+              }
             }
 
             > .title {

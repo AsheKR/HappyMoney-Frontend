@@ -193,6 +193,7 @@
         margin-top: 10px;
 
         > button {
+          cursor: pointer;
           border: 1px solid #d54e1f;
           background-color: #f35923;
           color: white;

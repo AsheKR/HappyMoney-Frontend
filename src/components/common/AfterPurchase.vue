@@ -112,10 +112,10 @@
         </div>
       </div>
       <div class="signUpDetailStep2__button">
-        <div class="signUpDetailStep2__button--reset" @click.prevent="$router.push({ name: '' })">
+        <div class="signUpDetailStep2__button--reset" @click.prevent="routeMethod()">
           <a href="#"><span>내역조회</span></a>
         </div>
-        <div class="signUpDetailStep2__button--agree" @click.prevent="$router.push({ name: '' })">
+        <div class="signUpDetailStep2__button--agree" @click.prevent="$router.go(-1)">
           <a href="#"><span>추가충전</span></a>
         </div>
       </div>
@@ -171,6 +171,16 @@
             console.log(error);
           });
       },
+      routeMethod() {
+        var object = Object()
+        if (this.menu == 'happyCash' | this.menu == 'giftCardToHappyCash') {
+          object = {name: 'happyCash', title:'해피캐시 내역 조회'}
+          this.$router.push({ name: 'mybox/inquiry', query: object })
+        } else if (this.menu == 'giftCard' | this.menu == 'happyCashToGiftCard') {
+          object = {name: 'giftCard', title:'상품권 주문 내역 조회'}
+          this.$router.push({ name: 'mybox/inquiry', query: object })
+        }
+      }
     },
     created() {
       this.hostname = this.$route.params.hostname;
@@ -393,12 +403,24 @@
           grid-column: 2 / 3;
           border: 1px solid #454545;
           background-color: #4f4f4f;
+
+          &:hover {
+            border: 1px solid #3c3a3a;
+            background-color: #413e3e;
+            color: #fff;
+          }
         }
 
         > .signUpDetailStep2__button--agree {
           grid-column: 3 / 4;
           border: 1px solid #d54e1f;
           background-color: #f35923;
+
+          &:hover {
+            border: 1px solid #c13b0d;
+            background-color: #dd440f;
+            color: #fff;
+          }
         }
       }
 

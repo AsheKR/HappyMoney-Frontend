@@ -153,6 +153,7 @@
             const url = this.hostname + '/apis/members/create-user/';
             this.$http.post(url, data).then(
               response => {
+                console.log(response);
                 if (response.status == '201') {
                   this.$cookie.set('Authorization', 'Token ' + response.data.token);
 
