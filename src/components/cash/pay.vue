@@ -72,7 +72,7 @@
         </div>
         <div class="giftcard_purchase_last_check" v-if="payment_method == 'giftCard'">
           <div class="purchasebutton">
-            <button type="button" name="button" @click="getAPIPurchaseGiftCardPIN()">충전하기</button>
+            <button type="button" name="button" @click="getAPIPurchase()">충전하기</button>
           </div>
           <div class="event">
             <img :src="require('@/assets/css/images/card/20180504110558.jpg')" alt="">
@@ -92,7 +92,7 @@
       return (
         <tr class="myBoxHome__recent">
           <td class="myBoxHome__recent--item">
-            <input type="text" v-model={this.PIN.PIN}/>
+            <input type="text" v-model={this.PIN.PIN} />
           </td>
           <td class="myBoxHome__recent--item">
             <input type="text" v-model={this.PIN.created_at} />
@@ -124,7 +124,7 @@
     methods: {
       getAPIPurchase() {
         if (this.payment_method == 'giftCard') {
-
+          this.getAPIPurchaseGiftCardPIN()
         } else if (this.payment_method == 'kakao') {
           this.getAPIPurchaseKakao();
         }
@@ -168,7 +168,7 @@
                 }
               },
               error => {
-                console.log(error);
+                alert(error.data.detail);
               });
           } else {
             alert('결제실패 : ' + response.error_msg);
@@ -192,6 +192,11 @@
         }
       },
       getAPIPurchaseGiftCardPIN() {
+        if (this.PIN_amount == 0) {
+          alert(" 잘못된 요청입니다! ");
+          return;
+        }
+
         const url = this.hostname + '/apis/giftcards/purchase-giftcard/'
         const Authorization = this.$cookie.get('Authorization');
 
@@ -212,7 +217,7 @@
             })
           },
           error => {
-            console.log(error);
+            alert(error.data.detail);
           }
         )
       }
