@@ -17,8 +17,9 @@
         <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
           <span class="ico bx-prev"></span>
         </div>
-        <div class="btn btn-next" aria-label="Stop Slide">
-          <span class="ico bx-stop"></span>
+        <div class="btn btn-stop" aria-label="Stop Slide" @click="intervalChange()">
+          <span class="ico bx-stop" v-if="interval_value !== undefined"></span>
+          <span class="ico bx-start" v-else></span>
         </div>
         <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
           <span class="ico bx-next"></span>
@@ -40,7 +41,8 @@
         current: 0,
         direction: 1,
         transitionName: "fade",
-        show: false
+        show: false,
+        interval_value: undefined
       }
     },
     methods: {
@@ -59,6 +61,14 @@
           : (this.transitionName = "slide-prev");
         var len = this.recent_notice.length;
         this.current = (this.current + dir % len + len) % len;
+      },
+      intervalChange() {
+        if (this.interval_value !== undefined) {
+          clearInterval(this.interval_value);
+          this.interval_value = undefined;
+        } else {
+          this.interval_value = setInterval(() => {this.slide(1) }, 1000)
+        }
       },
       NoticeLimited(str) {
         var h = 40;
@@ -80,14 +90,12 @@
             this.recent_notice = response.data.results;
           }
           this.show = !this.show;
+          this.interval_value = setInterval(() => { this.slide(1) }, 1000);
         },
         error => {
           console.log(error);
         });
     },
-    mounted() {
-      // setInterval(() => { this.slide(1) }, 5000);
-    }
   }
 </script>
 

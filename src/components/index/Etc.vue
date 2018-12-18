@@ -1,6 +1,6 @@
 <template>
   <div id="etc">
-    <div class="etcWrap" v-if="show">
+    <div class="etcWrap">
       <div class="firstEtc">
         <div class="etc">
           <a href="#"><img :src="require('@/assets/css/images/index/etc_1.gif')" alt=""></a>
@@ -21,18 +21,7 @@
 
 <script>
 export default {
-  props: ['events'],
-  data() {
-    return {
-      show: false
-    }
-  },
-  watch: {
-    events: function(newVal) {
-      this.childEvents = newVal;
-      this.show = !this.show;
-    }
-  },
+
 }
 </script>
 

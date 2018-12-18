@@ -1,6 +1,6 @@
 <template>
-  <div id="EventCarousel">
-    <div id="slider" v-if="show">
+  <div id="EventCarousel" v-if="show">
+    <div id="slider">
       <transition-group :name="transitionName">
         <div :key="current" class="slide" :style="{ 'background-image': 'url('+childEvents[current].banner+')'}"></div>
       </transition-group>
@@ -33,7 +33,10 @@ export default {
           this.childEvents.push(e);
         }
       });
-      this.show = !this.show;
+      if (this.childEvents.length !== 0) {
+        this.show = true;
+        setInterval(() => { this.slide(1) }, 3000);
+      }
     }
   },
   methods: {
@@ -46,9 +49,6 @@ export default {
       this.current = (this.current + dir % len + len) % len;
     }
   },
-  mounted() {
-    setInterval(() => { this.slide(1) }, 3000)
-  }
 }
 </script>
 

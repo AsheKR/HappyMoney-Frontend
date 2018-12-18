@@ -7,7 +7,7 @@
     <RecommandPrd :hostname="hostname"/>
     <EventSection :events="events" />
     <JoinStore :hostname="hostname"/>
-    <Etc :events="events" />
+    <Etc />
   </div>
 </template>
 

@@ -4,7 +4,7 @@
     <p class="eventDesc">다양한 혜택이 가득한 해피머니 이벤트</p>
     <div class="eventList" v-if="show">
       <div v-for="event in eventsLimit" :key="event.id" class="eventWrap">
-        <a href="#">
+        <router-link :to="{ name: 'nowEvent' }">
           <div class="eventContentWrap">
             <img :src="event.general_image" alt="">
             <div class="eventText">
@@ -13,7 +13,7 @@
               <span class="eventDate">{{ event.start }} ~ {{ event.end }}</span>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
     </div>
 

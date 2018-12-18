@@ -43,10 +43,9 @@
       },
     },
     created() {
-      const url = this.hostname + '/apis/giftcards/?page_size=5';
+      const url = this.hostname + '/apis/giftcards/';
       this.$http.get(url).then(
         response => {
-          console.log(response);
           if (response.status == '200') {
             this.prdList = response.data;
           }

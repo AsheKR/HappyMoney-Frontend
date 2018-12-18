@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getAPIUsePointLists() {
-      const url = this.hostname + '/apis/use-point/import';
+      const url = this.hostname + '/apis/use-point/import/';
       this.$http.get(url).then(
         response => {
           if (response.status == '200') {

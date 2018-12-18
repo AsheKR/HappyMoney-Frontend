@@ -130,6 +130,16 @@
   background-position: -60px -90px;
 }
 
+.bx-start {
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+  background-position: -76px -90px;
+}
+
 
 /* join Store */
 

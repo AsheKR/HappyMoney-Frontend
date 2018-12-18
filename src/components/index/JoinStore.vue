@@ -2,7 +2,7 @@
   <div id="joinStore" :style="{ 'background-image': 'url('+require('@/assets/css/images/index/bgJoinStore.gif')+')'}">
     <h2>해피캐시로 이용할 수 있는 주요 쇼핑몰</h2>
     <div class="joinStoreDetailWrap">
-      <a href="#">자세히 &#10095;</a>
+      <router-link :to="{ name: 'happyShopStore' }"> 자세히 &#10095;</router-link>
       <div class="joinStoreWrap" v-if="show">
         <div class="store" v-for="store in joinStore" :key="store.id">
           <div class="">

@@ -147,6 +147,7 @@ var router =  new Router({
       children: [
         {
           path: 'happyShopStore',
+          name: 'happyShopStore',
           component: HappyJoinStore,
           children: [
             {
