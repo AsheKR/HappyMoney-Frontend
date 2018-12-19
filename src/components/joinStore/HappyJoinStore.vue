@@ -51,7 +51,7 @@ export default {
           }
         },
         error => {
-          console.log(error);
+          ;
         });
     },
     routeCheck() {

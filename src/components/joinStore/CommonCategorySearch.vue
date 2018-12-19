@@ -98,7 +98,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       getAPIUsePointCategoryTopFiveLists() {
@@ -119,7 +119,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       slide(dir) {

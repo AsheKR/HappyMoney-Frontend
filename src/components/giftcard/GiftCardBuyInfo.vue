@@ -271,7 +271,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       getHappyGiftCard() {
@@ -287,7 +287,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       clickPurchaseItem(dir) {
@@ -448,8 +448,8 @@
       this.getAPIUserProfileInfo()
 
       this.giftcardResult.push({
-        name: '디버깅',
-        infoTo: 'debug@debug.com',
+        name: '',
+        infoTo: '',
         giftcardValues: [],
       });
 

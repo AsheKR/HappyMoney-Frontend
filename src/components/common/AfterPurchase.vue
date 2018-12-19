@@ -168,7 +168,7 @@
             }
           },
           error => {
-            console.log(error);
+            
           });
       },
       routeMethod() {

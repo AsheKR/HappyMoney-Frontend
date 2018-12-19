@@ -87,7 +87,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       setSearchItem() {

@@ -126,12 +126,12 @@
     props: ['hostname'],
     data() {
       return {
-        name: '홍길순',
-        birth: '20001112',
-        phone: '01011111115',
-        username: 'asd12355',
-        password: 'asd123',
-        email: 'asd@asd15.com',
+        name: '',
+        birth: '',
+        phone: '',
+        username: '',
+        password: '',
+        email: '',
         sns_agree: false,
         email_agree: false,
       }

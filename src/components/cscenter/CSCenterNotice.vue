@@ -125,7 +125,7 @@
             }
           },
           error => {
-            console.log(error);
+            
           });
       },
 
@@ -165,7 +165,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       getAllCategory() {

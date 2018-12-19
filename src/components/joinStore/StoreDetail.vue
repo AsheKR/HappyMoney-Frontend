@@ -173,7 +173,7 @@ export default {
           }
         },
         error => {
-          console.log(error);
+          ;
         });
     },
     createLikeUsePoint(usepoint){

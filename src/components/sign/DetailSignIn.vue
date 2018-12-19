@@ -16,7 +16,7 @@
         </form>
         <div class="signMore">
           <a href="#">아이디/비밀번호 찾기</a>
-          <a href="#">회원가입</a>
+          <router-link :to="{ name: 'signup' }">회원가입</router-link>
         </div>
         <button type="button" name="button">MyOTP보안 로그인 (유료)</button>
         <button type="button" name="button">휴대폰 간편 로그인 (유료)</button>

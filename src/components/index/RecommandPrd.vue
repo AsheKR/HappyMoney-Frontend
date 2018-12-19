@@ -52,7 +52,7 @@
           this.show = !this.show;
         },
         error => {
-          console.log(error);
+          ;
         });
     },
     mounted() {

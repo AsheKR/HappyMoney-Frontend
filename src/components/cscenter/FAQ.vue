@@ -173,7 +173,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       clickFilteringFAQCategory() {
@@ -203,7 +203,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       checkTop10FAQOrdering(itemId) {
@@ -230,7 +230,7 @@
             }
           },
           error => {
-            console.log(error);
+            ;
           });
       },
       clickParentFAQSubCategory(mainCategory) {
