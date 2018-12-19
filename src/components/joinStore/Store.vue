@@ -86,6 +86,7 @@
           response => {
             if (response.status == '200') {
               if ( this.storeList.length == 0 ) {
+                console.log(response);
                 this.storeList = response.data.results;
                 this.next = response.data.next;
                 this.fullCount = response.data.count;

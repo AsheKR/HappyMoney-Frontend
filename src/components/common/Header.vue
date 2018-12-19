@@ -205,6 +205,7 @@ export default {
     '$route.path': function() {
       this.activeAside=false;
       this.centerHeaderIsActive=false;
+      this.checkLogin();
       EventBus.$emit('CreateBreadCrumb', this.menus);
     },
   },

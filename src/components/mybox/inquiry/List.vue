@@ -137,8 +137,8 @@
             {{ order.created_in_order.order_gift_card.name }}
           </td>
           <td class="myBoxHome__recent--item">
-            <span v-if="nowItem == 'emailGiftCard'"> <strong> {{ order.created_in_order.order_gift_card.email }} </strong> </span>
-            <span v-if="nowItem == 'smsGiftCard'"> <strong> {{ '0'+order.created_in_order.order_gift_card.sms.split('+82')[1] }} </strong> </span>
+            <span v-if="nowItem == 'emailGiftCard'"> <strong> {{ order.created_in_order.order_gift_card._email }} </strong> </span>
+            <span v-if="nowItem == 'smsGiftCard'"> <strong> {{ '0'+order.created_in_order.order_gift_card._sms.split('+82')[1] }} </strong> </span>
           </td>
           <td class="myBoxHome__recent--item">
             <p>{{ order.PIN }}</p>

@@ -179,11 +179,14 @@ var router =  new Router({
       ],
       meta: {
         authRequired: true
-      }
+      },
     },
     {
       path: '/cash',
       component: Cash,
+      meta: {
+        authRequired: true
+      },
       children: [
         {
           path: 'giftCardCharge',
@@ -196,6 +199,9 @@ var router =  new Router({
       path: '/complete',
       name: 'purchase_complete',
       component: AfterPurchase,
+      meta: {
+        authRequired: true
+      },
     },
     {
       path: '/event',
@@ -229,7 +235,10 @@ var router =  new Router({
         },
         {
           path: 'inquiry',
-          name: 'inquiry'
+          name: 'inquiry',
+          meta: {
+            authRequired: true
+          },
         },
         {
           path: 'cscenter',
@@ -276,6 +285,7 @@ router.beforeEach((to, from, next) => {
     // 로그인이 되어있지 않다면 login 페이지로 리다이렉트
 
     if (now_auth === null) {
+      alert("로그인이 필요한 서비스입니다!");
       router.push({
         name: 'login',
         query: {

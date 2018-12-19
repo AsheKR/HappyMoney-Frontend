@@ -4,7 +4,7 @@
     <div class="joinStoreDetailWrap">
       <router-link :to="{ name: 'happyShopStore' }"> 자세히 &#10095;</router-link>
       <div class="joinStoreWrap" v-if="show">
-        <div class="store" v-for="store in joinStore" :key="store.id">
+        <div class="store" v-for="store in joinStore" :key="store.id" @click="$router.push({ name:'happyJoinStoreDetail', params: {id: store.id} })">
           <div class="">
             <img :src="store.shop_image" alt="">
           </div>
@@ -25,7 +25,7 @@
       }
     },
     created() {
-      const url = this.hostname + '/apis/use-point/?point=online&page_size=9';
+      const url = this.hostname + '/apis/use-point/?where_to_use__is_import_point=2&page_size=9';
       this.$http.get(url).then(
         response => {
           if (response.status == '200') {
