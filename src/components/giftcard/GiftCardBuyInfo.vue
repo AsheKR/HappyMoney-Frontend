@@ -361,7 +361,18 @@
               })
             },
             error => {
-              console.log(error);
+              if (error.data.name) {
+                alert("이름란의 빈 칸은 허용하지 않습니다.");
+              }
+              else if (error.data._email) {
+                alert('이메일을 제대로 입력해주세요.');
+              }
+              else if (error.data._sms) {
+                alert('번호를 제대로 입력해주세요.');
+              }
+              else {
+                alert(error.data.detail);
+              }
             }
           )
           return;
@@ -406,7 +417,7 @@
                       })
                     },
                     error => {
-                      console.log(error);
+                      alert(error.data.detail);
                     }
                   )
                 } else {
@@ -416,7 +427,18 @@
             }
           },
           error => {
-            console.log(error);
+            if (error.data.name) {
+              alert("이름란의 빈 칸은 허용하지 않습니다.");
+            }
+            else if (error.data._email) {
+              alert('이메일을 제대로 입력해주세요.');
+            }
+            else if (error.data._sms) {
+              alert('번호를 제대로 입력해주세요.');
+            }
+            else {
+              alert(error.data.detail);
+            }
           }
         )
       }

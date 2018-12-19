@@ -332,6 +332,7 @@
           color: white;
           text-align: center;
           font-weight: bold;
+          cursor: pointer;
 
           padding: 10px 30px;
         }

@@ -178,6 +178,12 @@ export default {
     },
     createLikeUsePoint(usepoint){
       const Authorization = this.$cookie.get('Authorization');
+
+      if (Authorization == null) {
+        alert("로그인이 필요한 기능입니다.");
+        return false;
+      }
+
       const url = this.hostname + '/apis/use-point/like/';
 
       const data = {

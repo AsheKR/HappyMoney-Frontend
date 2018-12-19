@@ -92,7 +92,7 @@ export default {
               }
             },
             error => {
-              console.log(error);
+              alert(error.data.detail)
             });
         }else {
           alert("정보를 채워주세요!");
