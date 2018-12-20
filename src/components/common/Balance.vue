@@ -25,16 +25,33 @@
 
 <script>
 export default {
-  props: ['userInfo'],
   data() {
     return {
-      show: false
+      hostname: require('@/assets/js/variable.js').hostname,
+      userInfo: undefined,
+      show: false,
     }
   },
   methods: {
     numberToLocaleString(value) {
       return value.toLocaleString()
-    }
+    },
+    getAPIUserProfileInfo() {
+      const url = this.hostname + '/apis/members/get/';
+      const Authorization = this.$cookie.get('Authorization');
+      this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
+        response => {
+          if (response.status == '200') {
+            this.userInfo = response.data;
+          }
+        },
+        error => {
+          ;
+        });
+    },
+  },
+  created() {
+    this.getAPIUserProfileInfo()
   },
   mounted() {
     this.show = true;
