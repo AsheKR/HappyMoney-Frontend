@@ -93,7 +93,7 @@
           this.interval_value = setInterval(() => { this.slide(1) }, 1000);
         },
         error => {
-          ;
+          
         });
     },
   }

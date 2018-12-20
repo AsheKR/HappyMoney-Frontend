@@ -41,8 +41,8 @@ export default {
           input: false
         },
         'inquiry': {
-          name: '',
-          desc: '',
+          name: '1:1문의',
+          desc: '해피머니 고객님께서 보내주신 문의 내용을 확인 후 최대한 빠른 시간 내에 답변해드리겠습니다.',
           input: false
         },
         'cscenter': {

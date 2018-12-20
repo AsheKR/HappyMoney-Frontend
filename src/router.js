@@ -32,6 +32,7 @@ import WinnerEvent from '@/components/event/WinnerEvent.vue'
 
 import FAQ from '@/components/cscenter/FAQ.vue'
 import CSCenterNotice from '@/components/cscenter/CSCenterNotice.vue'
+import CustomerInquiry from '@/components/cscenter/CustomerInquiry.vue'
 
 import GiftCardBuyInfo from '@/components/giftcard/GiftCardBuyInfo'
 import AfterPurchase from '@/components/common/AfterPurchase.vue'
@@ -233,6 +234,7 @@ var router =  new Router({
         {
           path: 'inquiry',
           name: 'inquiry',
+          component: CustomerInquiry,
           meta: {
             authRequired: true
           },
