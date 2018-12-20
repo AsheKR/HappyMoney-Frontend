@@ -14,6 +14,7 @@
         <div class="csCenter__title__main">
           <span class="csCenter__title__main--title">{{ csList[nowCS].name }}</span>
           <span class="csCenter__title__main--desc">{{ csList[nowCS].desc }}</span>
+          <span v-if="csList[nowCS].is_inquiry" class="csCenter__inquiry__span" @click="clickInquiry()">1:1 문의 내역 보기</span>
         </div>
         <div class="csCenter__title__inputForm" v-if="csList[nowCS].input">
           <div class="csCenter__searchForm--form">
@@ -43,7 +44,8 @@ export default {
         'inquiry': {
           name: '1:1문의',
           desc: '해피머니 고객님께서 보내주신 문의 내용을 확인 후 최대한 빠른 시간 내에 답변해드리겠습니다.',
-          input: false
+          input: false,
+          is_inquiry: true,
         },
         'cscenter': {
           name: '고객상담센터',
@@ -81,6 +83,9 @@ export default {
     },
     clickSearch() {
       EventBus.$emit('CSCenterSearch', this.vsearchItem);
+    },
+    clickInquiry() {
+      EventBus.$emit('CSCenterInquiry');
     }
   },
   created() {
@@ -133,10 +138,22 @@ export default {
 
        > .csCenter__title__main {
          padding-left: 30px;
+         display: flex;
+         flex-direction: column;
 
          > span {
            text-align: left;
            display: block;
+         }
+
+         > .csCenter__inquiry__span {
+           margin-top: 5px;
+           display: inline-block;
+           padding: 5px 15px;
+           background-color: white;
+           border: 1px solid #dcdcdc;
+           text-align: center;
+           cursor: pointer;
          }
 
          > .csCenter__title__main--title {

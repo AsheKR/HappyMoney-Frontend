@@ -151,11 +151,13 @@
 </template>
 
 <script>
+import { EventBus } from '../common/EventBus.js';
+
 export default {
   props: ['hostname'],
   data() {
     return {
-      inquiry_or_list: 'list',
+      inquiry_or_list: 'inquiry',
       faqCategoryList: [],
       userInfo: undefined,
       show: false,
@@ -182,6 +184,16 @@ export default {
         return this.faqCategoryList[Object.keys(this.faqCategoryList).find(key => this.faqCategoryList[key].name === this.nowfaqCategory)].sub_category;
       }
     },
+  },
+  watch: {
+    inquiry_or_list() {
+      if (this.inquiry_or_list == 'inquiry') {
+        this.getAPIUserProfileInfo();
+        this.getAPIFAQSubCategoryLists();
+      } else if (this.inquiry_or_list == 'list') {
+        this.getAPInquiryLists();
+      }
+    }
   },
   methods: {
     clickContent(itemId) {
@@ -275,7 +287,7 @@ export default {
               this.inquiry_or_list = 'list';
             },
             error => {
-              alert(error.data);
+              console.log(error.data);
             });
         } else {
           alert(this.errors.items[0].msg);
@@ -293,6 +305,13 @@ export default {
     } else if (this.inquiry_or_list == 'list') {
       this.getAPInquiryLists();
     }
+    EventBus.$on('CSCenterInquiry', () => {
+      if (this.inquiry_or_list == 'list') {
+        this.inquiry_or_list = 'inquiry'
+      } else {
+        this.inquiry_or_list = 'list'
+      }
+    })
   }
 }
 </script>

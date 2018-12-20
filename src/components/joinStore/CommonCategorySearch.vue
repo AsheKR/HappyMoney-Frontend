@@ -62,7 +62,7 @@
 
         joinStoreFilterAll: true,
         checkedCategory: [],
-        joinStoreSearchInput: '롯데',
+        joinStoreSearchInput: '',
 
         topFive: undefined,
         categories: undefined,
