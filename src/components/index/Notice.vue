@@ -67,7 +67,7 @@
           clearInterval(this.interval_value);
           this.interval_value = undefined;
         } else {
-          this.interval_value = setInterval(() => {this.slide(1) }, 1000)
+          this.interval_value = setInterval(() => {this.slide(1) }, 5000)
         }
       },
       NoticeLimited(str) {
@@ -90,10 +90,10 @@
             this.recent_notice = response.data.results;
           }
           this.show = !this.show;
-          this.interval_value = setInterval(() => { this.slide(1) }, 1000);
+          this.interval_value = setInterval(() => { this.slide(1) }, 5000);
         },
         error => {
-          
+
         });
     },
   }

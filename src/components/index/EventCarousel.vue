@@ -35,7 +35,7 @@ export default {
       });
       if (this.childEvents.length !== 0) {
         this.show = true;
-        setInterval(() => { this.slide(1) }, 3000);
+        setInterval(() => { this.slide(1) }, 7000);
       }
     }
   },

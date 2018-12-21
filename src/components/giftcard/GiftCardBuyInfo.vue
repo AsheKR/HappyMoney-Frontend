@@ -19,7 +19,7 @@
           </span>
         </div>
         <div class="giftcardbuy_user_sms_info">
-          <span>휴대폰번호</span>
+          <span>전화번호</span>
           <span>
             <input type="text" name="" :value="'0'+userInfo.phone.slice(3, 5)">-
             <input type="text" name="" :value="userInfo.phone.slice(5, 9)">-
@@ -42,7 +42,7 @@
           </span>
         </div>
         <div class="giftcardbuy_user_sms_info">
-          <span>휴대폰번호</span>
+          <span>전화번호</span>
           <span>
             <input type="text" name="" :value="'0'+userInfo.phone.slice(3, 5)">-
             <input type="text" name="" :value="userInfo.phone.slice(5, 9)">-
@@ -61,7 +61,7 @@
             </td>
             <td class="giftcard_to_user--type">
               <span v-if="this.nowBuyType == 'email'">이메일</span>
-              <span v-else-if="this.nowBuyType == 'sms'">휴대폰번호</span>
+              <span v-else-if="this.nowBuyType == 'sms'">전화번호</span>
             </td>
             <td class="giftcard_to_user--price" v-for="giftcard in giftcardList" :key="giftcard.id">
               <span>{{giftcard.price}}원</span>
