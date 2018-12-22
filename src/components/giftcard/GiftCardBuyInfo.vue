@@ -271,7 +271,7 @@
             }
           },
           error => {
-            ;
+
           });
       },
       getHappyGiftCard() {
@@ -287,7 +287,7 @@
             }
           },
           error => {
-            ;
+            
           });
       },
       clickPurchaseItem(dir) {

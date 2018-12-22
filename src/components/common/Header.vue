@@ -120,40 +120,48 @@ export default {
         { title:
             { cash: '해피캐시', },
           subTitle:
-            { intro: '해피캐시 소개',
+            {
+              // intro: '해피캐시 소개',
               giftCardCharge: '해피캐시 충전',
-              simpleAgree: '간편 충전',
-              freeCharge: '무료 충전소'},
+              // simpleAgree: '간편 충전',
+              // freeCharge: '무료 충전소'
+            },
           is_active: false
         },
         { title:
             { card: '상품권' },
           subTitle:
-            { giftCardIntro: '상품권 소개',
+            {
+              // giftCardIntro: '상품권 소개',
               giftCardBuyInfo: '상품권 구입',
-              exchangeCoupon: '상품권 교환소'},
+              // exchangeCoupon: '상품권 교환소'
+            },
           is_active: false
         },
         { title: { store: '사용처' },
           subTitle:
-            { happyShopStore: '해피 쇼핑몰',
+            {
+              happyShopStore: '해피 쇼핑몰',
               onlineStore: '온라인 사용처',
-              offlineStore: '오프라인 사용처'},
+              offlineStore: '오프라인 사용처'
+            },
           is_active: false
         },
         { title: { shopping: '쇼핑 선물' },
           subTitle:
-            { allianceList: '제휴 상품몰',
-              productMallView: '선물하기',
+            {
+              // allianceList: '제휴 상품몰',
+              // productMallView: '선물하기',
             },
           is_active: false
         },
         { title: { happybox: '해피박스' },
           subTitle:
-            { couponBook: '해피쿠폰북',
-              stamp: '해피스탬프',
-              hotDeal: '추천핫딜쇼핑',
-              customService: '맞춤서비스'
+            {
+              // couponBook: '해피쿠폰북',
+              // stamp: '해피스탬프',
+              // hotDeal: '추천핫딜쇼핑',
+              // customService: '맞춤서비스'
             },
           is_active: false
         },
@@ -161,7 +169,8 @@ export default {
           subTitle: {
             now: '진행중인 이벤트',
             pre: '종료된 이벤트',
-            winner: '당첨자 발표'},
+            // winner: '당첨자 발표'
+          },
           is_active: false
         },
       ],

@@ -34,7 +34,7 @@
           this.show = !this.show;
         },
         error => {
-          ;
+          
         });
     }
   }

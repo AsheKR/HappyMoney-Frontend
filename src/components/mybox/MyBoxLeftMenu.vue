@@ -8,11 +8,11 @@
       <span class="title">해피머니 관리</span>
       <span @click="routeInquiry({name: 'emailGiftCard', title: '이메일 상품권 재발송'})">- 이메일상품권 재발송</span>
       <span @click="routeInquiry({name: 'smsGiftCard', title: 'SMS 상품권 재발송'})">- SMS 상품권 재발송</span>
-      <span>- 모바일상품권 재발송</span>
+      <!-- <span>- 모바일상품권 재발송</span>
       <span>- 모바일상품권 유효기간연장</span>
       <span>- 모바일상품권 잔액 환불</span>
       <span>- 해피캐시 잔액 환불</span>
-      <span>- 해피캐시 복원 신청</span>
+      <span>- 해피캐시 복원 신청</span> -->
     </div>
     <div class="leftMyBoxMenu__item">
       <span class="title">이용현황</span>
@@ -22,18 +22,18 @@
     </div>
     <div class="leftMyBoxMenu__item">
       <span class="title">보안 관리</span>
-      <span>- 결제 비밀번호</span>
+      <!-- <span>- 결제 비밀번호</span>
       <span>- 해피캐시 잠금서비스</span>
       <span>- 아이디 자동잠금</span>
       <span>- 사용처 관리</span>
-      <span>- 개인정보 이용내역 조회</span>
+      <span>- 개인정보 이용내역 조회</span> -->
     </div>
     <div class="leftMyBoxMenu__item">
       <span class="title">내정보</span>
       <span @click="$router.push({ name: 'mybox/editstep1' })">- 내 정보 수정</span>
       <span @click="$router.push({ name: 'mybox/passwordEdit' })">- 비밀번호 변경</span>
-      <span>- 로그인 기록 조회</span>
-      <span>- 회원 탈퇴</span>
+      <!-- <span>- 로그인 기록 조회</span>
+      <span>- 회원 탈퇴</span> -->
     </div>
   </div>
 </template>

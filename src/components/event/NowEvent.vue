@@ -79,7 +79,7 @@
             }
           },
           error => {
-            ;
+            
           });
       },
       getTagClass(tag) {

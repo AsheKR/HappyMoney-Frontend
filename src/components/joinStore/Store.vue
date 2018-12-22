@@ -98,7 +98,7 @@
             }
           },
           error => {
-            ;
+
           });
       },
       is_where_to_use(where_to_use, fee_or_import) {
@@ -148,7 +148,7 @@
             }
           },
           error => {
-            ;
+
           });
       },
       getAPIFilterUsePointLists(category, name) {
@@ -164,7 +164,7 @@
             }
           },
           error => {
-            ;
+            
           });
       },
       createLikeUsePoint(usepoint){

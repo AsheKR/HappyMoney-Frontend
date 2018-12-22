@@ -25,9 +25,9 @@
         </div>
         <div class="footer-section3">
           <div class="footer-section3-left">
-            <p>대표이사 : 최병호 | 경기도 성남시 분당구 판교로253, C동(삼평동) | 사업자등록번호 : 116-81-71207</p>
-            <p>통신판매업신고 : 제 01-78호 | 개인정보보호책임자 : 김광태상무</p>
-            <p>담당자 이메일 : webmaster@happymoney.co.kr | 고객센터 : 1588-5245 | 팩스 : 031-8018-0220</p>
+            <p>작성자: 송길영 | 패스트캠퍼스 9기 스쿨 프로젝트</p>
+            <p>연락처: 010-XXXX-XXXX | 개인정보보호책임자 : 송길영</p>
+            <p>담당자 이메일 : teachemesomething2580@gmail.com </p>
           </div>
           <div class="footer-section3-right">
             <span class="ir certi_1"></span>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="footer-section4">
-          <p>COPYRIGHT © 2017 HAPPYMONEY INC. ALL RIGHTS RESERVED</p>
+          <p>COPYRIGHT © 2018 SONG GIL YOUNG</p>
         </div>
       </div>
     </footer>

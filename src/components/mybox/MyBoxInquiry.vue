@@ -101,7 +101,7 @@ export default {
           }
         },
         error => {
-          ;
+
         });
     },
     getOrderHappyCashList(object) {
@@ -134,7 +134,7 @@ export default {
           }
         },
         error => {
-          ;
+
         });
     },
     getOrderHammerList(object) {
@@ -167,7 +167,7 @@ export default {
           }
         },
         error => {
-          ;
+
         });
     },
     getOrderSMSPINList(object) {
@@ -198,7 +198,7 @@ export default {
           }
         },
         error => {
-          ;
+
         });
     },
     getOrderEmailPINList(object) {
@@ -229,7 +229,7 @@ export default {
           }
         },
         error => {
-          ;
+          
         });
     },
   },
