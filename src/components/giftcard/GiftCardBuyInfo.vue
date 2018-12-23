@@ -1,5 +1,5 @@
 <template>
-  <div class="giftcardbuyinfo">
+  <div class="giftcardbuyinfo" v-if="userShow">
     <div class="giftcardbuyinfo_category">
       <div class="intro">
         <span>소개 및 사용방법</span>
@@ -8,7 +8,7 @@
         <span>상품권 구입</span>
       </div>
     </div>
-    <div class="giftcardbuy_user" v-if="userShow">
+    <div class="giftcardbuy_user">
       <h4>주문하시는 분</h4>
       <div class="giftcardbuy_user_wrap giftcardbuy_user_sms_wrap" v-if="nowBuyType == 'sms' | nowBuyType == 'address'">
         <div class="giftcardbuy_user_name">
@@ -228,7 +228,7 @@
 
         giftcardList: [],
         purchase_item_list: [],
-        purchase_item_amount: 1,
+        purchase_item_amount: 0,
         giftcardResult: [],
 
         paid_amount: 0,
@@ -242,6 +242,8 @@
     },
     watch: {
       nowBuyType() {
+        this.giftcardResult = [];
+        this.purchase_item_amount = 0;
         this.getHappyGiftCard();
       }
     },
@@ -284,10 +286,11 @@
               this.giftcardList.map((x) => {
                 this.$set(x, 'amount', 0);
               })
+              this.clickPurchaseItem(1);
             }
           },
           error => {
-            
+
           });
       },
       clickPurchaseItem(dir) {
@@ -447,12 +450,6 @@
       this.getHappyGiftCard()
       this.getAPIUserProfileInfo()
 
-      this.giftcardResult.push({
-        name: '',
-        infoTo: '',
-        giftcardValues: [],
-      });
-
       EventBus.$on('ChangeGiftCardValues', () => {
         this.paid_amount = 0;
         this.card_amount = 0;
@@ -464,6 +461,7 @@
         this.giftcardResult.map((value, index) => {
           value.giftcardValues.map((value, index) => {
             this.card_amount += Number(value.amount);
+
             this.paid_amount += Number(value.amount) * Number(this.giftcardList[index].price);
             this.giftcardList[index].amount += Number(value.amount);
           })
