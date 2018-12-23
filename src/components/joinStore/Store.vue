@@ -3,15 +3,15 @@
     <CategoryFilter :hostname="hostname"/>
     <div class="storeSection">
       <div class="store_ordering">
-        <div class="store_ordering_button store_ordering_recent" @click="getAPIOrderUsePointLists('-created_at', 0)" :class="{ active: now_active == 0 }">
+        <div class="store_ordering_button store_ordering_recent" @click="clickOrdering('-created_at', 0)" :class="{ active: now_active == 0 }">
           <p>최신순</p>
           <span class="joinStoreSearch icoSearch btnSort"></span>
         </div>
-        <div class="store_ordering_button store_ordering_like" @click="getAPIOrderUsePointLists('-like_users_count', 1)" :class="{ active: now_active == 1 }">
+        <div class="store_ordering_button store_ordering_like" @click="clickOrdering('-like_users_count', 1)" :class="{ active: now_active == 1 }">
           <p>좋아요순</p>
           <span class="joinStoreSearch icoSearch btnSort"></span>
         </div>
-        <div class="store_ordering_button store_ordering_name" @click="getAPIOrderUsePointLists('name', 2)" :class="{ active: now_active == 2 }">
+        <div class="store_ordering_button store_ordering_name" @click="clickOrdering('name', 2)" :class="{ active: now_active == 2 }">
           <p>가나다순</p>
           <span class="joinStoreSearch icoSearch btnSort"></span>
         </div>
@@ -46,7 +46,7 @@
       </div>
       <div class="storeMore">
         <a href="#" @click.prevent v-if="!next">( {{ fullCount }} )</a>
-        <a href="#" @click.prevent="getAPIUsePointLists(next)" v-else>더보기 ( <span class="joinStoreLength">{{ storeList.length }}</span> /<strong>{{ fullCount }}</strong>개) <span class="joinStoreSearch icoSearch btnMore"></span> </a>
+        <a href="#" @click.prevent="getAPIUsePointLists(false)" v-else>더보기 ( <span class="joinStoreLength">{{ storeList.length }}</span> /<strong>{{ fullCount }}</strong>개) <span class="joinStoreSearch icoSearch btnMore"></span> </a>
       </div>
     </div>
   </div>
@@ -67,8 +67,9 @@
         online: 2,
 
         now_active: 1,
-
-        nowSearchObject: undefined
+        ordering: '-like_users_count',
+        category__names: '',
+        search_keywords: '',
       }
     },
     components: {
@@ -80,27 +81,6 @@
       },
     },
     methods: {
-      getAPIUsePointLists(url) {
-        const Authorization = this.$cookie.get('Authorization');
-        this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
-          response => {
-            if (response.status == '200') {
-              if ( this.storeList.length == 0 ) {
-                console.log(response);
-                this.storeList = response.data.results;
-                this.next = response.data.next;
-                this.fullCount = response.data.count;
-                this.show = true;
-              } else {
-                this.storeList.push.apply(this.storeList, response.data.results);
-                this.next = response.data.next;
-              }
-            }
-          },
-          error => {
-
-          });
-      },
       is_where_to_use(where_to_use, fee_or_import) {
         if (!where_to_use) {
           return false;
@@ -131,41 +111,42 @@
           this.online = 3;
         }
 
-        this.getAPIUsePointLists(this.hostname + '/apis/use-point/?is_online='+this.online);
+        this.getAPIUsePointLists(true);
       },
-      getAPIOrderUsePointLists(ordering, number) {
+      getAPIUsePointLists(change) {
         const Authorization = this.$cookie.get('Authorization');
-        const url = this.hostname + '/apis/use-point/?is_online='+this.online + '&ordering='+ordering;
+        var url = ''
+
+        if (this.next == '' || change == true) {
+          url = this.hostname + '/apis/use-point/?is_online='+this.online + '&category__names='+this.category__names+'&name__contains='+this.search_keywords + '&ordering=' + this.ordering;
+        } else {
+          url = this.next;
+        }
 
         this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
           response => {
             if (response.status == '200') {
-              this.storeList = response.data.results;
-              this.next = response.data.next;
-              this.fullCount = response.data.count;
 
-              this.now_active = number;
+              if ( this.storeList.length == 0 || change == true ) {
+                console.log(response);
+                this.storeList = response.data.results;
+                this.next = response.data.next;
+                this.fullCount = response.data.count;
+                this.show = true;
+              } else {
+                this.storeList.push.apply(this.storeList, response.data.results);
+                this.next = response.data.next;
+              }
             }
           },
           error => {
 
           });
       },
-      getAPIFilterUsePointLists(category, name) {
-        const Authorization = this.$cookie.get('Authorization');
-        const url = this.hostname + '/apis/use-point/?is_online='+this.online + '&category__names='+category+'&name__contains='+name;
-
-        this.$http.get(url, {headers: {'Authorization': Authorization}}).then(
-          response => {
-            if (response.status == '200') {
-              this.storeList = response.data.results;
-              this.next = response.data.next;
-              this.fullCount = response.data.count;
-            }
-          },
-          error => {
-            
-          });
+      clickOrdering(ordering, number) {
+        this.ordering = ordering;
+        this.now_active = number;
+        this.getAPIUsePointLists(true);
       },
       createLikeUsePoint(usepoint){
         const Authorization = this.$cookie.get('Authorization');
@@ -202,9 +183,9 @@
       this.createdMethod(false);
 
       EventBus.$on('joinStoreFilterSearch', (searchKeyword) => {
-        const category = searchKeyword.category.join(',');
-        const name = searchKeyword.name;
-        this.getAPIFilterUsePointLists(category, name);
+        this.category__names = searchKeyword.category.join(',');
+        this.search_keywords = searchKeyword.name;
+        this.getAPIUsePointLists(true);
       })
     }
   }
