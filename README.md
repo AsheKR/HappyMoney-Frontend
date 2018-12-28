@@ -50,7 +50,7 @@ npm install
   [x]SMS 상품권 구매 사람 추가할 시 계산되지 않음
   
 - joinStore
-  [] 좋아요가 동작이 이상함
+  [x] 좋아요가 동작이 이상함
   [x] 카테고리, 사용처명, Ordering이 같이 동작하게
   
 - FAQ
