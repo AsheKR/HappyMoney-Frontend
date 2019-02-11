@@ -65,3 +65,28 @@ npm install
   
 - 사이트맵 연결
 ```
+
+## 결제를 어떻게 처리했나?
+
+```
+{
+	paid_amount: '총 결제량',
+	purchase: {
+		delivery_type: "sms, email 둘중 하나의 방법",
+		purchase_list: [
+			name: "받는 사람 이름",
+			infoTo: "받는 사람이메일 혹은 전화번호"
+			giftcard_info = [
+				{
+					type: "얼마짜리 상품권",
+					amount: "개수"
+				},
+				...
+			],
+			...
+		]
+	}
+}
+```
+
+이 부분에서 purchase_list 부분을 동적으로 생성해야한다. 또한 동적으로 생성된 컴포넌트 내부 값이 바뀌면 주문 금액 또한 바뀌여야한다.
